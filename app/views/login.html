@@ -1,0 +1,49 @@
+<div class="container container-main">
+  <div class="row" ng-if="!isSeller">
+    <div class="col-md-6">
+      <h1 class="h1-main">LA COMIDA MÁS DELICIOSA, CERCA DE TU OFICINA</h1>
+      <p class="p-main">GLOBIANDA ES UNA MANERA SIMPLE DE BUSCAR Y ORDENAR PLATOS DELICIOSOS Y RECIBIRLOS EN TU OFICINA.</p>
+      <div ng-hide="isLoggedIn">
+        <p><a class="btn btn-default btn3" href="#/signup">CREAR CUENTA</a></p>
+      </div>
+    </div>
+
+    <div class="col-md-6" ng-if="!isLoggedIn">
+      <div class="panel">
+        <div class="panel-body">
+          <h3 class="margin-top-0">INICIAR SESIÓN</h3>
+
+          <div class="alert alert-danger alert-dismissable" role="alert" ng-show="error">
+            <button class="close" ng-click="hideError()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Error!</strong> {{ error }}
+          </div>
+
+          <form ng-submit="doLogin()">
+            <div class="form-group login-input">
+              <input type="text" class="form-control" id="login-username" ng-model="form.username" placeholder="Nombre de usuario" required>
+            </div>
+            <div class="form-group login-input">
+              <input type="password" class="form-control" id="login-password" ng-model="form.password" placeholder="Contraseña" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-default btn3 btn-block">¡Iniciar Sesión!</button>
+            </div> 
+          </form>
+          <p class="text-center"><strong>O PUEDES INGRESAR MEDIANTE:</strong></p>
+          
+          <div class="col-xs-6 no-padding-left">
+            <button type="button" class="btn btn-default btn3 btn2 btn-block color-blue">FACEBOOK</button>
+          </div>
+          <div class="col-xs-6 no-padding-right">
+            <button type="button" class="btn btn-default btn3 btn2 btn-block color-blue">GOOGLE*</button>
+          </div>
+
+        </div>  
+      </div>
+    </div>
+
+  </div>
+
+</div>
