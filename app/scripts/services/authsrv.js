@@ -153,7 +153,7 @@ angular.module('tfaApp')
         user.set('lastName', userData.lastName);
         user.set('phoneNumber', userData.phoneNumber);
         // should go the "worksOn" when setting the office
-        if (userData.isSeller) {
+        if (userData.isTeacher) {
           user.set('companyName', userData.companyName);
           user.set('address', userData.address);
           user.set('expirationTime', userData.expirationTime);

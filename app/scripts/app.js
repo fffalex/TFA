@@ -21,9 +21,10 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'pickadate',
-    'angularModalService',
+    //'pickadate',
+    //'angularModalService',
     'xeditable'
+    
   ]).config(function ($routeProvider) {
     //create a custom provider to set a default resolve attribute
     //that will initialize autsrv data (Roles + extra data)
@@ -71,11 +72,11 @@ angular
     });
     
     customRouteProvider//$routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        access: 'user'
-      })
+//      .when('/', {
+//        templateUrl: 'views/main.html',
+//        controller: 'MainCtrl',
+//        access: 'user'
+//      })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
@@ -107,7 +108,7 @@ angular
           }]
         }
       })
-            .otherwise({
+      .otherwise({
         redirectTo: '/'
       });
   })

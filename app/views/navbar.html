@@ -1,0 +1,38 @@
+<div ng-controller="NavbarCtrl" >
+	  <div class="navbar navbar-default" role="navigation">
+	    <div class="container-fluid">
+	      <div class="navbar-header">
+	
+	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+	          <span class="sr-only">Toggle navigation</span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	        </button>
+	
+	        <a class="navbar-brand" href="#/"><strong>GLOBIANDA</strong></a>
+	      </div>
+	
+	      <div class="collapse navbar-collapse" id="js-navbar-collapse">
+	
+	        <ul class="nav navbar-nav">
+	          <li ng-class="{active: isActive('/')}" ng-show="isSeller"><a href="#/">Mis Ofertas</a></li>
+	          <!--<li ng-class="{active: isActive('/')}" ng-show="!isSeller"><a href="#/">Inicio</a></li>-->
+	          <li ng-class="{active: isActive('/seller/viewmeals')}" ng-show="isSeller"><a href="#/seller/viewmeals">Mis Comidas</a></li>
+	          <li ng-class="{active: isActive('/seller/vieworders')}" ng-show="isSeller"><a href="#/seller/vieworders">Mis Pedidos</a></li>
+	          <li ng-class="{active: isActive('/ordermeal')}" ng-show="isBuyer"><a href="#/ordermeal">Viandas</a></li>
+	          <li ng-class="{active: isActive('/myorders')}" ng-show="isBuyer"><a href="#/myorders">Mis Pedidos</a></li>
+	          <li ng-class="{active: isActive('/about')}"><a href="#/about">Acerca de</a></li>
+	        </ul>
+
+	        <ul class="nav navbar-nav navbar-right">
+	          <li ng-class="{active: isActive('/login')}" ng-hide="isLoggedIn"><a href="#/login">Iniciar Sesión</a></li>
+	          <li ng-class="{active: isActive('/signup')}" ng-hide="isLoggedIn"><a href="#/signup">Registrarse</a></li>
+	          <li ng-class="{active: isActive('/logout')}" ng-show="isLoggedIn"><a href="#/logout">Cerrar Sesión</a></li>
+	          <li ng-class="{active: isActive('/profile')}" ng-show="isLoggedIn"><a href="#/user/profile">Hola {{ actUser.name }} <span class="glyphicon glyphicon-user"></span></a></li>
+			</ul>
+
+	      </div>
+	    </div>
+	  </div>
+</div>
