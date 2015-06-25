@@ -3,3 +3,38 @@ dist
 .tmp
 .sass-cache
 bower_components
+/nbproject/private/
+
+## not upload keys
+
+app/config
+parsecloud/config
+parsecloud/public/config
+
+## git ignore sublime text
+
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+*.sublime-project
+
+# sftp configuration file
+sftp-config.json
+
+## git ignore netbeans
+
+nbproject/
+build/
+dist/
+nbbuild/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+.nb-gradle/
