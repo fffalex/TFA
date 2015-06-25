@@ -97,7 +97,7 @@ Parse.Cloud.afterSave(Parse.User, function(request) {
     Parse.Cloud.useMasterKey();
     //only assings role if it isn't a regular user(client/buyer)
     query = new Parse.Query(Parse.Role);
-    if (user.get('companyName')) {
+    if (user.get('teachOn')) {
       query.equalTo("name", "teacher");
     } else {
       query.equalTo("name", "student");

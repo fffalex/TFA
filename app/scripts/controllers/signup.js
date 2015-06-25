@@ -8,13 +8,15 @@
  * Controller for the singup of the users
  */
 angular.module('tfaApp')
-        .controller('SignupCtrl', function ($scope, $location, authsrv) {
+        .controller('SignupCtrl', function ($scope, $location, authsrv, coursesrv) {
 
             // form initialization
             $scope.form = {};
             //change this for teacher profile!
             $scope.form.isTeacher = false;
             $scope.error = '';
+            $scope.courses = [];
+            $scope.myCourse;
 
             var phone = /^(\+)?\d{0,20}$/;
             var username = /^[a-zA-Z0-9_-]+$/;
@@ -25,6 +27,19 @@ angular.module('tfaApp')
                     $scope.form.phoneNumber = oldValue;
                 }
             });
+
+            coursesrv.getAllCourses({
+                success: function (courses) {
+                    $scope.courses = courses;
+                    $scope.myCourse = $scope.courses[0];
+                    $scope.$apply();
+                },
+                error: function (me, error) {
+                    console.log(error);
+                }
+            });
+
+
 
             $scope.doSignUp = function () {
                 if (!$scope.form.username || $scope.form.username.length < 4 || $scope.form.username.length > 16) {
