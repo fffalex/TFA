@@ -42,6 +42,9 @@ angular.module('tfaApp')
 
 
             $scope.doSignUp = function () {
+                $scope.form.teachOn = $scope.myCourse;
+                
+                
                 if (!$scope.form.username || $scope.form.username.length < 4 || $scope.form.username.length > 16) {
                     $scope.error = 'El nombre de usuario debe tener entre 4 y 16 caracteres';
                 } else if (!$scope.form.username || !username.test($scope.form.username)) {
@@ -60,14 +63,11 @@ angular.module('tfaApp')
                     $scope.error = 'Formato de número de teléfono incorrecto, debe tener al menos 10 dígitos';
                 }
                 //CHECK THE USER STORIES
-                else if (($scope.form.companyName || $scope.form.address) && (!$scope.form.companyName || !$scope.form.companyName.length)) {
-                    $scope.error = 'Como vendedor, debe especificar una dirección';
+                else if (($scope.form.companyName || $scope.form.address) && (!$scope.form.specialty || !$scope.form.specialty.length)) {
+                    $scope.error = 'Como profesor, debe especificar una dirección';
                 }
                 else if (($scope.form.companyName || $scope.form.address) && (!$scope.form.address || !$scope.form.address.length)) {
-                    $scope.error = 'Como vendedor, debe especificar una dirección';
-                }
-                else if (($scope.form.companyName || $scope.form.address) && (!$scope.form.expirationTime || !($scope.form.expirationTime instanceof Date))) {
-                    $scope.error = 'Como vendedor, debe especificar una hora de cierre';
+                    $scope.error = 'Como profesor, debe especificar una dirección';
                 }
                 else {
                     authsrv.signUp($scope.form, {

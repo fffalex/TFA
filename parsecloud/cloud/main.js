@@ -34,15 +34,12 @@ Parse.Cloud.beforeSave(Parse.User, function (request, response) {
   var email = user.get('email');
   if(email)email=email.trim();
  
-  var companyName = user.get('companyName');
-  if(companyName)companyName=companyName.trim();
+  var specialty = user.get('specialty');
+  if(specialty)specialty=specialty.trim();
  
   var address = user.get('address');
   if(address)address=address.trim();
 
-  var expirationTime = user.get('expirationTime');
-  if(expirationTime)expirationTime = Date.parse(expirationTime);
- 
   if ((isNew && !phoneNumber) || (phoneNumber && !checkPhoneNumber.test(phoneNumber))) {
     response.error('Formato de número de teléfono incorrecto, debe tener al menos 10 dígitos');
   }
@@ -61,15 +58,12 @@ Parse.Cloud.beforeSave(Parse.User, function (request, response) {
   else if ((isNew && !email) || (email && !emailFormat.test(email))) {
     response.error('Formato de email incorrecto');
   } 
-  else if (companyName || address) {
-    if ((isNew && !companyName) || (companyName && !companyName.length)) {
-      response.error('Como vendedor, debe especificar una dirección');
+  else if (specialty || address) {
+    if ((isNew && !specialty) || (specialty && !specialty.length)) {
+      response.error('debe especificar una dirección');
     }
     else if ((isNew && !address) || (address && !address.length)) {
-      response.error('Como vendedor, debe especificar una dirección');
-    }
-    else if ((isNew && !expirationTime) || (expirationTime && isNaN(expirationTime))) {
-      response.error('Como vendedor, debe especificar una hora de cierre');
+      response.error('debe especificar una dirección');
     }
     else{
       response.success();

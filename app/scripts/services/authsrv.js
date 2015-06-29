@@ -152,13 +152,14 @@ angular.module('tfaApp')
         user.set('name', userData.name);
         user.set('lastName', userData.lastName);
         user.set('phoneNumber', userData.phoneNumber);
-        // should go the "worksOn" when setting the office
+        //To set a relation many-to-many
+        var relation = user.relation("teachOn");
+        relation.add(userData.teachOn);
+
+        //
         if (userData.isTeacher) {
-            
-            
-//          user.set('companyName', userData.companyName);
-//          user.set('address', userData.address);
-//          user.set('expirationTime', userData.expirationTime);
+          user.set('specialty', userData.specialty);
+          user.set('address', userData.address);
         }
         user.signUp(null, {
           success: function (user) {
@@ -387,7 +388,6 @@ angular.module('tfaApp')
                     Parse.User.current().set('email', userData.email);
                     Parse.User.current().set('address', userData.address);
                     Parse.User.current().set('phoneNumber', userData.phoneNumber);
-                    Parse.User.current().set('companyName', userData.companyName);
                     Parse.User.current().set('profilePicture', userData.profilePicture);
 
                   if (cb && cb.success) {
@@ -411,17 +411,14 @@ angular.module('tfaApp')
 
           user.save(null, {
             success: function (user) {
-
               //Ver si se puede forzar de otra manera los datos 
               //del local storage luego de hacer la edicion del user
-
               Parse.User.current().set('id',userData.objectId);
               Parse.User.current().set('name', userData.name);
               Parse.User.current().set('lastName', userData.lastName);
               Parse.User.current().set('email', userData.email);
               Parse.User.current().set('address', userData.address);
               Parse.User.current().set('phoneNumber', userData.phoneNumber);
-              Parse.User.current().set('companyName', userData.companyName);
               Parse.User.current().set('profilePicture', userData.profilePicture);
 
               if (cb && cb.success) {

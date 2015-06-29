@@ -8,7 +8,6 @@
     <div class="row">
         <form ng-submit="doSignUp()">
             <div class="col-md-12">
-
             <div class="alert alert-danger alert-dismissable" role="alert" ng-show="error">
                 <button class="close" ng-click="error = ''"><span aria-hidden="true">&times;</span></button>
                 <strong>Error!</strong> {{ error }}
@@ -18,20 +17,20 @@
                 <div class="form-group">
                     <div class="radio">
                         <label>
-                            <input type="radio" name="seller" ng-model="form.isSeller" ng-value="false" checked>
+                            <input type="radio" name="seller" ng-model="form.isTeacher" ng-value="false" checked>
                             <span class="cr">
                                 <i class="cr-icon fa fa-check"></i>
                             </span>
-                            <span class="radio-label-text">Soy Alumno</span> 
+                            <span class="radio-label-text">Alumno</span> 
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="seller" ng-model="form.isSeller" ng-value="true">
+                            <input type="radio" name="seller" ng-model="form.isTeacher" ng-value="true">
                             <span class="cr">
                                 <i class="cr-icon fa fa-check"></i>
                             </span>
-                            <span class="radio-label-text">SOy Profesor</span> 
+                            <span class="radio-label-text">Profesor</span> 
                         </label>
                     </div>
                 </div>
@@ -65,9 +64,10 @@
                         <p class="order-label"><strong>Número de teléfono</strong></p>
                         <input type="text" class="form-control" id="signup-phone" ng-model="form.phoneNumber" required>
                     </div>
+                    
                     <div class="form-group signup-input">
                             <p class="order-label"><strong>Oficina</strong></p>
-                            <select ng-model="myCourse" ng-options="course.name for course in courses"></select>
+                            <select ng-model="myCourse" ng-options="course.grade for course in courses"></select>
                             <!--
                             <select class="form-control selectpicker" id="signup-sellson" ng-model="form.sellsOn" required>
                                 <option value="">Seleccione una Oficina</option>
@@ -75,29 +75,25 @@
                             </select>
                             -->
                     </div>
-                    <div ng-if="form.isSeller">
+                    <div ng-if="form.isTeacher">
                         <div class="form-group signup-input">
-                             <p class="order-label"><strong>Nombre de la Empresa</strong></p>
-                            <input type="text" class="form-control" id="signup-companyname" ng-model="form.companyName" required>
+                             <p class="order-label"><strong>Especialidad</strong></p>
+                            <input type="text" class="form-control" id="signup-companyname" ng-model="form.specialty" required>
                         </div>
                         <div class="form-group signup-input">
                              <p class="order-label"><strong>Domicilio</strong></p>
                             <input type="text" class="form-control" id="signup-address" ng-model="form.address" required>
                         </div>
                         <div class="form-group signup-input">
-                            <p class="order-label"><strong>Oficina</strong></p>
-                            <select ng-model="myCourse" ng-options="course.name for course in courses"></select>
+                            <p class="order-label"><strong>Curso</strong></p>
+                            <select ng-model="myCourse" ng-options="course.grade for course in courses"></select>
                             <!--
                             <select class="form-control selectpicker" id="signup-sellson" ng-model="form.sellsOn" required>
                                 <option value="">Seleccione una Oficina</option>
                                 <option value="Resistencia">Resistencia</option>
                             </select>
                             -->
-                        </div>
-                        <div class="form-group signup-input">
-                              <p class="order-label"><strong>Hora Cierre de Pedidos</strong></p>
-                            <input class="form-control" type="text" pick-a-time="form.expirationTime" placeholder="Click para seleccionar" required/>
-                        </div>              
+                        </div>         
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-default btn3 btn-block">¡Registrarme!</button>

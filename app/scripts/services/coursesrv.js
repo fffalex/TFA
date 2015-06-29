@@ -9,9 +9,7 @@
  */
 angular.module('tfaApp')
   .factory('coursesrv', function () {
-
     return {
-        
         create: function courseCreate(courseData,cb) {
             var course = new (Parse.Object.extend('Course'));
             course.set('grade', courseData.grade );
@@ -46,7 +44,7 @@ angular.module('tfaApp')
               }
             }
           });
-        },
+        }
     
       
       };
