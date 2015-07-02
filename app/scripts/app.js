@@ -23,7 +23,7 @@ angular
     'ngTouch',
     //'pickadate',
     //'angularModalService',
-    'xeditable'
+    //'xeditable'
     
   ]).config(function ($routeProvider) {
     //create a custom provider to set a default resolve attribute
@@ -112,7 +112,9 @@ angular
         redirectTo: '/'
       });
   })
-  .run(function ($rootScope, $location, $timeout, authsrv, editableOptions) {
+  //cambio para no usar xeditable
+  //.run(function ($rootScope, $location, $timeout, authsrv, editableOptions) {
+  .run(function ($rootScope, $location, $timeout, authsrv) {
     $rootScope.$on('$routeChangeStart', function (event, next /*,current*/ ) {
       //save previous url that has been intented to access
       //to will be used when login is success
@@ -149,7 +151,8 @@ angular
       //hide loading gif
       $timeout(function () {$rootScope.loading = false;}, 200);
     });
-     editableOptions.theme = 'bs3';
+     //desactivo el editable
+     //editableOptions.theme = 'bs3';
   });
 
   

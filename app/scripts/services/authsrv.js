@@ -153,13 +153,20 @@ angular.module('tfaApp')
         user.set('lastName', userData.lastName);
         user.set('phoneNumber', userData.phoneNumber);
         //To set a relation many-to-many
-        var relation = user.relation("teachOn");
-        relation.add(userData.teachOn);
+        //var relation = user.relation("teachOn");
+        //relation.add(userData.teachOn);
+        
+        user.set('assignedTo', userData.teachOn);
 
         //
         if (userData.isTeacher) {
+          var course = new (Parse.Object.extend('Course'));
+          course.set('id',userData.teachOn.objectId);
+          
           user.set('specialty', userData.specialty);
           user.set('address', userData.address);
+          user.relation("teachOn").add(course);
+          
         }
         user.signUp(null, {
           success: function (user) {
