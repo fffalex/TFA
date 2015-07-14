@@ -156,7 +156,7 @@ angular.module('tfaApp')
         //var relation = user.relation("teachOn");
         //relation.add(userData.teachOn);
         
-        user.set('assignedTo', userData.teachOn);
+        //user.set('assignedTo', userData.teachOn);
 
         //
         if (userData.isTeacher) {

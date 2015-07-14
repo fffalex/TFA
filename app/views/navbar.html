@@ -10,18 +10,18 @@
 	          <span class="icon-bar"></span>
 	        </button>
 	
-	        <a class="navbar-brand" href="#/"><strong>GLOBIANDA</strong></a>
+	        <a class="navbar-brand" href="#/"><strong>TFA</strong></a>
 	      </div>
 	
 	      <div class="collapse navbar-collapse" id="js-navbar-collapse">
 	
 	        <ul class="nav navbar-nav">
-	          <li ng-class="{active: isActive('/')}" ng-show="isSeller"><a href="#/">Mis Ofertas</a></li>
+	          <li ng-class="{active: isActive('/')}" ng-show="isTeacher"><a href="#/">Contenidos</a></li>
 	          <!--<li ng-class="{active: isActive('/')}" ng-show="!isSeller"><a href="#/">Inicio</a></li>-->
-	          <li ng-class="{active: isActive('/seller/viewmeals')}" ng-show="isSeller"><a href="#/seller/viewmeals">Mis Comidas</a></li>
-	          <li ng-class="{active: isActive('/seller/vieworders')}" ng-show="isSeller"><a href="#/seller/vieworders">Mis Pedidos</a></li>
-	          <li ng-class="{active: isActive('/ordermeal')}" ng-show="isBuyer"><a href="#/ordermeal">Viandas</a></li>
-	          <li ng-class="{active: isActive('/myorders')}" ng-show="isBuyer"><a href="#/myorders">Mis Pedidos</a></li>
+	          <li ng-class="{active: isActive('/seller/viewmeals')}" ng-show="isTeacher"><a href="#/seller/viewmeals">Mis Examenes</a></li>
+	          <li ng-class="{active: isActive('/seller/vieworders')}" ng-show="isTeacher"><a href="#/seller/vieworders">Mis Alumnos</a></li>
+	          <li ng-class="{active: isActive('/ordermeal')}" ng-show="isStudent"><a href="#/ordermeal">Mis Clases</a></li>
+	          <li ng-class="{active: isActive('/myorders')}" ng-show="isStudent"><a href="#/myorders">Examenes</a></li>
 	          <li ng-class="{active: isActive('/about')}"><a href="#/about">Acerca de</a></li>
 	        </ul>
 
