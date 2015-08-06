@@ -42,7 +42,8 @@ angular.module('tfaApp')
 
 
             $scope.doSignUp = function () {
-                $scope.form.teachOn = $scope.myCourse;
+                $scope.form.assignedTo = $scope.myCourse;
+                $scope.form.courses = $scope.courses;
                 if (!$scope.form.username || $scope.form.username.length < 4 || $scope.form.username.length > 16) {
                     $scope.error = 'El nombre de usuario debe tener entre 4 y 16 caracteres';
                 } else if (!$scope.form.username || !username.test($scope.form.username)) {

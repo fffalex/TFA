@@ -159,17 +159,28 @@ angular.module('tfaApp')
         //user.set('assignedTo', userData.teachOn);
 
         //
-        if (userData.isTeacher) {
+        if (!userData.isTeacher) {
           var course = new (Parse.Object.extend('Course'));
-          course.set('id',userData.teachOn.objectId);
-          
+          course.set('id',userData.assignedTo.objectId);
+          user.set('assignedTo',course);
+        }
+        else{
+//          var course = new (Parse.Object.extend('Course'));
+//          course.set('id',userData.assignedTo.objectId);
+//          user.relation("teachOn").add(course);
           user.set('specialty', userData.specialty);
           user.set('address', userData.address);
-          user.relation("teachOn").add(course);
-          
         }
         user.signUp(null, {
           success: function (user) {
+            if(userData.isTeacher){
+                for(var i = 0; i < userData.courses.length; i++){
+                    var course = new (Parse.Object.extend('Course'));
+                    course.set('id',userData.courses[i].objectId);
+                    course.set('teacher',user);
+                    course.save();
+                }
+            }
             updateCurrentUser(user.toFullJSON(), cb);
           },
           error: function (user, error) {
