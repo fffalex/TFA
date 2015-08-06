@@ -108,6 +108,11 @@ angular
           }]
         }
       })
+      .when('/teacher/contents', {
+        templateUrl: 'views/teacher/contents.html',
+        controller: 'TeacherContentsCtrl',
+        access: 'teacher'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -154,7 +159,6 @@ angular
      //desactivo el editable
      //editableOptions.theme = 'bs3';
   });
-
   
 //  .config(function ($routeProvider) {
 //    $routeProvider

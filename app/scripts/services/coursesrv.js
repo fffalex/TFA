@@ -12,7 +12,7 @@ angular.module('tfaApp')
     return {
         create: function courseCreate(courseData,cb) {
             var course = new (Parse.Object.extend('Course'));
-            course.set('grade', courseData.grade );
+            course.set('year', courseData.year);
             course.set('division', courseData.division);
             course.set('turn', courseData.turn);
             course.set('schoolYear', courseData.schoolYear);
