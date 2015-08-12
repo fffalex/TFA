@@ -21,6 +21,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ui.tree',
     //'pickadate',
     //'angularModalService',
     //'xeditable'
