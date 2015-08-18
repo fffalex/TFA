@@ -15,9 +15,27 @@ angular.module('tfaApp')
     
     $scope.course = {title:'curso1',units:units};
     
-    var courses = coursesrv.getTeacherCourses(Parse.User.current());
-    
-    var units = unitsrv.getAllUnits(courses[0]);
+    var coursesArr = [];
+    coursesrv.getTeacherCourses(Parse.User.current(),{
+          success: function (courses) {
+              coursesArr = courses;
+              unitsrv.getAllUnits(coursesArr[0],{
+                success: function (units) {
+                  var unitsArr = units;
+                  console.log(unitsArr);
+              },
+              error: function (me, error) {
+                  console.log(error);
+              }
+              });
+              console.log(units);
+          },
+          error: function (me, error) {
+              console.log(error);
+          }
+      });
+            
+   
     
     
     
