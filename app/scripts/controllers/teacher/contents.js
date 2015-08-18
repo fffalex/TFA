@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('TeacherContentsCtrl', function ($scope) {
+  .controller('TeacherContentsCtrl', function ($scope, unitsrv, coursesrv) {
     
     var units = [];
     var topics = [];
@@ -14,6 +14,10 @@ angular.module('tfaApp')
     units.push(unit1);
     
     $scope.course = {title:'curso1',units:units};
+    
+    var courses = coursesrv.getTeacherCourses(Parse.User.current());
+    
+    var units = unitsrv.getAllUnits(courses[0]);
     
     
     

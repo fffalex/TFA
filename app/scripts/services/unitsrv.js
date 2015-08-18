@@ -64,7 +64,27 @@ angular.module('tfaApp')
               }
             }
           });
-        }
+        },
+        
+      getAllUnits: function getAllUnits(course,cb){
+        var course = new Parse.Object.extend('Course');
+        course.set('id',course.objectId);
+        
+        var relation = course.relation("units");
+        var query = relation.query();
+        query.find({
+            success: function (units) {
+              if (cb && cb.success) {
+                cb.success(units.toFullJSON());
+              }
+            },
+            error: function (error) {
+              if (cb && cb.error) {
+                cb.error(error);
+              }
+            }
+          });
+      }
     
       
       };
