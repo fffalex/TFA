@@ -50,16 +50,59 @@ angular.module('tfaApp')
             });
         },
 
+      //obtiene todas las unidades de un curso
       getAllUnits: function getAllUnits(cours,cb){
         var course = new (Parse.Object.extend('Course'));
         course.set('id',cours.objectId);
+
+        var relation = course.relation('units');
+        var newUnits = [];
         
-        var relation = course.relation("units");
         var query = relation.query();
         query.find({
             success: function (units) {
+              newUnits = units;
+              var promises = [];
+              
+              units.forEach(function(res){
+                promises.push(res.relation('topics').query().find({
+                  success: function(topics){
+                    res.topicsJSON = topics.toFullJSON
+                    newUnits.push(res);                  
+                    
+                    //roles = roles.concat(sresults);
+                  },
+                  error: function(sres,error){
+                    console.log(error);
+                  }
+                }));
+              });
+              
+              Parse.Promise.when(promises).done(function(){
+                //this two are assigned toggether
+                //notify parent
+                if (cb && cb.success) {
+                  cb.success(newUnits);
+                }
+              });
+            },
+            error: function (error) {
+              if (cb && cb.error) {
+                cb.error(error);
+              }
+            }
+          });
+      },
+      
+      getAllTopics: function getAllTopics(uni,cb){
+        var unit = new (Parse.Object.extend('Unit'));
+        unit.set('id',uni.objectId);
+        var relation = course.relation("topics");        
+        var query = relation.query();
+        query.find({
+            success: function (topics) {
               if (cb && cb.success) {
-                cb.success(units.toFullJSON());
+                cb.success(topics.toFullJSON());
               }
             },
             error: function (error) {
@@ -68,8 +111,14 @@ angular.module('tfaApp')
               }
             }
           });
-      }
-    
+      },
       
-      };
+      
+
+
+    };
   });
+
+  
+  
+  
