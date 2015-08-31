@@ -61,13 +61,13 @@ angular.module('tfaApp')
         var query = relation.query();
         query.find({
             success: function (units) {
-              newUnits = units;
+              newUnits = [];
               var promises = [];
               
               units.forEach(function(res){
                 promises.push(res.relation('topics').query().find({
                   success: function(topics){
-                    res.topicsJSON = topics.toFullJSON
+                    res.topicsJSON = topics.toFullJSON();
                     newUnits.push(res);                  
                     
                     //roles = roles.concat(sresults);
