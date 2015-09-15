@@ -109,9 +109,14 @@ angular
           }]
         }
       })
-      .when('/teacher/contents', {
-        templateUrl: 'views/teacher/contents.html',
+      .when('/teacher/contents/', {
+        templateUrl: 'views/teacher/contents/contents.html',
         controller: 'TeacherContentsCtrl',
+        access: 'teacher'
+      })
+      .when('/teacher/contents/unitdetail:objectId', {
+        templateUrl: 'views/teacher/contents/unitdetail.html',
+        controller: 'TeacherUnitdetailCtrl',
         access: 'teacher'
       })
       .otherwise({

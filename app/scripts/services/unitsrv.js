@@ -59,6 +59,7 @@ angular.module('tfaApp')
         var newUnits = [];
         
         var query = relation.query();
+        query.ascending('number');
         query.find({
             success: function (units) {
               newUnits = [];
@@ -67,6 +68,7 @@ angular.module('tfaApp')
               units.forEach(function(res){
                 promises.push(res.relation('topics').query().find({
                   success: function(topics){
+                    res = res.toFullJSON();
                     res.topicsJSON = topics.toFullJSON();
                     newUnits.push(res);                  
                     
@@ -112,10 +114,6 @@ angular.module('tfaApp')
             }
           });
       },
-      
-      
-
-
     };
   });
 
