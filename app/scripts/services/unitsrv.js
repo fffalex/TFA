@@ -98,9 +98,10 @@ angular.module('tfaApp')
       
       getAllTopics: function getAllTopics(uni,cb){
         var unit = new (Parse.Object.extend('Unit'));
-        unit.set('id',uni.objectId);
-        var relation = course.relation("topics");        
+        unit.set('id',uni.id);
+        var relation = unit.relation('topics');        
         var query = relation.query();
+        query.ascending('number');
         query.find({
             success: function (topics) {
               if (cb && cb.success) {

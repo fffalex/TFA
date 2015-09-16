@@ -10,13 +10,13 @@ angular.module('tfaApp')
       objectId = $routeParams.objectId
     }
     var query = new Parse.Query('Unit');
-    query.equalTo("objectId",objectId);
-    query.find({
+    query.equalTo('objectId',objectId);
+    query.first({
             success: function (unit) {
-                $scope.unit = unit.toFullJSON;
+                $scope.unit = unit.toFullJSON();
                 unitsrv.getAllTopics(unit, {
                       success: function (topics) {
-                        $scope.topics = topics.toFullJSON;
+                        $scope.topics = topics;
                         $scope.$apply();
                       }
                 });

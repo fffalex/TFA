@@ -114,7 +114,7 @@ angular
         controller: 'TeacherContentsCtrl',
         access: 'teacher'
       })
-      .when('/teacher/contents/unitdetail:objectId', {
+      .when('/teacher/contents/unitdetail/:objectId', {
         templateUrl: 'views/teacher/contents/unitdetail.html',
         controller: 'TeacherUnitdetailCtrl',
         access: 'teacher'

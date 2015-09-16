@@ -1,82 +1,82 @@
 .browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
 }
 
 body {
-  padding: 0;
-  font-family: "Roboto", sans-serif;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
 }
 
 .navbar-default {
-  margin-top: 20px;
-  background: rgba(225, 228, 247, 0.5);
-  border-radius: 0px;
-  border: none;
+    margin-top: 20px;
+    background: rgba(225, 228, 247, 0.5);
+    border-radius: 0px;
+    border: none;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #555;
-  background-color: rgb(225, 228, 247) !important;
+    color: #555;
+    background-color: rgb(225, 228, 247) !important;
 }
 
 .navbar-default .navbar-toggle {
-  border-color: transparent;
+    border-color: transparent;
 }
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus { 
-  background-color: rgb(225, 228, 247) !important;
+    background-color: rgb(225, 228, 247) !important;
 }
 
 
 .background-container {
-  background-color: #eeeeee;
-  /*background: url('../images/background-meat.png');
-  background-position: 100% 0;
-  background-size: 72%;
-  background-repeat: no-repeat*/
+    background-color: #eeeeee;
+    /*background: url('../images/background-meat.png');
+    background-position: 100% 0;
+    background-size: 72%;
+    background-repeat: no-repeat*/
 }
 
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .footer {
-  padding-left: 15px;
-  padding-right: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 /* Custom page footer */
 .footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
 }
 
 .container-narrow > hr {
-  margin: 30px 0;
+    margin: 30px 0;
 }
 
 .container-main {
-  background: url('../images/background-meat.png');
-  background-position: 100% 0;
-  background-size: 55%;
-  background-repeat: no-repeat;
+    background: url('../images/background-meat.png');
+    background-position: 100% 0;
+    background-size: 55%;
+    background-repeat: no-repeat;
 }
 
 .container-main .h1-main {
-  font-size: 48px;
-  font-family: "Titillium Web", sans-serif;
-  letter-spacing: 6px;
+    font-size: 48px;
+    font-family: "Titillium Web", sans-serif;
+    letter-spacing: 6px;
 }
 /* Forms Editable */
 
 .editable-wrap{
-  width: 100%;
+    width: 100%;
 }
 
 span.editable {
-  border: 1px solid #dcdcdc;
+    border: 1px solid #dcdcdc;
     border-radius: 0;
     box-shadow: 0 2px 1px #ccc;
     padding: 7px;
@@ -105,25 +105,25 @@ span.editable {
 .cancelorder-input textarea,
 .order-modal textarea,
 .editable-wrap .editable-controls input[type="text"]  {
-  border-radius: 0px;
-  padding: 7px;
-  border: solid 1px #dcdcdc;
-  transition: box-shadow 0.3s, border 0.3s;
-  -moz-box-shadow: 0px 2px 1px #CCC;
-  -webkit-box-shadow: 0px 2px 1px #CCC;
-  box-shadow: 0px 2px 1px #CCC;
-  resize: none;
+    border-radius: 0px;
+    padding: 7px;
+    border: solid 1px #dcdcdc;
+    transition: box-shadow 0.3s, border 0.3s;
+    -moz-box-shadow: 0px 2px 1px #CCC;
+    -webkit-box-shadow: 0px 2px 1px #CCC;
+    box-shadow: 0px 2px 1px #CCC;
+    resize: none;
 }
 
 
 .ordermeal-input p.form-control {
-  background-color: #eee;
-  padding: 7px 10px 10px 10px;
+    background-color: #eee;
+    padding: 7px 10px 10px 10px;
 }
 
 .signup-input select,
 .offermeal-input select {
-  padding: 0px 10px 0px 6px;
+    padding: 0px 10px 0px 6px;
 }
 
 /*.signup-input input[type="text"].form-control:focus,
@@ -167,38 +167,38 @@ span.editable {
 input.form-control:focus,
 textarea.form-control:focus,
 input.editable-input:focus {
-  -webkit-box-shadow: 0 0 5px 2px #969696;
-  -moz-box-shadow: 0 0 5px 2px #969696;
-  box-shadow: 0 0 5px 2px #969696;
-  border: solid 1px #dcdcdc;
-  outline: none;
-  resize: none;
+    -webkit-box-shadow: 0 0 5px 2px #969696;
+    -moz-box-shadow: 0 0 5px 2px #969696;
+    box-shadow: 0 0 5px 2px #969696;
+    border: solid 1px #dcdcdc;
+    outline: none;
+    resize: none;
 }
 
 ::-webkit-input-placeholder { 
-   font-family: 'Roboto', sans-serif;
-   font-style: italic;
-   font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-weight: bold;
 }
 
 :-moz-placeholder { 
-   opacity: 1;
-   font-family: 'Roboto', sans-serif;
-   font-style: italic;
-   font-weight: bold;
+    opacity: 1;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-weight: bold;
 }
 
 ::-moz-placeholder { 
-   opacity: 1;
-   font-family: 'Roboto', sans-serif;
-   font-style: italic;
-   font-weight: bold;
+    opacity: 1;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-weight: bold;
 }
 
 :-ms-input-placeholder {
-  font-family: 'Roboto', sans-serif;
-  font-style: italic;
-  font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-weight: bold;
 }
 
 .offermeal-input span.input-group-addon,
@@ -216,20 +216,20 @@ input.editable-input:focus {
 .container-vieworders div.order-image,
 .order-modal div.order-image,
 .container-profile div.profile-image{
-   width:100%;
-   max-width: 400px;
-   height:250px;
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
-   overflow: hidden;
-   box-shadow: 0px 2px 1px #ccc;
-   margin-right: auto;
-   margin-left: auto;
-   text-align: center;
-   -webkit-transition: all 0.35s;
-   transition: all 0.35s;
-   position: relative;
+    width:100%;
+    max-width: 400px;
+    height:250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    box-shadow: 0px 2px 1px #ccc;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+    position: relative;
 }
 
 .container-myorders div.order-image,
@@ -239,21 +239,21 @@ input.editable-input:focus {
 }
 
 .container-ordermeal div.order-image.not-available {
-  opacity: .5;
+    opacity: .5;
 }
 
 .container-ordermeal p.not-available {
-  background-color: rgba(0,0,0,.9);
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-  /*margin-top: 108px;*/
-  position: relative;
-  top: -142px;
-  margin-bottom: -34px;
-  -webkit-transition: all 0.35s;
-  transition: all 0.35s;
-  line-height: 34px;
+    background-color: rgba(0,0,0,.9);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    /*margin-top: 108px;*/
+    position: relative;
+    top: -142px;
+    margin-bottom: -34px;
+    -webkit-transition: all 0.35s;
+    transition: all 0.35s;
+    line-height: 34px;
 }
 
 .container-signup h3,
@@ -265,17 +265,17 @@ input.editable-input:focus {
 .container-vieworders h3,
 .container-myorders h3,
 .container-main h3 {
-  font-family: "Titillium Web", sans-serif;
-  letter-spacing: 3px;
-  font-weight: 600;
+    font-family: "Titillium Web", sans-serif;
+    letter-spacing: 3px;
+    font-weight: 600;
 }
 
 .container-main h3.margin-top-0 { 
-  margin-top: 0px;
+    margin-top: 0px;
 }
 
 .container-profile h3{
-  float: left;
+    float: left;
 }
 
 /*.container-offermeal h4 {
@@ -292,39 +292,39 @@ input.editable-input:focus {
 .container-offermeal h4.offer-name,
 .container-seller-home h4.offer-name,
 .container-myorders h4.order-name {
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #2f4ffc;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  height: 23px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #2f4ffc;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 23px;
 }
 
 .container-seller-home h4.offer-num {
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #2f4ffc;
-  font-size: 120px;
-  margin: 0;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #2f4ffc;
+    font-size: 120px;
+    margin: 0;
 }
 
 .container-ordermeal h5.order-seller,
 .container-myorders h5.order-seller {
-  font-weight: bold;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 13px;
-  margin-bottom: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    margin-bottom: 4px;
 }
 
 .container-myorders h5.order-seller {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 
 .container-ordermeal p.order-description,
@@ -332,20 +332,20 @@ input.editable-input:focus {
 .container-seller-home p.offer-description,
 .container-vieworders p.order-description,
 .container-myorders p.order-description {
-  /*white-space: nowrap;*/
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 13px;
-  height: 18px;
+    /*white-space: nowrap;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    height: 18px;
 }
 
 .container-vieworders p.order-description {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .container-ordermeal p.order-description,
 .container-offermeal p.offer-description {
-  height:72px;
+    height:72px;
 }
 
 .container-ordermeal p.order-label,
@@ -354,78 +354,78 @@ input.editable-input:focus {
 .container-seller-home p.offer-label,
 .container-myorders p.order-label,
 .order-modal p.order-label{
-  font-size: 13px;
-  font-weight: bold;
-  color: #2f4ffc;
-  margin-bottom: 0px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #2f4ffc;
+    margin-bottom: 0px;
 }
 
 .container-ordermeal h2.order-value,
 .container-offermeal h2.offer-value,
 .container-seller-home h2.offer-value,
 .order-modal h2.order-value{
-  font-weight: bold;
-  color: #2f4ffc;
-  margin-top: 0px;
+    font-weight: bold;
+    color: #2f4ffc;
+    margin-top: 0px;
 }
 
 /*Radio button style */
 
 .container-signup .radio, .container-signup .checkbox {
-  display: inline-block;
+    display: inline-block;
 }
 
 .container-signup .radio label {
-  padding-left: 0;
-  padding-right: 15px;
+    padding-left: 0;
+    padding-right: 15px;
 }
 
 .container-signup .radio-label-text {
-  padding-top: 4%;
-  display: inline-block;
-  font-weight: bold;
+    padding-top: 4%;
+    display: inline-block;
+    font-weight: bold;
 }
 
 .container-signup .radio label:after {
-   content: '';
-   display: table;
-   clear: both;
+    content: '';
+    display: table;
+    clear: both;
 }
 .container-signup .radio .cr {
-   -moz-box-shadow: 0px 2px 1px #CCC;
-   -webkit-box-shadow: 0px 2px 1px #CCC;
-   box-shadow: 0px 2px 1px #CCC;
-   background-color: #FFF;
-   position: relative;
-   display: inline-block;
-   border: 1px solid #dcdcdc;
-   width: 34px;
-   height: 34px;
-   float: left;
-   margin-right: .5em;
+    -moz-box-shadow: 0px 2px 1px #CCC;
+    -webkit-box-shadow: 0px 2px 1px #CCC;
+    box-shadow: 0px 2px 1px #CCC;
+    background-color: #FFF;
+    position: relative;
+    display: inline-block;
+    border: 1px solid #dcdcdc;
+    width: 34px;
+    height: 34px;
+    float: left;
+    margin-right: .5em;
 }
 .container-signup .radio .cr .cr-icon {
-   color: #2f4ffc;
-   position: absolute;
-   font-size: 1.45em;
-   line-height: 0;
-   top: 50%;
-   left: 20%;
+    color: #2f4ffc;
+    position: absolute;
+    font-size: 1.45em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
 }
 .container-signup .radio label input[type="radio"] {
-   display: none;
+    display: none;
 }
 .container-signup .radio label input[type="radio"] + .cr > .cr-icon {
-   transform: scale(3) rotateZ(-20deg);
-   opacity: 0;
-   transition: all .3s ease-in;
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
 }
 .container-signup .radio label input[type="radio"]:checked + .cr > .cr-icon {
-   transform: scale(1) rotateZ(0deg);
-   opacity: 1;
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
 }
 .container-signup .radio label input[type="radio"]:disabled + .cr {
-   opacity: .5;
+    opacity: .5;
 }
 
 .container-signup .panel,
@@ -434,48 +434,48 @@ input.editable-input:focus {
 .container-offermeal .panel,
 .container-ordermeal .panel,
 .container-about .panel {
-  background-color: rgba(233,233,233,0.7);
-  border-radius: 0px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+    background-color: rgba(233,233,233,0.7);
+    border-radius: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .container-main .panel {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
 
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
 
 
-  .container-main .h1-main {
-    font-size: 72px;
-    font-family: "Titillium Web", sans-serif;
-    letter-spacing: 6px;
-  }
-  
+    .container-main .h1-main {
+        font-size: 72px;
+        font-family: "Titillium Web", sans-serif;
+        letter-spacing: 6px;
+    }
+
 }
 
 #loading {
-  position: absolute;
-  left: 45%;
-  top: 45%;
+    position: absolute;
+    left: 45%;
+    top: 45%;
 }
 
 .container-main .p-main {
-  font-family: "Titillium Web", sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 3px;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 3px;
 }
 
 .container-main .btn-default.btn3,
@@ -489,22 +489,22 @@ input.editable-input:focus {
 .container-seller-home .btn-default.btn3,
 .order-modal .btn-default.btn3,
 .container-profile .btn-default.btn3{
-  box-shadow: none;
-  display: inline-block;
-  padding: 0 85px 0 85px;
-  font-family: "Roboto", sans-serif;
-  font-size: 16px;
-  line-height: 34px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  margin: 0;
-  text-shadow: none;
-  text-transform: uppercase;
-  color: #ffffff;
-  border-radius: 0;
-  background: #2f4ffc;
-  -webkit-transition: background 0.35s;
-  transition: background 0.35s;
+    box-shadow: none;
+    display: inline-block;
+    padding: 0 85px 0 85px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    line-height: 34px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    margin: 0;
+    text-shadow: none;
+    text-transform: uppercase;
+    color: #ffffff;
+    border-radius: 0;
+    background: #2f4ffc;
+    -webkit-transition: background 0.35s;
+    transition: background 0.35s;
 }
 
 .order-modal .btn-default.btn3.btn2,
@@ -516,19 +516,19 @@ input.editable-input:focus {
     background: #EEE;
     color: #333;
     padding: 0;
-    
+
 }
 
 .container-main .btn-default.btn3.btn2.color-blue {
-  color: #2f4ffc;
+    color: #2f4ffc;
 }
 
 .container-profile .btn-default.btn3{
-  float: right;
-  font-size: 15px;
-  line-height: 25px;
-  padding: 2px 20px;
-  margin: 1em 0 0 0;
+    float: right;
+    font-size: 15px;
+    line-height: 25px;
+    padding: 2px 20px;
+    margin: 1em 0 0 0;
 }
 
 .container-offermeal .btn-default.btn3.btn2,
@@ -541,13 +541,13 @@ input.editable-input:focus {
 .container-ordermeal .btn-default.btn3.btn-pagination,
 .container-vieworders .btn-default.btn3,
 .container-myorders .btn-default.btn3  {
-  padding: 0 15px 0 15px;
+    padding: 0 15px 0 15px;
 }
 
 .container-offermeal .btn-default.btn3.btn2.btn2-small {
-  font-size: 12px;
-  line-height: 20px;
-  padding: 0 5px 0 5px;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0 5px 0 5px;
 }
 
 .order-modal .btn-default.btn3{
@@ -575,7 +575,7 @@ input.editable-input:focus {
 .container-vieworders .btn-default.btn3:hover,
 .container-seller-home .btn-default.btn3:hover,
 .container-myorders .btn-default.btn3:hover{
-  background: #6D83FC;
+    background: #6D83FC;
 }
 
 .order-modal .btn-default.btn3.btn2:hover,
@@ -584,13 +584,13 @@ input.editable-input:focus {
 .container-main .btn-default.btn3.btn2:hover,
 .container-seller-home .btn-default.btn3.btn2:hover,
 .container-myorders .btn-default.btn3.btn2:hover {
-  background: #DDD;
+    background: #DDD;
 }
 
 /* MODALS PINK ! */
 .order-modal .btn-default.btn3.btn2:hover,
 .container-myorders .btn-default.btn3.btn2:hover {
-  background: #aaa;
+    background: #aaa;
 }
 .order-modal .btn-default.btn3:hover{
     background: #B22C5B;
@@ -600,10 +600,10 @@ input.editable-input:focus {
     color: #FFF;
 }
 .order-modal .modal-header .close{
-     color: #FFF;
-     opacity: 1;
-     text-shadow: 0 1px 0 #555;
-     margin-top: 2px;
+    color: #FFF;
+    opacity: 1;
+    text-shadow: 0 1px 0 #555;
+    margin-top: 2px;
 }
 
 .order-modal h4.modal-title{
@@ -640,8 +640,8 @@ input.editable-input:focus {
 }*/
 .order-modal .modal-content{
     border-radius: 0;
-    
-   
+
+
 }
 
 
@@ -654,106 +654,106 @@ input.editable-input:focus {
 .container-myorders .btn-default.btn3:focus,
 .container-vieworders .btn-default.btn3:focus, 
 .order-modal .btn-default.btn3:focus {
-  -webkit-box-shadow: 0 0 5px 2px #969696;
-  -moz-box-shadow: 0 0 5px 2px #969696;
-  box-shadow: 0 0 5px 2px #969696;
-  outline: none;
+    -webkit-box-shadow: 0 0 5px 2px #969696;
+    -moz-box-shadow: 0 0 5px 2px #969696;
+    box-shadow: 0 0 5px 2px #969696;
+    outline: none;
 }
 
 .container-offermeal .btn-default.btn3.btn2.btn2-small:focus {
-  -webkit-box-shadow: 0 0 2px 1px #969696;
-  -moz-box-shadow: 0 0 2px 1px #969696;
-  box-shadow: 0 0 2px 1px #969696;
-  outline: none;
+    -webkit-box-shadow: 0 0 2px 1px #969696;
+    -moz-box-shadow: 0 0 2px 1px #969696;
+    box-shadow: 0 0 2px 1px #969696;
+    outline: none;
 }
 
 .btn-file {
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-file input[type=file] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  outline: none;
-  background: white;
-  cursor: inherit;
-  display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
 
 .container-main .p-main-login {
-  font-family: "Roboto", sans-serif;
-  font-size: 13px;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
 }
 
 .container-about p {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 .container-main .p-main-login a {
-  color: #000000;
+    color: #000000;
 }
 
 
 /* GENERAL FOR ALL VIEWS */
 /* IMAGE THUMBNAIL NOT ROUNDED */
 .img-thumbnail {
-  border-radius: 0;
+    border-radius: 0;
 }
 
 /* ALERTS */
 .alert {
-  border-radius: 0px;
-  border: none;
+    border-radius: 0px;
+    border: none;
 }
 
 div.offer-line {
-  width: 100%;
-  height: 2px;
-  background-color: #6D83FC;
-  box-shadow: 0px 2px 1px #CCC;
-  margin-bottom: 15px;
+    width: 100%;
+    height: 2px;
+    background-color: #6D83FC;
+    box-shadow: 0px 2px 1px #CCC;
+    margin-bottom: 15px;
 }
 
 .container-myorders div.offer-line,
 .container-vieworders div.offer-line  {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 
 .col-xs-6.left-button {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 .col-xs-6.right-button {
-  padding-right: 0;
+    padding-right: 0;
 }
 
 .glyphicon.round-button {
-  background-color: #2F4FFC;
-  height: 45px;
-  width: 45px;
-  display: inline-block;
-  text-align: center;
-  border-radius: 22px;
-  vertical-align: middle;
-  padding-top: 15px;
-  color: white;
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
-  /*bottom: 10px;*/
-  top: 79%;
+    background-color: #2F4FFC;
+    height: 45px;
+    width: 45px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 22px;
+    vertical-align: middle;
+    padding-top: 15px;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    /*bottom: 10px;*/
+    top: 79%;
 }
 
 .glyphicon.round-button:hover {
-  background-color: #6D83FC;
+    background-color: #6D83FC;
 }
 
 .round-button input[type=file] {
@@ -776,79 +776,81 @@ div.offer-line {
 .container-vieworders .table th,
 .container-myorders .table td,
 .container-myorders .table th {
-  text-align: center;
+    text-align: center;
 }
 
 .container-vieworders .uppercase-bold,
 .container-myorders .uppercase-bold {
-  font-weight: bold;
-  text-transform: uppercase;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .container-vieworders .table-header,
 .container-myorders .table-header {
-  background-color: white;
-  border-color: transparent;
-  color: #2F4FFC;
+    background-color: white;
+    border-color: transparent;
+    color: #2F4FFC;
 }
 
 .container-myorders .td-button {
-  padding-top: 3px;
-  padding-bottom: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .container-myorders .td-button button.btn.btn-default.btn3.btn-block {
-  line-height: 28px;
+    line-height: 28px;
 }
 
 .order-modal .warning-note {
-  text-transform: uppercase;
-  font-style: italic;
-  font-size: 13px;
-  color: #B22C5B;
+    text-transform: uppercase;
+    font-style: italic;
+    font-size: 13px;
+    color: #B22C5B;
 }
 
 .no-padding {
-  padding: 0;
+    padding: 0;
 }
 
 .no-padding-left {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 .no-padding-right {
-  padding-right: 0;
+    padding-right: 0;
 }
 
 .padding-top-5px {
-  padding-top: 5px;
+    padding-top: 5px;
 }
 
 .margin-top-15px {
-  margin-top: 15px;
+    margin-top: 15px;
 }
 
 .width-130px {
-  width: 130px;
+    width: 130px;
 }
 
 .modal-dialog.order-modal {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .height-155px {
-  height: 155px
+    height: 155px
 }
 
 .bold-modal{
-   font-weight: bold;
+    font-weight: bold;
 }
 
 .blue{
     color:#2f4ffc;
 }
 
-/* FOR UI TREE*/
+/* ----
+-------FOR UI TREE
+-------*/
 
 .btn {
     margin-right: 8px;
@@ -865,6 +867,7 @@ div.offer-line {
     color: #438eb9;
     background: #f4f6f7;
     border-color: #dce2e8;
+    cursor: default !important;
 }
 
 .angular-ui-tree-placeholder {
@@ -880,6 +883,80 @@ div.offer-line {
     background-color: #687074 !important;
     color: #FFF !important;
 }
+
+/* For 
+   Unit tittle and content
+*/
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+.box {
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    padding: 10px 25px;
+    text-align: right;
+    display: block;
+    margin-top: 60px;
+}
+.box ul{
+    padding:0;
+}
+.box-icon {
+    font-size: 50px !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    background-color: #468499;
+    border-radius: 50%;
+    display: table;
+    height: 100px;
+    margin: 0 auto;
+    width: 100px;
+    margin-top: -61px;
+}
+.box-icon-2 {
+    text-align: center;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    color: #FFF;
+    font-size: 25px !important;
+    background-color: #468499;
+    border-radius: 5%;
+    display: table;
+    height: 10px;
+    margin: 0;
+    margin-bottom:15px;
+    width: 150px;
+    margin-top: -35px;
+}
+.box-icon span {
+    color: #fff;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+.info h4 {
+    font-size: 26px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.info > p {
+    color: #717171;
+    font-size: 16px;
+    padding-top: 10px;
+    text-align: justify;
+}
+.info > a {
+    background-color: #03a9f4;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    color: #fff;
+    transition: all 0.5s ease 0s;
+}
+.info > a:hover {
+    background-color: #0288d1;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.12);
+    color: #fff;
+    transition: all 0.5s ease 0s;
+
+
+
 
 
 
