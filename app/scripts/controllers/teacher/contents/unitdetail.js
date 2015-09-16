@@ -4,6 +4,7 @@ angular.module('tfaApp')
   .controller('TeacherUnitdetailCtrl', function ($scope, $routeParams, unitsrv, coursesrv) {
     $scope.unit = {};
     $scope.topics = [];
+    $scope.currentTopic = {};
     $scope.error = "";
     var objectId=0;
     if($routeParams){
@@ -17,6 +18,7 @@ angular.module('tfaApp')
                 unitsrv.getAllTopics(unit, {
                       success: function (topics) {
                         $scope.topics = topics;
+                        $scope.currentTopic = $scope.topics[0];
                         $scope.$apply();
                       }
                 });
