@@ -1,3 +1,5 @@
+/// <reference path="../../bower_components/angular-modal-service/dst/angular-modal-service.js" />
+/// <reference path="../../bower_components/angular-modal-service/dst/angular-modal-service.js" />
 'use strict';
 
 //load initial config for keys using json 
@@ -22,8 +24,9 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.tree',
+    'angularModalService',
+    'textAngular'
     //'pickadate',
-    //'angularModalService',
     //'xeditable'
     
   ]).config(function ($routeProvider) {

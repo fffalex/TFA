@@ -10,12 +10,12 @@
                         <ul class="">
                             <li ng-repeat="topic in topics" class="angular-ui-tree-node">
                                 <div class="angular-ui-tree-handle" style="text-align: left">
-                                    {{topic.number}} - {{topic.title}}
+                                    <span ng-click="showTopic($index)"> {{topic.number}} - {{topic.title}} </span>
                                     <a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                     <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.objectId}}">
-                                        <span class="glyphicon glyphicon-edit"></span>
+                                        <span ng-click="showEditModal($index)" class="glyphicon glyphicon-edit"></span>
                                     </a>
 
                                 </div>
@@ -44,8 +44,6 @@
                             <p>{{currentTopic.description}}</p>
                         </div>
                     </div>
-                    
-                    
                 </div>
             </div>
         </div>
