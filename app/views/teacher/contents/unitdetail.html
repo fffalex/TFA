@@ -21,6 +21,7 @@
                                 </div>
                             </li>
                         </ul>
+                        <button ng-if="!editable" class="btn btn-default" ng-click="showCreatingTopic()">Nuevo Topico</button>
                     </div> 
                 </div>
                 <div class="col-md-9">
@@ -39,10 +40,47 @@
                         <div class="box-icon-3">
                             <span class="number-font">{{currentTopic.number}}</span>
                         </div>
-                        <div class="info">
+
+                        <div>
                             <h3 class="text-center">{{currentTopic.title}}</h3>
                             <p>{{currentTopic.description}}</p>
+                            
                         </div>
+                        <button ng-if="!editable && !creating" ng-click="switchEditMode()" class="btn btn-default btn3">Editar Contenido</button>
+                        
+
+                        <div ng-if="!editable && !creating">
+                            <div ta-bind="text" ng-model="currentTopic.content" ta-readonly='disabled'></div>s
+                        </div>
+
+                        <div ng-if="editable && !creating">
+                            <div text-angular="text-angular" name="htmlcontent" ng-model="currentTopic.content" ta-disabled='false'></div>
+                            <div>
+                                <button ng-click="saveEditedTopic()" class="btn btn-default btn3">Guardar Cambios</button>
+                                <button ng-click="cancelEdition()" class="btn btn-default">Cancelar Cambios</button>
+                            </div>
+                        </div>
+
+                        <div ng-if="creating">
+                            <div class="form-group signup-input">
+                                <p class="order-label"><strong>Numero de tópico</strong></p>
+                                <input type="text" class="form-control" ng-model="newNumber" required>
+                            </div>
+                            <div class="form-group signup-input">
+                                <p class="order-label"><strong>Título</strong></p>
+                                <input type="text" class="form-control" ng-model="newTitle" required>
+                            </div>
+                            <p class="order-label"><strong>Editor de contenido</strong></p>
+                            <div>
+                                <div text-angular="text-angular" name="htmlcontent" ng-model="newContent" ta-disabled='false'></div>
+                                <div>
+                                    <button ng-click="saveEditedTopic()" class="btn btn-default btn3">Guardar Cambios</button>
+                                    <button ng-click="cancelEdition()" class="btn btn-default">Cancelar Cambios</button>
+                                </div>
+                            </div>
+                            <button ng-click="createNewTopic()">Crear Nuevo Topico</button>
+                        </div>
+
                     </div>
                 </div>
             </div>

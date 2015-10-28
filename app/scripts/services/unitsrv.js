@@ -29,17 +29,31 @@ angular.module('tfaApp')
             });
         },
         
-        createTopic: function unitCreateTopic (topicData,cb) {
-            var topic = new (Parse.Object.extend('Course'));
+        createTopic: function unitCreateTopic (topicData, unitData ,cb) {
+            var topic = new (Parse.Object.extend('Topic'));
             topic.set('title', topicData.title);
             topic.set('content', topicData.content);
-            topic.set('link', topicData.link);
+            topic.set('status', 1);
+            //topic.set('link', topicData.link);
             //CHECKK RELATION WITH UNIT
-            topic.set('contentOnUnit', topicData.Unit );
+            //topic.set('contentOnUnit', topicData.Unit ); DEprecated
             topic.save(null, {
               success: function (of) {
-                if (cb && cb.success) {
-                  cb.success(of.toFullJSON());
+                  if (cb && cb.success) {
+                      var unit = new (Parse.Object.extend('Topic'));
+                      unit.set('id', unitData.objectId);
+                      var relation = unit.relation("topics");
+                      relation.add(topic);
+                      unit.save({
+                          success: function (r) {
+                              console.log('ok!');
+                              cb.success(of.toFullJSON());
+                          },
+                          error: function (r, error) {
+                              console.log(error);
+                              cb.error(of.toFullJSON(), error);
+                          }
+                      });
                 }
               },
               error: function (of, error) {
@@ -51,7 +65,7 @@ angular.module('tfaApp')
         },
 
       //obtiene todas las unidades de un curso
-      getAllUnits: function getAllUnits(cours,cb){
+      getAllUnits: function unitGetAllUnits(cours,cb){
         var course = new (Parse.Object.extend('Course'));
         course.set('id',cours.objectId);
 
@@ -96,7 +110,7 @@ angular.module('tfaApp')
           });
       },
       
-      getAllTopics: function getAllTopics(uni,cb){
+      getAllTopics: function unitGetAllTopics(uni,cb){
         var unit = new (Parse.Object.extend('Unit'));
         unit.set('id',uni.id);
         var relation = unit.relation('topics');        
@@ -113,6 +127,25 @@ angular.module('tfaApp')
                 cb.error(error);
               }
             }
+          });
+      },
+
+      modifyTopic: function unitModifyTopic(topicData, cb) {
+          var topic = new (Parse.Object.extend('Topic'))();
+          topic.set('id', topicData.objectId);
+          topic.set('title', topicData.title);
+          topic.set('content', topicData.content);
+          topic.save(null, {
+              success: function (or) {
+                  if (cb && cb.success) {
+                      cb.success(or.toFullJSON());
+                  }
+              },
+              error: function (or, error) {
+                  if (cb && cb.error) {
+                      cb.error(or.toFullJSON(), error);
+                  }
+              }
           });
       },
     };
