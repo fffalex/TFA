@@ -34,11 +34,12 @@ angular.module('tfaApp')
             topic.set('title', topicData.title);
             topic.set('content', topicData.content);
             topic.set('status', '1');
+            topic.set('number', topicData.number);
             //topic.set('link', topicData.link);
             //CHECKK RELATION WITH UNIT
             //topic.set('contentOnUnit', topicData.Unit ); DEprecated
             topic.save(null, {
-              success: function (of) {
+              success: function (top) {
                   if (cb && cb.success) {
                       var unit = new (Parse.Object.extend('Unit'));
                       unit.set('id', unitData.objectId);
@@ -47,11 +48,11 @@ angular.module('tfaApp')
                       unit.save({
                           success: function (r) {
                               console.log('ok!');
-                              cb.success(of.toFullJSON());
+                              cb.success(top.toFullJSON());
                           },
                           error: function (r, error) {
                               console.log(error);
-                              cb.error(of.toFullJSON(), error);
+                              cb.error(top.toFullJSON(), error);
                           }
                       });
                 }
@@ -116,6 +117,7 @@ angular.module('tfaApp')
         var relation = unit.relation('topics');        
         var query = relation.query();
         query.ascending('number');
+        query.equalTo('status', '1');
         query.find({
             success: function (topics) {
               if (cb && cb.success) {
@@ -148,6 +150,24 @@ angular.module('tfaApp')
               }
           });
       },
+      
+      deleteTopic: function unitDeleteTopic(topicData, cb){
+        var topic = new (Parse.Object.extend('Topic'))();
+          topic.set('id', topicData.objectId);
+          topic.set('status', '0');
+          topic.save(null, {
+              success: function (or) {
+                  if (cb && cb.success) {
+                      cb.success(or.toFullJSON());
+                  }
+              },
+              error: function (or, error) {
+                  if (cb && cb.error) {
+                      cb.error(or.toFullJSON(), error);
+                  }
+              }
+          });
+      }
     };
   });
 

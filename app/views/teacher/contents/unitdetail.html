@@ -2,33 +2,16 @@
     <div class="row">
         <div class="alert alert-danger alert-dismissable" role="alert" ng-show="error">
             <button class="close" ng-click="error = ''"><span aria-hidden="true">&times;</span></button>
-            <strong>Error!</strong> {{ error }}
+            <strong>Error!</strong> {{ error}}
+        </div>
+        <div class="alert alert-success alert-dismissable" role="alert" ng-show="success">
+            <button class="close" ng-click="success = ''"><span aria-hidden="true">&times;</span></button>
+            <strong>Éxito!</strong> {{ success}}
         </div>
 
-        <div class="col-md-3">
-            <div class="box">
-                <div class="box-icon-2">
-                    <span class="number-font">Tópicos</span>
-                </div>
-                <ul class="">
-                    <li ng-repeat="topic in topics" class="angular-ui-tree-node">
-                        <div class="angular-ui-tree-handle" style="text-align: left">
-                            <span ng-click="showTopic($index)"> {{topic.number}} - {{topic.title}} </span>
-                            <a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </a>
-                            <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.objectId}}">
-                                <span ng-click="showEditModal($index)" class="glyphicon glyphicon-edit"></span>
-                            </a>
 
-                        </div>
-                    </li>
-                </ul>
-                <button ng-if="!editable" class="btn btn-default" ng-click="showCreatingTopic()">Nuevo Topico</button>
-            </div>
-        </div>
-        <div class="col-md-9">
 
+        <div class="col-md-12">
             <div class="box">
                 <div class="box-icon">
                     <span class="number-font">{{unit.number}}</span>
@@ -38,52 +21,149 @@
                     <p>{{unit.description}}</p>
                 </div>
             </div>
+        </div>
 
-            <div class="box">
-                <div class="box-icon-3">
-                    <span class="number-font">{{currentTopic.number}}</span>
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="box">
+                    <div class="box-icon-2">
+                        <span class="number-font">Tópicos</span>
+                    </div>
+                    <ul class="">
+                        <li ng-repeat="topic in topics" class="angular-ui-tree-node">
+                            <div class="angular-ui-tree-handle" style="text-align: left">
+                                <span ng-click="showTopic($index)"> {{topic.number}} - {{topic.title}} </span>
+                                <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setTopicToDelete($index)">
+                                    <span  class="glyphicon glyphicon-remove"></span>
+                                </a>
+                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.objectId}}">
+                                    <span ng-click="switchEditMode($index)" class="glyphicon glyphicon-edit"></span>
+                                </a>
+
+                            </div>
+                        </li>
+                    </ul>
+                    <button ng-disabled="editable" class="btn btn-default" ng-click="showCreatingTopic()">Nuevo Topico</button>
                 </div>
+            </div>
 
-                <div>
-                    <h3 class="text-center">{{currentTopic.title}}</h3>
-                    <p>{{currentTopic.description}}</p>
+            <div class="col-md-9">
 
-                </div>
-                <button ng-if="!editable && !creating" ng-click="switchEditMode()" class="btn btn-default btn3">Editar Contenido</button>
+                <div class="box">
+                        <div class="box-icon-3">
+                        <span class="number-font">{{currentTopic.number}}</span>
+                    </div>
 
-
-                <div ng-if="!editable && !creating">
-                    <div ta-bind="text" ng-model="currentTopic.content" ta-readonly='disabled'></div>s
-                </div>
-
-                <div ng-if="editable && !creating">
-                    <div text-angular="text-angular" name="htmlcontent" ng-model="currentTopic.content" ta-disabled='false'></div>
                     <div>
-                        <button ng-click="saveEditedTopic()" class="btn btn-default btn3">Guardar Cambios</button>
-                        <button ng-click="cancelEdition()" class="btn btn-default">Cancelar Cambios</button>
+                        <h3 class="text-center">{{currentTopic.title}}</h3>
+                        <p>{{currentTopic.description}}</p>
+
                     </div>
+                    <button ng-if="!editable && !creating" ng-click="switchEditMode()" class="btn btn-default btn3">Editar Contenido</button>
+                    <div ng-if="editable" class="not-available">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        <h1>MODO EDICION</h1>
+                    </div>
+
+                    <div ng-if="!editable && !creating">
+                        <div ta-bind="text" ng-model="currentTopic.content" ta-readonly='disabled'></div>s
+                    </div>
+
+                    <div ng-if="editable && !creating">
+                        <div text-angular="text-angular" name="htmlcontent" ng-model="currentTopic.content" ta-disabled='false'></div>
+
+                        <div>
+                            <button ng-click="saveEditedTopic()" class="btn btn-default btn3">Guardar Cambios</button>
+                            <button data-toggle="modal" data-target="#cancelModal" class="btn btn-default">Cancelar Cambios</button>
+                        </div>
+                    </div>
+
+                    <div ng-if="creating">
+                        <div class="form-group signup-input">
+                            <p class="order-label"><strong>Numero de tópico</strong></p>
+                            <input type="number" class="form-control" ng-model="newNumber" required>
+                        </div>
+                        <div class="form-group signup-input">
+                            <p class="order-label"><strong>Título</strong></p>
+                            <input type="text" class="form-control" ng-model="newTitle" required>
+                            <p>{{newNumber}}</p>
+                        </div>
+                        <p class="order-label"><strong>Editor de contenido</strong></p>
+                        <div>
+                            <div text-angular="text-angular" name="htmlcontent" ng-model="newContent" ta-disabled='false'></div>
+
+                        </div>
+                        <button class="btn btn-default" ng-click="createNewTopic(newNumber, newTitle, newContent)">Crear Nuevo Topico</button>
+                    </div>
+
                 </div>
-
-                <div ng-if="creating">
-                    <div class="form-group signup-input">
-                        <p class="order-label"><strong>Numero de tópico</strong></p>
-                        <input type="number" class="form-control" ng-model="newNumber" required>
-                    </div>
-                    <div class="form-group signup-input">
-                        <p class="order-label"><strong>Título</strong></p>
-                        <input type="text" class="form-control" ng-model="newTitle" required>
-                        <p>{{newNumber}}</p>
-                    </div>
-                    <p class="order-label"><strong>Editor de contenido</strong></p>
-                    <div>
-                        <div text-angular="text-angular" name="htmlcontent" ng-model="newContent" ta-disabled='false'></div>
-
-                    </div>
-                    <button class="btn btn-default" ng-click="createNewTopic(newNumber,newTitle,newContent)">Crear Nuevo Topico</button>
-                </div>
-
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- MODALS SECTION -->
+
+<!-- Modal -->
+<div id="cancelModal" class="modal fade" role="dialog">
+    <div class="modal-dialog  modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cancelar cambios?</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Seguro que quieres descartar los cambios realizados?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="cancelEdition()" class="btn btn-default" data-dismiss="modal">Descartar cambios</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Seguir editando</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="deleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog  modal-sm">
+
+        <!-- Modal content-->
+        <div ng-if="!isDeleted" class="modal-content">
+            <div class="alert alert-danger alert-dismissable" role="alert" ng-show="errorDelete">
+                <button class="close" ng-click="errorDelete = ''"><span aria-hidden="true">&times;</span></button>
+                <strong>Error!</strong> {{ errorDelete}}
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Estas seguro que quieres eliminar el tópico?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="deleteTopic()" class="btn btn-default" data-dismiss="modal">Eliminar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+            </div>
+        </div>
+
+        <div ng-if="isDeleted" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>Se ha eliminado Correctamente</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 

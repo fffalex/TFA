@@ -1,12 +1,15 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('TeacherUnitdetailCtrl', function ($scope, $routeParams, unitsrv, coursesrv, ModalService) {
+  .controller('TeacherUnitdetailCtrl', function ($scope, $routeParams, unitsrv, coursesrv, ModalService,$route) {
       //initial data set
       $scope.unit = {};
       $scope.topics = [];
       $scope.currentTopic = {};
       $scope.error = "";
+      $scope.success = "";
+      $scope.toDeleteTopic;
+      $scope.isDeleted = false;
 
       //Control function flows
       $scope.editable = false;
@@ -15,7 +18,7 @@ angular.module('tfaApp')
       //For create new Topic
       $scope.newTitle = '';
       $scope.newNumber = '';
-      $scope.newContent = 'Escriba su contenido aquí';
+      $scope.newContent = 'Escriba su contenido aquï¿½';
 
       //Take objectID to query from the routeParams
       var objectId = 0;
@@ -52,24 +55,28 @@ angular.module('tfaApp')
           $scope.currentTopic = $scope.topics[index];
           $scope.currentTopicCopy = angular.copy($scope.currentTopic);
           $scope.apply;
-      }
+      };
 
       //view edition on
-      $scope.switchEditMode = function () {
+      $scope.switchEditMode = function (index) {
+          if(index){
+            $scope.currentTopic = $scope.topics[index];
+            $scope.apply;
+          }
           $scope.editable = true;
-      }
+      };
 
       //cancel edition view ang come back to details view
       $scope.cancelEdition = function(){
           $scope.currentTopic = angular.copy($scope.currentTopicCopy);
           $scope.editable = false;
-      }
+      };
 
       //creating view on
       $scope.showCreatingTopic = function () {
           $scope.creating = true;
           $scope.editable = false
-      }
+      };
 
       //Do topic creation, validation data and save it to parse
       //Need the parameter of the scope becuase when ng-click, the scope
@@ -84,27 +91,32 @@ angular.module('tfaApp')
           }
           if(existFlag){
               //DO NOTHING
-              $scope.error = "El número de topico ya existe";
+              $scope.error = "El numero de topico ya existe";
           } else {
-              var topicData = {}
+              var topicData = {};
               topicData.title = newTitle;
               topicData.content = newContent;
               topicData.number = newNumber;
               unitsrv.createTopic(topicData, $scope.unit, {
-                  success: function () {
+                  success: function (newTopic) {
                       $scope.editable = false;
+                      $scope.creating = false;
                       $scope.error = '';
+                      $scope.success = "Has agregado un nuevo topic correctamente";
+                      $scope.currentTopic = newTopic;
+                      $scope.topics.push(newTopic);
                       $scope.currentTopicCopy = angular.copy($scope.currentTopic);
                       $scope.$apply();
+                      
                   },
-                  error: function (of, error) {
+                  error: function (newTopic, error) {
                       $scope.error = getErrorDesc(error);
                       $scope.$apply();
                   }
               });
           }
           
-      }
+      };
 
       //Save new topic to parse 
       $scope.saveEditedTopic = function () {
@@ -113,6 +125,7 @@ angular.module('tfaApp')
                   $scope.editable = false;
                   $scope.error = '';
                   $scope.currentTopicCopy = angular.copy($scope.currentTopic);
+                  $scope.success = "Has modificado el topic correctamente";
                   $scope.$apply();
               },
               error: function (of, error) {
@@ -122,7 +135,29 @@ angular.module('tfaApp')
           });
 
 
-      }
+      };
+      
+      $scope.setTopicToDelete= function(index){
+        $scope.toDeleteTopic = $scope.topics[index]; 
+        $scope.$apply();
+      };
+      
+      $scope.deleteTopic = function(){
+        unitsrv.deleteTopic($scope.toDeleteTopic, {
+              success: function () {
+                 $('.modal-backdrop').remove();
+                 $('body').removeClass('modal-open');
+                 $('body').removeAttr('style');
+                  $scope.$apply();
+                  $route.reload();
+              },
+              error: function (of, error) {
+                  $scope.errorDelete = getErrorDesc(error);
+                  $scope.$apply();
+              }
+          });
+        
+      };
   });
     
 
