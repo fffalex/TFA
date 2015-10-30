@@ -33,14 +33,14 @@ angular.module('tfaApp')
             var topic = new (Parse.Object.extend('Topic'));
             topic.set('title', topicData.title);
             topic.set('content', topicData.content);
-            topic.set('status', 1);
+            topic.set('status', '1');
             //topic.set('link', topicData.link);
             //CHECKK RELATION WITH UNIT
             //topic.set('contentOnUnit', topicData.Unit ); DEprecated
             topic.save(null, {
               success: function (of) {
                   if (cb && cb.success) {
-                      var unit = new (Parse.Object.extend('Topic'));
+                      var unit = new (Parse.Object.extend('Unit'));
                       unit.set('id', unitData.objectId);
                       var relation = unit.relation("topics");
                       relation.add(topic);
