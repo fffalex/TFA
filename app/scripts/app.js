@@ -122,6 +122,11 @@ angular
         controller: 'TeacherUnitdetailCtrl',
         access: 'teacher'
       })
+      .when('/student/contents/', {
+          templateUrl: 'views/student/contents/classes.html',
+          controller: 'StudentClassesCtrl',
+                access: 'student'
+            })
       .otherwise({
         redirectTo: '/'
       });

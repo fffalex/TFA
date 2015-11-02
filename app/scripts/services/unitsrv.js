@@ -68,8 +68,12 @@ angular.module('tfaApp')
       //obtiene todas las unidades de un curso
       getAllUnits: function unitGetAllUnits(cours,cb){
         var course = new (Parse.Object.extend('Course'));
-        course.set('id',cours.objectId);
-
+        if (cours.objectId) {
+            course.set('id', cours.objectId);
+        }
+        if (cours.id) {
+            course.set('id', cours.id);
+        }
         var relation = course.relation('units');
         var newUnits = [];
         
@@ -87,7 +91,6 @@ angular.module('tfaApp')
                     res.topicsJSON = topics.toFullJSON();
                     newUnits.push(res);                  
                     
-                    //roles = roles.concat(sresults);
                   },
                   error: function(sres,error){
                     console.log(error);
@@ -110,6 +113,176 @@ angular.module('tfaApp')
             }
           });
       },
+
+        //obtiene todas las unidades de un curso
+      getAllUnitsTopicSeenBy: function unitGetAllUnits(cours, cb) {
+          var course = new (Parse.Object.extend('Course'));
+          if (cours.objectId) {
+              course.set('id', cours.objectId);
+          }
+          if (cours.id) {
+              course.set('id', cours.id);
+          }
+          var relation = course.relation('units');
+          //Declaration for the 1st promises Units>>Topics
+          var newUnits = [];
+
+          var query = relation.query();
+          query.ascending('number');
+          query.find({
+              success: function (units) {
+                  newUnits = [];
+                  var promises = [];
+                  var masterPromises = [];
+
+                  //Declaration for the 2nd promises Topics>>Students
+                  var topicToSet = [];
+
+                  //For each unit fills it with its topics
+                  units.forEach(function (res) {
+                      promises.push(res.relation('topics').query().find({
+                          success: function (topics) {
+                              topicToSet = [];
+                              var promises2 = [];
+
+                              //For each topic fills it with the students that already seen it
+                              topics.forEach(function (res2) {
+                                  promises2.push(res2.relation('seenBy').query().find({
+                                      success: function (students) {
+                                          res2 = res2.toFullJSON();
+                                          res2.seenByJSON = students.toFullJSON();
+                                          topicToSet.push(res2);
+                                      },
+                                      error: function (s2res, error) {
+                                          console.log(error);
+                                      }
+                                  }));
+                              });
+
+
+
+                              Parse.Promise.when(promises2).then(function () {
+                                  res = res.toFullJSON();
+                                  res.topicsJSON = topicToSet;
+                                  newUnits.push(res);
+                                  topicToSet = [];
+
+                              });
+                          },
+                          error: function (sres, error) {
+                              console.log(error);
+                          }
+                      }));
+                  });
+
+                  Parse.Promise.when(promises).then(function () {
+                      //this two are assigned toggether
+                      //notify parent
+                      if (cb && cb.success) {
+                          cb.success(newUnits);
+                          console.log(newUnits);
+                      }
+                  });
+              },
+              error: function (error) {
+                  if (cb && cb.error) {
+                      cb.error(error);
+                  }
+              }
+          });
+
+      },
+
+      setAllTopicAndSeenByAllStudent: function(cours,cb){
+          var course = new (Parse.Object.extend('Course'));
+          if (cours.objectId) {
+              course.set('id', cours.objectId);
+          }
+          if (cours.id) {
+              course.set('id', cours.id);
+          }
+          var relation = course.relation('units');
+          //Declaration for the 1st promises Units>>Topics
+          var newUnits = [];
+        
+          var query = relation.query();
+          query.ascending('number');
+          query.find({
+              success: function (units) {
+                  newUnits = [];
+                  var promises = [];
+
+                  var masterPromise = new Parse.Promise();
+                  var totalUnits = units.length;
+                  var currentTotalUnits = 1;
+                  
+                  
+                  //Declaration for the 2nd promises Topics>>Students
+                  var topicToSet = [];
+                    
+                  //For each unit fills it with its topics
+                  units.forEach(function (res) {
+                      promises.push(res.relation('topics').query().find({
+                          success: function(topics){
+                              topicToSet = [];
+                              var promises2 = [];
+
+                              //For each topic fills it with the students that already seen it
+                              topics.forEach(function(res2){
+                                  promises2.push(res2.relation('seenBy').query().find({
+                                      success: function(students){
+                                          res2 = res2.toFullJSON();
+                                          res2.seenByJSON = students.toFullJSON();
+                                          topicToSet.push(res2);
+                                      },
+                                      error: function(s2res, error){
+                                          console.log(error);
+                                      }
+                                  }));
+                              });
+
+                              
+
+                              Parse.Promise.when(promises2).then(function () {
+                                  res = res.toFullJSON();
+                                  res.topicsJSON = topicToSet;
+                                  newUnits.push(res);
+                                  topicToSet = [];
+                                  if (currentTotalUnits == totalUnits) {
+                                      masterPromise.resolve(cb);
+                                  } else {
+                                      currentTotalUnits = currentTotalUnits + 1;
+                                  }
+
+                              });
+                          },
+                          error: function(sres,error){
+                              console.log(error);
+                          }
+                      }));
+                  });
+                  
+                  Parse.Promise.when(promises,masterPromise).then(function(){
+                      //this two are assigned toggether
+                      //notify parent
+                      if (cb && cb.success) {
+                          cb.success(newUnits);
+                          console.log(newUnits);
+                      }
+                  });
+              },
+              error: function (error) {
+                  if (cb && cb.error) {
+                      cb.error(error);
+                  }
+              }
+          });
+      
+      },
+
+
+      
+
       
       getAllTopics: function unitGetAllTopics(uni,cb){
         var unit = new (Parse.Object.extend('Unit'));
