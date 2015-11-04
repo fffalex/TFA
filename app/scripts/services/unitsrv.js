@@ -85,7 +85,7 @@ angular.module('tfaApp')
               var promises = [];
               
               units.forEach(function(res){
-                promises.push(res.relation('topics').query().find({
+                promises.push(res.relation('topics').query().ascending('number').find({
                   success: function(topics){
                     res = res.toFullJSON();
                     res.topicsJSON = topics.toFullJSON();
