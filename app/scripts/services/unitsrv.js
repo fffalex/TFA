@@ -166,6 +166,14 @@ angular.module('tfaApp')
                                   res.topicsJSON = topicToSet;
                                   newUnits.push(res);
                                   topicToSet = [];
+                                  masterPromises.push(res.relation('topics').query().find({
+                                      success: function (topics) {
+
+                                      },
+                                      error: function (s2res, error) {
+
+                                      }
+                                  }));
 
                               });
                           },
@@ -175,7 +183,7 @@ angular.module('tfaApp')
                       }));
                   });
 
-                  Parse.Promise.when(promises).then(function () {
+                  Parse.Promise.when(promises, masterPromise).then(function () {
                       //this two are assigned toggether
                       //notify parent
                       if (cb && cb.success) {
