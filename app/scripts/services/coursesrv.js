@@ -63,7 +63,50 @@ angular.module('tfaApp')
               }
             }
           });
+      },
+      
+      getStudentsCourse: function getTeacherCourse(teacher,cb){
+        var query = new Parse.Query('Course');
+        var newCourses = [];
+        query.equalTo('teacher',teacher);
+        query.find({
+            success: function (courses) {
+              newCourses = [];
+              var promises = [];
+              courses.forEach(function(res){
+                var query = new Parse.Query('User');
+                promises.push(query.equalTo('assignedTo', res.objectId).find({
+                  success: function(students){
+                    res = res.toFullJSON();
+                    res.studentsJSON = students.toFullJSON();
+                    newCourses.push(res);                  
+                  },
+                  error: function(sres,error){
+                    console.log(error);
+                  }
+                }));
+              });
+              
+              Parse.Promise.when(promises).done(function(){
+                //this two are assigned toggether
+                //notify parent
+                if (cb && cb.success) {
+                  cb.success(newCoursesñ);
+                }
+              });
+                
+              if (cb && cb.success) {
+                cb.success(courses.toFullJSON());
+              }
+            },
+            error: function (error) {
+              if (cb && cb.error) {
+                cb.error(error);
+              }
+            }
+          });
       }
+      
     
       
       };

@@ -1,0 +1,62 @@
+<div class="column container-vieworders">
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>LISTA DE ALUMNOS</h3>
+        </div>
+
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissable" role="alert" ng-show="error">
+                <button class="close" ng-click="error = ''"><span aria-hidden="true">&times;</span></button>
+                <strong>Error!</strong> {{ error }}
+            </div>
+            <div class="alert alert-success alert-dismissable" role="alert" ng-show="success">
+                <button class="close" ng-click="success = ''"><span aria-hidden="true">&times;</span></button>
+                <strong>Éxito!</strong> {{ success }}
+            </div>
+            <div ng-if="noOrders" class="col-md-12">
+                <div class="alert alert-info" role="alert">No tiene pedidos</div>
+            </div>
+        </div>
+    </div>
+    
+    <div ng-if="students.length > 0">
+
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table">
+                    <tr class="table-header text-center">
+                        <th>
+                            <input type="checkbox" ng-change="selectAllRows()" ng-model="allRowsSelected" ng-true-value="true" ng-false-value="false" />
+                        </th>
+                        <th>
+                            <a href="" ng-click="orderField('student.lastName')">Nombre</a>
+                            <span class="sortorder" ng-show="predicate === 'buyer.lastName'" ng-class="{reverse:reverse}"></span>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="student in students | orderBy:predicate:reverse">
+                        <td><input type="checkbox" ng-model="order.selected" ng-true-value="true" ng-false-value="false"></td>
+                        <td>{{student.lastName}}, {{student.name}} </td>
+ 
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <nav ng-show="maxpage > 0">
+                <ul class="pager">
+                    <li class="ordermeal-input"><button class="btn btn-default btn3 btn-pagination" ng-click="prevPage()" ng-disabled="page <= 0">&lt; Anterior</button></li>
+                    <li class="ordermeal-input"><button class="btn btn-default btn3 btn-pagination" ng-click="nextPage()" ng-disabled="page >= maxpage">Siguiente &gt;</button></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+

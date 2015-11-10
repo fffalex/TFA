@@ -11,7 +11,7 @@ angular.module('tfaApp')
   .factory('unitsrv', function () {
     return {
         createUnit: function unitCreateUnit(unitData,cb) {
-            var unit = new (Parse.Object.extend('Course'));
+            var unit = new (Parse.Object.extend('Unit'));
             unit.set('title', unitData.title);
             unit.set('number', unitData.number);
             unit.set('description', unitData.description);
