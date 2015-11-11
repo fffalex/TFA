@@ -8,13 +8,18 @@ angular.module('tfaApp')
           success: function (courses) {
               $scope.courses = courses;
               $scope.$apply();
-            }
-            //Agregar un ERROR:?
+              coursesrv.getStudentsCourse(Parse.User.current(),{
+                  success: function(coursesFull){
+                    $scope.courses = coursesFull;
+                    
+                  }
+                });
+              }
+        
     });
-    
-            
-            
-            
+   
+    //Agregar un ERROR:?
+
     $scope.predicate = 'date';
     $scope.reverse = true;
 

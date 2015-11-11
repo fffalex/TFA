@@ -91,7 +91,7 @@ angular.module('tfaApp')
                 //this two are assigned toggether
                 //notify parent
                 if (cb && cb.success) {
-                  cb.success(newCoursesñ);
+                  cb.success(newCourses);
                 }
               });
                 

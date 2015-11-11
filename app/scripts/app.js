@@ -122,6 +122,12 @@ angular
         controller: 'TeacherUnitdetailCtrl',
         access: 'teacher'
       })
+      
+      .when('/teacher/mystudents/', {
+          templateUrl: 'views/teacher/mystudents.html',
+          controller: 'MyStudentsCtrl',
+                access: 'teacher'
+            })
       .when('/student/contents/', {
           templateUrl: 'views/student/contents/classes.html',
           controller: 'StudentClassesCtrl',
