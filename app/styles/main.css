@@ -1,3 +1,9 @@
+
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700,900);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);
+@import url("prettyPhoto.css") screen;
+@import url("hoverex-all.css") screen;
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -5,30 +11,30 @@
     padding: 0.2em 0;
 }
 
-body {
+/*body {
     padding: 0;
     font-family: "Roboto", sans-serif;
-}
+}*/
 
-.navbar-default {
+/*.navbar-default {
     margin-top: 20px;
     background: rgba(225, 228, 247, 0.5);
     border-radius: 0px;
     border: none;
-}
+}*/
 
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+/*.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     color: #555;
     background-color: rgb(225, 228, 247) !important;
-}
+}*/
 
 .navbar-default .navbar-toggle {
     border-color: transparent;
 }
 
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus { 
+/*.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus { 
     background-color: rgb(225, 228, 247) !important;
-}
+}*/
 
 
 .background-container {
@@ -53,7 +59,7 @@ body {
     border-top: 1px solid #e5e5e5;
 }
 
-.container-narrow > hr {
+/*.container-narrow > hr {
     margin: 30px 0;
 }
 
@@ -66,12 +72,12 @@ body {
 
 .container-main .h1-main {
     font-size: 48px;
-    font-family: "Titillium Web", sans-serif;
+    //font-family: "Titillium Web", sans-serif;
     letter-spacing: 6px;
-}
+}*/
 /* Forms Editable */
 
-.editable-wrap{
+/*.editable-wrap{
     width: 100%;
 }
 
@@ -85,7 +91,7 @@ span.editable {
     width: 100%;
     clear: both;
     display: inline-block;
-}
+}*/
 
 /*Input style */
 .signup-input input[type="text"],
@@ -176,28 +182,27 @@ input.editable-input:focus {
 }
 
 ::-webkit-input-placeholder { 
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-style: italic;
     font-weight: bold;
 }
 
 :-moz-placeholder { 
     opacity: 1;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-style: italic;
     font-weight: bold;
 }
 
 ::-moz-placeholder { 
     opacity: 1;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-style: italic;
     font-weight: bold;
 }
 
 :-ms-input-placeholder {
-    font-family: 'Roboto', sans-serif;
-    font-style: italic;
+    font-family: 'Lato', sans-serif;
     font-weight: bold;
 }
 
@@ -265,7 +270,7 @@ input.editable-input:focus {
 .container-vieworders h3,
 .container-myorders h3,
 .container-main h3 {
-    font-family: "Titillium Web", sans-serif;
+   font-family: 'Raleway', sans-serif;
     letter-spacing: 3px;
     font-weight: 600;
 }
@@ -459,7 +464,7 @@ input.editable-input:focus {
 
     .container-main .h1-main {
         font-size: 72px;
-        font-family: "Titillium Web", sans-serif;
+       font-family: 'Raleway', sans-serif;
         letter-spacing: 6px;
     }
 
@@ -472,7 +477,7 @@ input.editable-input:focus {
 }
 
 .container-main .p-main {
-    font-family: "Titillium Web", sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-weight: 600;
     font-size: 16px;
     letter-spacing: 3px;
@@ -492,7 +497,7 @@ input.editable-input:focus {
     box-shadow: none;
     display: inline-block;
     padding: 0 85px 0 85px;
-    font-family: "Roboto", sans-serif;
+    font-family: "Lato", sans-serif;
     font-size: 16px;
     line-height: 34px;
     font-weight: bold;
@@ -689,7 +694,7 @@ input.editable-input:focus {
 }
 
 .container-main .p-main-login {
-    font-family: "Roboto", sans-serif;
+    font-family: "Lato", sans-serif;
     font-size: 13px;
 }
 
@@ -978,5 +983,193 @@ div.offer-line {
 
 }
 
+
+/*	################################################################
+	BOOTSTRAP MODIFICATIONS & TWEAKS
+################################################################# */
+.navbar {
+	min-height: 70px;
+	padding-top: 10px;
+	margin-bottom: 0px;
+}
+
+.navbar-brand {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 900;
+}
+
+.navbar-header .navbar-brand {
+	color: white;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: white;
+	font-weight: 700;
+	font-size: 12px;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+	color: #00b3fe;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	color: #00b3fe;
+	background-color: transparent;
+}
+
+.navbar-default {
+	background-color: #384452;
+	border-color: transparent;
+}
+
+.dropdown-menu {
+	background: #384452;
+}
+
+.dropdown-menu > li > a {
+	color: white;
+	font-weight: 700;
+	font-size: 12px;
+}
+
+.btn-theme {
+  color: #fff;
+  background-color: #384452;
+  border-color: #384452;
+  margin: 4px;
+}
+.btn-theme:hover,
+.btn-theme:focus,
+.btn-theme:active,
+.btn-theme.active,
+.open .dropdown-toggle.btn-theme {
+  color: #fff;
+  background-color: #00b3fe;
+  border-color: #00b3fe;
+}
+
+.dmbutton:hover,
+.dmbutton:active,
+.dmbutton:focus{
+	color: #ffffff;
+	background-color: #222222;
+	border-color: #ffffff;
+}
+.dmbutton {
+	background:rgba(0, 0, 0, 0);
+	border: 1px solid #ffffff;
+	color: #ffffff;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	padding-top: 1.025rem;
+	padding-right: 2.25rem;
+	letter-spacing:0.85px;
+	padding-bottom: 1.0875rem;
+	padding-left: 2.25rem;
+	font-size: 1.55rem;
+	cursor: pointer;
+	font-weight: normal;
+	line-height: normal;
+	margin: 0 0 1.25rem;
+	text-decoration: none;
+	text-align: center;
+	display: inline-block;
+	-webkit-transition: background-color 300ms ease-out;
+	-moz-transition: background-color 300ms ease-out;
+	transition: background-color 300ms ease-out;
+	-webkit-appearance: none;
+	font-weight: normal !important;
+}
+
+.mtb {
+	margin-top: 80px;
+	margin-bottom: 80px;
+}
+
+.mb {
+	margin-bottom: 60px;
+}
+
+.mt {
+	margin-top: 60px;
+}
+
+.hline {
+	border-bottom: 2px solid #384452;
+}
+
+.hline-w {
+	border-bottom: 2px solid #ffffff;
+	margin-bottom: 25px;
+}
+
+/*	################################################################
+	1. GENERAL STRUCTURES
+################################################################# */
+	* { 
+		margin: 0;
+		padding: 0px;
+	} 
+
+body { 
+	background: #ffffff; 
+	margin: 0; 
+	height: 100%; 
+	color: #384452;
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 700;
+}
+
+p { 
+	padding: 0; 
+	margin-bottom: 12px; 
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	font-size: 14px; 
+	line-height: 24px;
+	color: #384452; 
+	margin-top: 10px; 
+}
+
+img {
+	height: auto;
+	max-width: 100%;
+}
+
+a { 
+	padding: 0;
+	margin: 0;
+	text-decoration: none; 
+	-webkit-transition: background-color .4s linear, color .4s linear;
+	-moz-transition: background-color .4s linear, color .4s linear;
+	-o-transition: background-color .4s linear, color .4s linear;
+	-ms-transition: background-color .4s linear, color .4s linear;
+	transition: background-color .4s linear, color .4s linear;
+}
+a:hover,
+a:focus {
+  text-decoration: none;
+  color:#01b2fe;
+}
+
+::-moz-selection  {
+	color: #fff;
+	text-shadow:none;
+	background:#2B2E31;
+}
+::selection {
+	color: #fff;
+	text-shadow:none;
+	background:#2B2E31;
+}
+
+.centered {
+	text-align: center
+}
 
 

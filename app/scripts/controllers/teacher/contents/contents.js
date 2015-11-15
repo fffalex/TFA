@@ -53,22 +53,12 @@ angular.module('tfaApp')
       alert("se apreto el bicho "+id);
     }
 
-    
     coursesrv.getTeacherCourses(Parse.User.current(), {
           success: function (courses) {
               coursesArr = courses;
+              $scope.fullUnits = coursesArr[0].get('contentBlock').get('units');
               $scope.fullCourse = coursesArr[0];
               $scope.$apply();
-              
-              
-              unitsrv.getAllUnits(coursesArr[0],{
-                success: function(units){
-                    $scope.fullUnits = units;
-                    $scope.$apply();
-                },
-                error: function(error){
-                }
-              });
             }
     });
   });

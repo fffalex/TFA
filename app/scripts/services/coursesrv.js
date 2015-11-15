@@ -32,7 +32,8 @@ angular.module('tfaApp')
       
       //Obtiene todos los cursos disponibles!
       getAllCourses: function getAllCourses(cb){
-        var query = new Parse.Query('Course');
+          var query = new Parse.Query('Course');
+          query.include('arrayUnits');
           query.find({
             success: function (courses) {
               if (cb && cb.success) {
@@ -50,11 +51,14 @@ angular.module('tfaApp')
       //Obtiene los cursos asignados a un Teacher
       getTeacherCourses: function getTeacherCourse(teacher,cb){
         var query = new Parse.Query('Course');
-        query.equalTo('teacher',teacher);
+        query.equalTo('teacher', teacher);
+        query.include('contentBlock');
+        query.include('contentBlock.units');
+        query.include('contentBlock.units.arrayTopics');
         query.find({
             success: function (courses) {
-              if (cb && cb.success) {
-                cb.success(courses.toFullJSON());
+                if (cb && cb.success) {              
+                cb.success(courses);
               }
             },
             error: function (error) {
@@ -105,9 +109,6 @@ angular.module('tfaApp')
               }
             }
           });
-      }
-      
-    
-      
+        }
       };
   });

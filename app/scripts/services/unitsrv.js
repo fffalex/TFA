@@ -39,24 +39,42 @@ angular.module('tfaApp')
             //CHECKK RELATION WITH UNIT
             //topic.set('contentOnUnit', topicData.Unit ); DEprecated
             topic.save(null, {
-              success: function (top) {
-                  if (cb && cb.success) {
-                      var unit = new (Parse.Object.extend('Unit'));
-                      unit.set('id', unitData.objectId);
-                      var relation = unit.relation("topics");
-                      relation.add(topic);
-                      unit.save({
-                          success: function (r) {
-                              console.log('ok!');
-                              cb.success(top.toFullJSON());
-                          },
-                          error: function (r, error) {
-                              console.log(error);
-                              cb.error(top.toFullJSON(), error);
-                          }
-                      });
-                }
-              },
+                success: function (top) {
+                    if (cb && cb.success) {
+                        var unit = new (Parse.Object.extend('Unit'));
+                        unit.set('id', unitData.id);
+                        var topicArray = { "__type": "Pointer", "className": "Topic", "objectId": top.id };
+                        unit.add('arrayTopics', topicArray);
+                        unit.save({
+                            success: function (r) {
+                                console.log('ok!');
+                                cb.success(top);
+                            },
+                            error: function (r, error) {
+                                console.log(error);
+                                cb.error(top, error);
+                            }
+                        });
+                    }
+                },
+              //success: function (top) {
+              //    if (cb && cb.success) {
+              //        var unit = new (Parse.Object.extend('Unit'));
+              //        unit.set('id', unitData.objectId);
+              //        var relation = unit.relation("topics");
+              //        relation.add(topic);
+              //        unit.save({
+              //            success: function (r) {
+              //                console.log('ok!');
+              //                cb.success(top.toFullJSON());
+              //            },
+              //            error: function (r, error) {
+              //                console.log(error);
+              //                cb.error(top.toFullJSON(), error);
+              //            }
+              //        });
+              //  }
+              //},
               error: function (of, error) {
                 if (cb && cb.error) {
                   cb.error(of.toFullJSON(),error);
@@ -111,6 +129,83 @@ angular.module('tfaApp')
                 cb.error(error);
               }
             }
+          });
+      },
+
+
+      getAllArrayUnits: function unitGetAllUnits(cours, cb) {
+          var course = new (Parse.Object.extend('Course'));
+          if (cours.objectId) {
+              course.set('id', cours.objectId);
+          }
+          if (cours.id) {
+              course.set('id', cours.id);
+          }
+          var relation = course.relation('units');
+          var newUnits = [];
+
+          var query = relation.query();
+          query.ascending('number');
+          query.find({
+              success: function (units) {
+                  newUnits = [];
+                  var promises = [];
+
+                  units.forEach(function (res) {
+                      promises.push(res.relation('topics').query().ascending('number').find({
+                          success: function (topics) {
+                              res = res.toFullJSON();
+                              res.topicsJSON = topics.toFullJSON();
+                              newUnits.push(res);
+
+                          },
+                          error: function (sres, error) {
+                              console.log(error);
+                          }
+                      }));
+                  });
+
+                  Parse.Promise.when(promises).done(function () {
+                      //this two are assigned toggether
+                      //notify parent
+                      if (cb && cb.success) {
+                          cb.success(newUnits);
+                      }
+                  });
+              },
+              error: function (error) {
+                  if (cb && cb.error) {
+                      cb.error(error);
+                  }
+              }
+          });
+      },
+
+      getArrayTopics: function unitGetArrayTopics(cours, cb){
+          var course = new (Parse.Object.extend('Course'));
+          if (cours.objectId) {
+              course.set('id', cours.objectId);
+          }
+          if (cours.id) {
+              course.set('id', cours.id);
+          }
+          var relation = course.relation('units');
+          //Declaration for the 1st promises Units>>Topics
+          //var newUnits = [];
+
+          var query = relation.query();
+          query.ascending('number');
+          query.include('arrayTopics');
+          query.find({
+              success: function (units) {
+              
+              
+              },
+              error: function (error) {
+                  if (cb && cb.error) {
+                      cb.error(error);
+                  }
+              }
           });
       },
 
@@ -287,10 +382,6 @@ angular.module('tfaApp')
           });
       
       },
-
-
-      
-
       
       getAllTopics: function unitGetAllTopics(uni,cb){
         var unit = new (Parse.Object.extend('Unit'));
@@ -332,9 +423,9 @@ angular.module('tfaApp')
           });
       },
       
-      deleteTopic: function unitDeleteTopic(topicData, cb){
+      deleteTopic: function unitDeleteTopic(topicData, unitData, cb){
         var topic = new (Parse.Object.extend('Topic'))();
-          topic.set('id', topicData.objectId);
+          topic.set('id', topicData.id);
           topic.set('status', '0');
           topic.save(null, {
               success: function (or) {

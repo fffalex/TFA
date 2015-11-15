@@ -4,7 +4,7 @@
     <li ng-repeat="unit in fullUnits"  data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
       <div ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
       <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
-      {{unit.title}}
+      {{unit.get('title')}}
 
         <a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
             <span class="glyphicon glyphicon-remove"></span>
@@ -12,16 +12,16 @@
                 <a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
-        <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.objectId}}">
+        <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}">
             <span class="glyphicon glyphicon-edit"></span>
         </a>
 
       </div>
       <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.topics" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
-        <li ng-repeat="topic in unit.topicsJSON" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
+        <li ng-repeat="topic in unit.get('arrayTopics')" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
            <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
                 <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-down" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
-                {{topic.title}}
+                {{topic.get('title')}}
            </li>
       </ol>
     </li>

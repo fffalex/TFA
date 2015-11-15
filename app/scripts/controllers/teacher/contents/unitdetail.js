@@ -28,19 +28,34 @@ angular.module('tfaApp')
       //Initial query to set te Unit and Topic array
       var query = new Parse.Query('Unit');
       query.equalTo('objectId', objectId);
+      query.include('arrayTopics');
       query.first({
           success: function (unit) {
-              $scope.unit = unit.toFullJSON();
-              unitsrv.getAllTopics(unit, {
-                  success: function (topics) {
-                      $scope.topics = topics;
-                      $scope.currentTopic = $scope.topics[0];
-                      $scope.currentTopicCopy = angular.copy($scope.currentTopic);
-                      $scope.creating = false;
-                      $scope.$apply();
+              $scope.unit = unit
+              $scope.topics = []
+              for (var i = 0; i < unit.get('arrayTopics').length; i++) {
+                  if (unit.get('arrayTopics')[i].get('status') == 1) {
+                      $scope.topics.push(unit.get('arrayTopics')[i])
                   }
-              });
+              }
+              $scope.topics = sortByKey($scope.topics, "number");
+              $scope.currentTopic = $scope.topics[0];
+              $scope.currentTopicCopy = angular.copy($scope.currentTopic);
+              $scope.creating = false;
+              $scope.$apply();
           },
+          //success: function (unit) {
+          //    $scope.unit = unit.toFullJSON();
+          //    unitsrv.getAllTopics(unit, {
+          //        success: function (topics) {
+          //            $scope.topics = topics;
+          //            $scope.currentTopic = $scope.topics[0];
+          //            $scope.currentTopicCopy = angular.copy($scope.currentTopic);
+          //            $scope.creating = false;
+          //            $scope.$apply();
+          //        }
+          //    });
+          //},
           error: function (error) {
               $scope.error = "TODO MAL CHABON";
           }

@@ -1,3 +1,4 @@
+
 <div ng-controller="NavbarCtrl" >
 	  <div class="navbar navbar-default" role="navigation">
 	    <div class="container-fluid">
@@ -16,20 +17,20 @@
 	      <div class="collapse navbar-collapse" id="js-navbar-collapse">
 	
 	        <ul class="nav navbar-nav">
-	          <li ng-class="{active: isActive('/teacher/contents')}" ng-show="isTeacher"><a href="#/teacher/contents">Contenidos</a></li>
+	          <li ng-class="{active: isActive('/teacher/contents')}" ng-show="isTeacher"><a href="#/teacher/contents">CONTENIDOS</a></li>
 	          <!--<li ng-class="{active: isActive('/')}" ng-show="!isSeller"><a href="#/">Inicio</a></li>-->
-	          <li ng-class="{active: isActive('/seller/viewmeals')}" ng-show="isTeacher"><a href="#/seller/viewmeals">Mis Examenes</a></li>
-	          <li ng-class="{active: isActive('/seller/vieworders')}" ng-show="isTeacher"><a href="#/seller/vieworders">Mis Alumnos</a></li>
-	          <li ng-class="{active: isActive('/student/contents')}" ng-show="isStudent"><a href="#/student/contents">Mis Clases</a></li>
-	          <li ng-class="{active: isActive('/student/exams')}" ng-show="isStudent"><a href="#/student/exams">Examenes</a></li>
-	          <li ng-class="{active: isActive('/about')}"><a href="#/about">Acerca de</a></li>
+	          <li ng-class="{active: isActive('/seller/viewmeals')}" ng-show="isTeacher"><a href="#/seller/viewmeals">MIS EXÁMENES</a></li>
+	          <li ng-class="{active: isActive('/seller/vieworders')}" ng-show="isTeacher"><a href="#/seller/vieworders">MIS ALUMNOS</a></li>
+	          <li ng-class="{active: isActive('/student/contents')}" ng-show="isStudent"><a href="#/student/contents">MIS CLASES</a></li>
+	          <li ng-class="{active: isActive('/student/exams')}" ng-show="isStudent"><a href="#/student/exams">EXÁMENES</a></li>
+	          <li ng-class="{active: isActive('/about')}"><a href="#/about">ACERCA DE</a></li>
 	        </ul>
 
 	        <ul class="nav navbar-nav navbar-right">
-	          <li ng-class="{active: isActive('/login')}" ng-hide="isLoggedIn"><a href="#/login">Iniciar Sesión</a></li>
-	          <li ng-class="{active: isActive('/signup')}" ng-hide="isLoggedIn"><a href="#/signup">Registrarse</a></li>
-	          <li ng-class="{active: isActive('/logout')}" ng-show="isLoggedIn"><a href="#/logout">Cerrar Sesión</a></li>
-	          <li ng-class="{active: isActive('/profile')}" ng-show="isLoggedIn"><a href="#/user/profile">Hola {{ actUser.name }} <span class="glyphicon glyphicon-user"></span></a></li>
+	          <li ng-class="{active: isActive('/login')}" ng-hide="isLoggedIn"><a href="#/login">INICIAR SESIÓN</a></li>
+	          <li ng-class="{active: isActive('/signup')}" ng-hide="isLoggedIn"><a href="#/signup">REGISTRARTE</a></li>
+	          <li ng-class="{active: isActive('/logout')}" ng-show="isLoggedIn"><a href="#/logout">CERRAR SESIÓN</a></li>
+	          <li ng-class="{active: isActive('/profile')}" ng-show="isLoggedIn"><a href="#/user/profile">HOLA {{ actUser.name }} <span class="glyphicon glyphicon-user"></span></a></li>
 			</ul>
 
 	      </div>

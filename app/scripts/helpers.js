@@ -188,6 +188,13 @@ Parse.Object.prototype.toFullJSON = function() {
   return json;
 };
 
+function sortByKey(array, key) {
+    return array.sort(function (a, b) {
+        var x = a.get(key); var y = b.get(key);
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+
 Parse.Collection.prototype.toFullJSON = function() {
   return this.map(function(model){ return model.toFullJSON(); });
 };
