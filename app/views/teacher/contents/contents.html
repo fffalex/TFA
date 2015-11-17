@@ -1,29 +1,87 @@
 {{fullCourse.year}}
-<div ui-tree class="ng-scope angular-ui-tree">
-  <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="course" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
-    <li ng-repeat="unit in fullUnits"  data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
-      <div ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
-      <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
-      {{unit.get('title')}}
-
-        <a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
-            <span class="glyphicon glyphicon-remove"></span>
-        </a>
-                <a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
-            <span class="glyphicon glyphicon-plus"></span>
-        </a>
-        <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}">
-            <span class="glyphicon glyphicon-edit"></span>
-        </a>
-
-      </div>
-      <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.topics" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
-        <li ng-repeat="topic in unit.get('arrayTopics')" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
-           <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
-                <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-down" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
-                {{topic.get('title')}}
-           </li>
-      </ol>
-    </li>
-  </ol>
+<div class="row">
+        <ul class="dropdown">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">Cursos<b class="caret"></b></a>
+            <ul ng-repeat="course in fullCourses" class="dropdown-menu">
+                <li><a href="">{{course.get('schoolYear')}} - {{course.get('year')}} {{course.get('division')}}, {{course.get('turn')}}</a></li>
+            </ul>
+        </ul>
 </div>
+
+<div class="col-md-12">
+    <div class="col-md-6">
+        <div class="box">
+            <div class="box-icon-2">
+                <span class="number-font">Temas</span>
+            </div>
+            <div ui-tree class="ng-scope angular-ui-tree">
+                <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="selectedCourse.get('contentBlock')" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
+                    <li ng-repeat="unit in selectedCourse.get('contentBlock').get('units')" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
+                        <div ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
+                            <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
+                            {{unit.get('title')}}
+
+                            <a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                            <!--<a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>-->
+                            <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+
+                        </div>
+                        <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.get('arrayTopics')" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
+                            <li ng-repeat="topic in unit.get('arrayTopics')" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
+                                <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
+                                    
+                                    {{topic.get('title')}}
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+        <div class="box">
+            <div class="box-icon-2">
+                <span class="number-font">Mis Bloques de Contenidos</span>
+            </div>
+            <div ui-tree class="ng-scope angular-ui-tree">
+                <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="selectedCourse.get('contentBlock')" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
+                    <li ng-repeat="unit in selectedCourse.get('contentBlock').get('units')" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
+                        <div ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
+                            <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
+                            {{unit.get('title')}}
+
+                            <a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                            <!--<a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>-->
+                            <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+
+                        </div>
+                        <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.get('arrayTopics')" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
+                            <li ng-repeat="topic in unit.get('arrayTopics')" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
+                                <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
+
+                                    {{topic.get('title')}}
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+

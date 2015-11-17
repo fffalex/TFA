@@ -45,9 +45,9 @@ angular.module('tfaApp')
 //    $scope.course = {title:'curso1',units:units};
     
     //courses call
-    $scope.fullCourse = {};
+    $scope.selectedCourse = {};
     $scope.fullUnits = [];
-    var coursesArr = [];
+    $scope.fullCourses = [];
     
     $scope.show = function show(id){
       alert("se apreto el bicho "+id);
@@ -55,9 +55,9 @@ angular.module('tfaApp')
 
     coursesrv.getTeacherCourses(Parse.User.current(), {
           success: function (courses) {
-              coursesArr = courses;
-              $scope.fullUnits = coursesArr[0].get('contentBlock').get('units');
-              $scope.fullCourse = coursesArr[0];
+              $scope.fullCourses = courses;
+              //$scope.fullUnits = $scope.fullCourses[0].get('contentBlock').get('units');
+              $scope.selectedCourse = $scope.fullCourses[0];
               $scope.$apply();
             }
     });

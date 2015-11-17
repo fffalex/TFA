@@ -51,14 +51,20 @@ angular.module('tfaApp')
       //Obtiene los cursos asignados a un Teacher
       getTeacherCourses: function getTeacherCourse(teacher,cb){
         var query = new Parse.Query('Course');
-        query.equalTo('teacher', teacher);
         query.include('contentBlock');
+        //query.equalTo('contentBlock.teacher', teacher);
         query.include('contentBlock.units');
         query.include('contentBlock.units.arrayTopics');
         query.find({
             success: function (courses) {
+                var teacherCourses = [];
+                for (var i = 0; i < courses.length; i++) {
+                    if (courses[i].get('contentBlock').get('teacher').get('id') === teacher.get('id')) {
+                        teacherCourses.push(courses[i]);
+                    }
+                }
                 if (cb && cb.success) {              
-                cb.success(courses);
+                cb.success(teacherCourses);
               }
             },
             error: function (error) {
