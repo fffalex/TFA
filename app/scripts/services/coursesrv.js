@@ -54,7 +54,7 @@ angular.module('tfaApp')
         query.include('contentBlock');
         //query.equalTo('contentBlock.teacher', teacher);
         query.include('contentBlock.units');
-        query.include('contentBlock.units.arrayTopics');
+        query.include('contentBlock.units.topics');
         query.find({
             success: function (courses) {
                 var teacherCourses = [];

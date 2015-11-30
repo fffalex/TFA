@@ -44,7 +44,7 @@ angular.module('tfaApp')
                         var unit = new (Parse.Object.extend('Unit'));
                         unit.set('id', unitData.id);
                         var topicArray = { "__type": "Pointer", "className": "Topic", "objectId": top.id };
-                        unit.add('arrayTopics', topicArray);
+                        unit.add('topics', topicArray);
                         unit.save({
                             success: function (r) {
                                 console.log('ok!');
@@ -57,6 +57,7 @@ angular.module('tfaApp')
                         });
                     }
                 },
+
               //success: function (top) {
               //    if (cb && cb.success) {
               //        var unit = new (Parse.Object.extend('Unit'));
@@ -83,6 +84,7 @@ angular.module('tfaApp')
             });
         },
 
+
       modifyTopic: function unitModifyTopic(topicData, cb) {
           var topic = new (Parse.Object.extend('Topic'))();
           topic.set('id', topicData.objectId);
@@ -106,7 +108,7 @@ angular.module('tfaApp')
           var query = new Parse.Query('ContentBlock');
           query.equalTo('teacher', teacher);
           query.include('contentBlock.units');
-          query.include('contentBlock.units.arrayTopics');
+          query.include('contentBlock.units.topics');
           query.find({
               success: function (contentBlocks) {
                   if (cb && cb.success) {              

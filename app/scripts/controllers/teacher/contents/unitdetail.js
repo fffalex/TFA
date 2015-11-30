@@ -28,14 +28,14 @@ angular.module('tfaApp')
       //Initial query to set te Unit and Topic array
       var query = new Parse.Query('Unit');
       query.equalTo('objectId', objectId);
-      query.include('arrayTopics');
+      query.include('topics');
       query.first({
           success: function (unit) {
               $scope.unit = unit
               $scope.topics = []
-              for (var i = 0; i < unit.get('arrayTopics').length; i++) {
-                  if (unit.get('arrayTopics')[i].get('status') == 1) {
-                      $scope.topics.push(unit.get('arrayTopics')[i])
+              for (var i = 0; i < unit.get('topics').length; i++) {
+                  if (unit.get('topics')[i].get('status') == 1) {
+                      $scope.topics.push(unit.get('topics')[i])
                   }
               }
               $scope.topics = sortByKey($scope.topics, "number");
