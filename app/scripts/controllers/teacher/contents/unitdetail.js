@@ -18,31 +18,40 @@ angular.module('tfaApp')
       //For create new Topic
       $scope.newTitle = '';
       $scope.newNumber = '';
-      $scope.newContent = 'Escriba su contenido aqu�';
+      $scope.newContent = 'Escriba su contenido aquí';
 
       //Take objectID to query from the routeParams
       var objectId = 0;
       if ($routeParams) {
           objectId = $routeParams.objectId
       }
+      var defaultTopic = new (Parse.Object.extend('Topic'));
+      defaultTopic.set('number',1);
+      defaultTopic.set('title','No posee ningún tema para esta unidad');
+      defaultTopic.set('content','Seleccione crear tema');
       //Initial query to set te Unit and Topic array
       var query = new Parse.Query('Unit');
       query.equalTo('objectId', objectId);
       query.include('topics');
       query.first({
           success: function (unit) {
-              $scope.unit = unit
-              $scope.topics = []
-              for (var i = 0; i < unit.get('topics').length; i++) {
-                  if (unit.get('topics')[i].get('status') == 1) {
-                      $scope.topics.push(unit.get('topics')[i])
-                  }
+              $scope.unit = unit;
+              $scope.topics = [];
+              if (unit.get('topics') !== undefined){
+                for (var i = 0; i < unit.get('topics').length; i++) {
+                    if (unit.get('topics')[i].get('status') == 1) {
+                        $scope.topics.push(unit.get('topics')[i]);
+                    }
+                }
+                $scope.topics = sortByKey($scope.topics, "number");
+                $scope.currentTopic = $scope.topics[0];
+                $scope.currentTopicCopy = angular.copy($scope.currentTopic);
+                $scope.creating = false;
+                $scope.$apply();
+              }else {
+                $scope.currentTopic = defaultTopic;
+                $scope.$apply();
               }
-              $scope.topics = sortByKey($scope.topics, "number");
-              $scope.currentTopic = $scope.topics[0];
-              $scope.currentTopicCopy = angular.copy($scope.currentTopic);
-              $scope.creating = false;
-              $scope.$apply();
           },
           //success: function (unit) {
           //    $scope.unit = unit.toFullJSON();

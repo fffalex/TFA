@@ -51,7 +51,12 @@ angular.module('tfaApp')
     
       $scope.show = function show(id){
           alert("se apreto el bicho "+id);
-      }
+      };
+      
+      $scope.selectCourse = function(index){
+        $scope.selectedCourse = $scope.fullCourses[index];
+        $scope.apply();
+      };
 
       coursesrv.getTeacherCourses(Parse.User.current(), {
           success: function (courses) {

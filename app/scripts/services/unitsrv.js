@@ -107,8 +107,8 @@ angular.module('tfaApp')
       getAllTeacherContentBlocks: function unitGeAllContentBlocks(teacher,cb){
           var query = new Parse.Query('ContentBlock');
           query.equalTo('teacher', teacher);
-          query.include('contentBlock.units');
-          query.include('contentBlock.units.topics');
+          query.include('units');
+          query.include('units.topics');
           query.find({
               success: function (contentBlocks) {
                   if (cb && cb.success) {              

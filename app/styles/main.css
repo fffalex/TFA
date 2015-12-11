@@ -871,6 +871,7 @@ div.offer-line {
     background: #f4f6f7;
     border-color: #dce2e8;
     cursor: default !important;
+
 }
 
 .angular-ui-tree-placeholder {
@@ -1022,6 +1023,7 @@ div.offer-line {
 
 .dropdown-menu {
 	background: #384452;
+        padding: 15px !important;
 }
 
 .dropdown-menu > li > a {
@@ -1165,9 +1167,21 @@ a:focus {
 	text-shadow:none;
 	background:#2B2E31;
 }
+/*
+!!!!!!!!!!!!! END THEME
+*/
+
 
 .centered {
 	text-align: center
+}
+
+.hand{
+    cursor: pointer;
+}
+
+.caret{
+    width: 13px;
 }
 
 
