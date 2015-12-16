@@ -10,15 +10,29 @@
 angular.module('tfaApp')
   .factory('unitsrv', function () {
     return {
-        createUnit: function unitCreateUnit(unitData,cb) {
+        createUnit: function unitCreateUnit(unitData,blockData,cb) {
             var unit = new (Parse.Object.extend('Unit'));
             unit.set('title', unitData.title);
             unit.set('number', unitData.number);
             unit.set('description', unitData.description);
+            unit.set('status', '1');
             unit.save(null, {
-              success: function (of) {
+              success: function (un) {
                 if (cb && cb.success) {
-                  cb.success(of.toFullJSON());
+                    var block = new (Parse.Object.extend('ContentBlock'));
+                    block.set('id', blockData.id);
+                    var unitArray = { "__type": "Pointer", "className": "Unit", "objectId": un.id };
+                    block.add('units', topicArray);
+                    block.save({
+                        success: function (r) {
+                            console.log('ok!');
+                            cb.success(un);
+                        },
+                        error: function (r, error) {
+                            console.log(error);
+                            cb.error(top, error);
+                        }
+                    });
                 }
               },
               error: function (of, error) {
@@ -57,25 +71,6 @@ angular.module('tfaApp')
                         });
                     }
                 },
-
-              //success: function (top) {
-              //    if (cb && cb.success) {
-              //        var unit = new (Parse.Object.extend('Unit'));
-              //        unit.set('id', unitData.objectId);
-              //        var relation = unit.relation("topics");
-              //        relation.add(topic);
-              //        unit.save({
-              //            success: function (r) {
-              //                console.log('ok!');
-              //                cb.success(top.toFullJSON());
-              //            },
-              //            error: function (r, error) {
-              //                console.log(error);
-              //                cb.error(top.toFullJSON(), error);
-              //            }
-              //        });
-              //  }
-              //},
               error: function (of, error) {
                 if (cb && cb.error) {
                   cb.error(of.toFullJSON(),error);
@@ -91,6 +86,26 @@ angular.module('tfaApp')
           topic.set('title', topicData.title);
           topic.set('content', topicData.content);
           topic.save(null, {
+              success: function (or) {
+                  if (cb && cb.success) {
+                      cb.success(or.toFullJSON());
+                  }
+              },
+              error: function (or, error) {
+                  if (cb && cb.error) {
+                      cb.error(or.toFullJSON(), error);
+                  }
+              }
+          });
+      },
+
+      modifyUnit: function unitModifyTopic(unitData, cb) {
+          var unit = new (Parse.Object.extend('Unit'))();
+          unit.set('id', unitData.objectId);
+          unit.set('title', unitData.title);
+          unit.set('description', unitData.content);
+          unit.set('number', unitData.number);
+          unit.save(null, {
               success: function (or) {
                   if (cb && cb.success) {
                       cb.success(or.toFullJSON());
@@ -128,6 +143,24 @@ angular.module('tfaApp')
           topic.set('id', topicData.id);
           topic.set('status', '0');
           topic.save(null, {
+              success: function (or) {
+                  if (cb && cb.success) {
+                      cb.success(or.toFullJSON());
+                  }
+              },
+              error: function (or, error) {
+                  if (cb && cb.error) {
+                      cb.error(or.toFullJSON(), error);
+                  }
+              }
+          });
+      },
+
+      deleteUnit: function unitDeleteTopic(unitData, blockData, cb) {
+          var unit = new (Parse.Object.extend('Unit'))();
+          unit.set('id', unitData.id);
+          unit.set('status', '0');
+          unit.save(null, {
               success: function (or) {
                   if (cb && cb.success) {
                       cb.success(or.toFullJSON());

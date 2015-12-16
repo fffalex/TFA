@@ -1184,4 +1184,8 @@ a:focus {
     width: 13px;
 }
 
+.bg-red {
+    background-color:#995b46 !important;
+}
+
 
