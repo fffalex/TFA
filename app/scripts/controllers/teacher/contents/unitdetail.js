@@ -96,6 +96,10 @@ angular.module('tfaApp')
           $scope.editable = false;
       };
 
+      $scope.cancelCreation = function(){
+        $scope.creating = false;
+      }
+
       //creating view on
       $scope.showCreatingTopic = function () {
           $scope.creating = true;
@@ -131,7 +135,7 @@ angular.module('tfaApp')
                       $scope.topics.push(newTopic);
                       $scope.currentTopicCopy = angular.copy($scope.currentTopic);
                       $scope.$apply();
-                      
+
                   },
                   error: function (newTopic, error) {
                       $scope.error = getErrorDesc(error);
@@ -139,10 +143,11 @@ angular.module('tfaApp')
                   }
               });
           }
-          
+
       };
 
-      //Save new topic to parse 
+
+      //Save new topic to parse
       $scope.saveEditedTopic = function () {
           unitsrv.modifyTopic($scope.currentTopic, {
               success: function () {
@@ -160,12 +165,12 @@ angular.module('tfaApp')
 
 
       };
-      
+
       $scope.setTopicToDelete= function(index){
-        $scope.toDeleteTopic = $scope.topics[index]; 
+        $scope.toDeleteTopic = $scope.topics[index];
         $scope.$apply();
       };
-      
+
       $scope.deleteTopic = function(){
         unitsrv.deleteTopic($scope.toDeleteTopic, {
               success: function () {
@@ -180,11 +185,6 @@ angular.module('tfaApp')
                   $scope.$apply();
               }
           });
-        
+
       };
   });
-    
-
-    
-
-

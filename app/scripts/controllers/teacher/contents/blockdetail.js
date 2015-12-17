@@ -125,9 +125,9 @@ angular.module('tfaApp')
                       $scope.editable = false;
                       $scope.creating = false;
                       $scope.error = '';
-                      $scope.success = "Has agregado un nuevo topic correctamente";
+                      $scope.success = "Has agregado una nueva unidad correctamente";
                       $scope.currentUnit = newUnit;
-                      $scope.topics.push(newUnit);
+                      $scope.units.push(newUnit);
                       $scope.currentUnitCopy = angular.copy($scope.currentUnit);
                       $scope.$apply();
 
@@ -141,7 +141,12 @@ angular.module('tfaApp')
 
       };
 
-      //Save new topic to parse 
+      //Cancel creation view
+      $scope.cancelCreation = function(){
+        $scope.creating = false;
+      }
+
+      //Save new topic to parse
       $scope.saveEditedUnit = function () {
           unitsrv.modifyUnit($scope.currentUnit, {
               success: function () {
@@ -182,8 +187,3 @@ angular.module('tfaApp')
 
       };
   });
-
-
-
-
-

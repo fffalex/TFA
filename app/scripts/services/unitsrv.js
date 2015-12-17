@@ -22,7 +22,7 @@ angular.module('tfaApp')
                     var block = new (Parse.Object.extend('ContentBlock'));
                     block.set('id', blockData.id);
                     var unitArray = { "__type": "Pointer", "className": "Unit", "objectId": un.id };
-                    block.add('units', topicArray);
+                    block.add('units', unitArray);
                     block.save({
                         success: function (r) {
                             console.log('ok!');
@@ -30,7 +30,7 @@ angular.module('tfaApp')
                         },
                         error: function (r, error) {
                             console.log(error);
-                            cb.error(top, error);
+                            cb.error(un, error);
                         }
                     });
                 }
@@ -42,7 +42,7 @@ angular.module('tfaApp')
               }
             });
         },
-        
+
         createTopic: function unitCreateTopic (topicData, unitData ,cb) {
             var topic = new (Parse.Object.extend('Topic'));
             topic.set('title', topicData.title);
@@ -126,7 +126,7 @@ angular.module('tfaApp')
           query.include('units.topics');
           query.find({
               success: function (contentBlocks) {
-                  if (cb && cb.success) {              
+                  if (cb && cb.success) {
                       cb.success(contentBlocks);
                   }
               },
@@ -135,9 +135,9 @@ angular.module('tfaApp')
                       cb.error(error);
                   }
               }
-          });      
+          });
       },
-      
+
       deleteTopic: function unitDeleteTopic(topicData, unitData, cb){
         var topic = new (Parse.Object.extend('Topic'))();
           topic.set('id', topicData.id);
@@ -175,7 +175,3 @@ angular.module('tfaApp')
       }
     };
   });
-
-  
-  
-  

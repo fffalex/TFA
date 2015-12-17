@@ -32,7 +32,7 @@
     border-color: transparent;
 }
 
-/*.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus { 
+/*.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
     background-color: rgb(225, 228, 247) !important;
 }*/
 
@@ -181,20 +181,20 @@ input.editable-input:focus {
     resize: none;
 }
 
-::-webkit-input-placeholder { 
+::-webkit-input-placeholder {
     font-family: 'Lato', sans-serif;
     font-style: italic;
     font-weight: bold;
 }
 
-:-moz-placeholder { 
+:-moz-placeholder {
     opacity: 1;
     font-family: 'Lato', sans-serif;
     font-style: italic;
     font-weight: bold;
 }
 
-::-moz-placeholder { 
+::-moz-placeholder {
     opacity: 1;
     font-family: 'Lato', sans-serif;
     font-style: italic;
@@ -275,7 +275,7 @@ input.editable-input:focus {
     font-weight: 600;
 }
 
-.container-main h3.margin-top-0 { 
+.container-main h3.margin-top-0 {
     margin-top: 0px;
 }
 
@@ -639,7 +639,7 @@ input.editable-input:focus {
 /*.order-modal input[type="text"]{
   margin-top: 5%;
   margin-bottom: 5%;
-      
+
 }*/
 .order-modal .modal-content{
     border-radius: 0;
@@ -655,7 +655,7 @@ input.editable-input:focus {
 .container-ordermeal .btn-default.btn3:focus,
 .container-createmeal .btn-default.btn3:focus,
 .container-myorders .btn-default.btn3:focus,
-.container-vieworders .btn-default.btn3:focus, 
+.container-vieworders .btn-default.btn3:focus,
 .order-modal .btn-default.btn3:focus {
     -webkit-box-shadow: 0 0 5px 2px #969696;
     -moz-box-shadow: 0 0 5px 2px #969696;
@@ -888,7 +888,7 @@ div.offer-line {
     color: #FFF !important;
 }
 
-/* For 
+/* For
    Unit tittle and content
 */
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
@@ -899,9 +899,29 @@ div.offer-line {
     padding: 10px 25px;
     display: block;
     margin-top: 60px;
+    position: relative;
 }
 .box ul{
     padding:0;
+}
+
+.bg-blue{
+  background-color: ##6A9CAD !important;
+}
+.bg-darkblue{
+  background-color: #468499 !important;
+}
+.bg-red{
+  background-color: #662244 !important;
+}
+.bg-darkred{
+  background-color: #531C37 !important;
+}
+
+.top-corner {
+    position: absolute;
+    top: 5px;
+    right: 0px;
 }
 .box-icon {
     font-size: 50px !important;
@@ -1106,15 +1126,15 @@ div.offer-line {
 /*	################################################################
 	1. GENERAL STRUCTURES
 ################################################################# */
-	* { 
+	* {
 		margin: 0;
 		padding: 0px;
-	} 
+	}
 
-body { 
-	background: #ffffff; 
-	margin: 0; 
-	height: 100%; 
+body {
+	background: #ffffff;
+	margin: 0;
+	height: 100%;
 	color: #384452;
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;
@@ -1125,15 +1145,15 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 700;
 }
 
-p { 
-	padding: 0; 
-	margin-bottom: 12px; 
+p {
+	padding: 0;
+	margin-bottom: 12px;
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;
-	font-size: 14px; 
+	font-size: 14px;
 	line-height: 24px;
-	color: #384452; 
-	margin-top: 10px; 
+	color: #384452;
+	margin-top: 10px;
 }
 
 img {
@@ -1141,10 +1161,10 @@ img {
 	max-width: 100%;
 }
 
-a { 
+a {
 	padding: 0;
 	margin: 0;
-	text-decoration: none; 
+	text-decoration: none;
 	-webkit-transition: background-color .4s linear, color .4s linear;
 	-moz-transition: background-color .4s linear, color .4s linear;
 	-o-transition: background-color .4s linear, color .4s linear;
@@ -1183,9 +1203,3 @@ a:focus {
 .caret{
     width: 13px;
 }
-
-.bg-red {
-    background-color:#995b46 !important;
-}
-
-
