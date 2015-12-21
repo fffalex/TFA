@@ -13,97 +13,122 @@
             <h2>DETALLES DE LA UNIDAD</h2>
         </div>
 
-            <div class="col-md-12">
-                <div class="box" style="background-color: #F5F8F9">
+        <div class="col-md-12">
+            <div class="box" style="background-color: #F5F8F9">
 
-                    <div class="box-icon bg-darkblue">
-                        <span class="number-font">{{unit.get('number')}}</span>
-                    </div>
-                    <div class="info">
-                        <h4 class="text-center">{{unit.get('title')}}</h4>
-                        <p>{{unit.get('description')}}</p>
-                    </div>
+                <div class="box-icon bg-darkblue">
+                    <span class="number-font">{{unit.get('number')}}</span>
                 </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="col-md-3">
-                    <div class="box" style="background-color: #F5F8F9">
-                        <div class="box-icon-2 bg-darkblue">
-                            <span class="number-font">Temas</span>
-                        </div>
-                        <ul class="">
-                            <li ng-repeat="topic in topics" class="angular-ui-tree-node">
-                                <div class="angular-ui-tree-handle" style="text-align: left">
-                                    <span ng-click="showTopic($index)"> {{topic.get('number')}} - {{topic.get('title')}} </span>
-                                    <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setTopicToDelete($index)">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                    <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}">
-                                        <span ng-click="switchEditMode($index)" class="glyphicon glyphicon-edit"></span>
-                                    </a>
-
-                                </div>
-                            </li>
-                        </ul>
-                        <button ng-disabled="editable" class="btn btn-default" ng-click="showCreatingTopic()">Nuevo Tema</button>
-                    </div>
+                <div class="info">
+                    <h4 class="text-center">{{unit.get('title')}}</h4>
+                    <p>{{unit.get('description')}}</p>
                 </div>
-
-                <div class="col-md-9">
-
-                    <div class="box">
-                        <div class="box-icon-3 bg-blue">
-                            <span class="number-font">{{currentTopic.get('number')}}</span>
-                        </div>
-
-                        <div>
-                            <h3 class="text-center">{{currentTopic.get('title')}}</h3>
-                            <p>{{currentTopic.get('description')}}</p>
-
-                        </div>
-                        <button ng-if="!editable && !creating" ng-click="switchEditMode()" class="btn btn-default btn3">Editar Contenido</button>
-                        <div ng-if="editable" class="not-available">
-                            <span class="glyphicon glyphicon-edit"></span>
-                            <h1>MODO EDICION</h1>
-                        </div>
-
-                        <div ng-if="!editable && !creating">
-                            <div ta-bind="text" ng-model="currentTopic.get('content')" ta-readonly='disabled'></div>
-                        </div>
-
-                        <div ng-if="editable && !creating">
-                            <div text-angular="text-angular" name="htmlcontent" ng-model="currentTopic.content" ta-disabled='false'></div>
-
-                            <div>
-                                <button ng-click="saveEditedTopic()" class="btn btn-default btn3">Guardar Cambios</button>
-                                <button data-toggle="modal" data-target="#cancelModal" class="btn btn-default">Cancelar Cambios</button>
-                            </div>
-                        </div>
-
-                        <div ng-if="creating">
-                            <div class="form-group signup-input">
-                                <p class="order-label"><strong>Número de tema</strong></p>
-                                <input type="number" class="form-control" ng-model="newNumber" required>
-                            </div>
-                            <div class="form-group signup-input">
-                                <p class="order-label"><strong>Título</strong></p>
-                                <input type="text" class="form-control" ng-model="newTitle" required>
-                                <p>{{newNumber}}</p>
-                            </div>
-                            <p class="order-label"><strong>Editor de contenido</strong></p>
-                            <div>
-                                <div text-angular="text-angular" name="htmlcontent" ng-model="newContent" ta-disabled='false'></div>
-
-                            </div>
-                            <button class="btn btn-default" ng-click="createNewTopic(newNumber, newTitle, newContent)">Crear Nuevo Topico</button>
-                            <button class="btn btn-default" ng-click="cancelCreation()">Cancelar</button>
-                        </div>
-
-                    </div>
+                
+                <div class="top-corner">
+                  <a href="#/teacher/contents/blockdetail/{{blockId}}/{{unitId}}"  class=" btn btn-default btn-xs">
+                      <span  class="glyphicon glyphicon-arrow-left"></span>
+                  </a>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="box" style="background-color: #F5F8F9">
+                    <div class="box-icon-2 bg-darkblue">
+                        <span class="number-font">Temas</span>
+                    </div>
+                    <ul class="">
+                        <li ng-repeat="topic in topics" class="angular-ui-tree-node">
+                            <div class="angular-ui-tree-handle" style="text-align: left">
+                                <span ng-click="showTopic($index)"> {{topic.get('number')}} - {{topic.get('title')}} </span>
+                                <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setTopicToDelete($index)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}">
+                                    <span ng-click="switchEditMode($index)" class="glyphicon glyphicon-edit"></span>
+                                </a>
+
+                            </div>
+                        </li>
+                    </ul>
+                    <button ng-disabled="editable" class="btn btn-default" ng-click="showCreatingTopic()">Nuevo Tema</button>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="box">
+                    <div class="box-icon-3 bg-blue">
+                        <span class="number-font">{{currentTopic.get('number')}}</span>
+                    </div>
+
+                    <div>
+                        <h3 class="text-center">{{currentTopic.get('title')}}</h3>
+                        <p>{{currentTopic.get('description')}}</p>
+
+                    </div>
+                    <div ng-if="!editable && !creating" class="top-corner">
+                        <a ng-click="switchEditMode($index)" class=" btn btn-default btn-xs">
+                            <span  class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-default btn-xs">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </div>
+                    <div data-toggle="modal" data-target="#cancelModal" ng-if="editable" class="top-corner">
+                        <a class=" btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
+                    <div ng-if="creating" class="top-corner">
+                        <a data-toggle="modal" data-target="#cancelModal" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
+
+
+                    <div ng-if="editable" class="not-available">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        <h1>MODO EDICION</h1>
+                    </div>
+
+                    <div ng-if="!editable && !creating">
+                        <div ta-bind="text" ng-model="currentTopic.get('content')" ta-readonly='disabled'></div>
+                    </div>
+
+                    <div ng-if="editable && !creating">
+                        <div text-angular="text-angular" name="htmlcontent" ng-model="currentTopic.content" ta-disabled='false'></div>
+
+                        <div>
+                            <button ng-click="saveEditedTopic()" class="btn btn-default btn3">Guardar Cambios</button>
+                            <button data-toggle="modal" data-target="#cancelModal" class="btn btn-default">Cancelar Cambios</button>
+                        </div>
+                    </div>
+
+                    <div ng-if="creating">
+                        <div class="form-group signup-input">
+                            <p class="order-label"><strong>Número de tema</strong></p>
+                            <input type="number" class="form-control" ng-model="newNumber" required>
+                        </div>
+                        <div class="form-group signup-input">
+                            <p class="order-label"><strong>Título</strong></p>
+                            <input type="text" class="form-control" ng-model="newTitle" required>
+                            <p>{{newNumber}}</p>
+                        </div>
+                        <p class="order-label"><strong>Editor de contenido</strong></p>
+                        <div>
+                            <div text-angular="text-angular" name="htmlcontent" ng-model="newContent" ta-disabled='false'></div>
+
+                        </div>
+                        <button class="btn btn-default" ng-click="createNewTopic(newNumber, newTitle, newContent)">Crear Nuevo Topico</button>
+                        <button class="btn btn-default" ng-click="cancelCreation()">Cancelar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

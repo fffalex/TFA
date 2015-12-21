@@ -22,15 +22,19 @@ angular.module('tfaApp')
 
       //Take objectID to query from the routeParams
       var objectId = 0;
+      var unitId = 0;
       if ($routeParams) {
-          objectId = $routeParams.objectId
+          objectId = $routeParams.objectId;
+          unitId = $routeParams.secondId;
       }
+      $scope.blockId = objectId;
       var defaultUnit = new (Parse.Object.extend('Unit'));
       defaultUnit.set('number', 1);
       defaultUnit.set('title', 'No posee ningún tema para esta unidad');
       defaultUnit.set('content', 'Seleccione crear tema');
       //Initial query to set te Unit and Topic array
       var query = new Parse.Query('ContentBlock');
+      var flagUnitId = false
       query.equalTo('objectId', objectId);
       query.include('units');
       query.first({
@@ -41,11 +45,20 @@ angular.module('tfaApp')
                   for (var i = 0; i < block.get('units').length; i++) {
                       if (block.get('units')[i].get('status') == 1) {
                           $scope.units.push(block.get('units')[i]);
+                          
+                          if(block.get('units')[i].id == unitId){
+                             $scope.currentUnit= block.get('units')[i];
+                             $scope.currentUnitCopy = angular.copy($scope.currentUnit);
+                             flagUnitId = true;
+                          }
                       }
                   }
                   $scope.units = sortByKey($scope.units, "number");
-                  $scope.currentUnit= $scope.units[0];
-                  $scope.currentUnitCopy = angular.copy($scope.currentUnit);
+                  if(!flagUnitId){
+                    $scope.currentUnit= $scope.units[0];
+                    $scope.currentUnitCopy = angular.copy($scope.currentUnit);
+                  }
+
                   $scope.creating = false;
                   $scope.$apply();
               } else {
@@ -94,6 +107,7 @@ angular.module('tfaApp')
       $scope.cancelEdition = function () {
           $scope.currentUnit = angular.copy($scope.currentUnitCopy);
           $scope.editable = false;
+          $scope.creating = false;
       };
 
       //creating view on
@@ -140,11 +154,6 @@ angular.module('tfaApp')
           }
 
       };
-
-      //Cancel creation view
-      $scope.cancelCreation = function(){
-        $scope.creating = false;
-      }
 
       //Save new topic to parse
       $scope.saveEditedUnit = function () {

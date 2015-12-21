@@ -117,12 +117,12 @@ angular
         controller: 'TeacherContentsCtrl',
         access: 'teacher'
       })
-      .when('/teacher/contents/unitdetail/:objectId', {
+      .when('/teacher/contents/unitdetail/:objectId/:secondId/:blockId', {
         templateUrl: 'views/teacher/contents/unitdetail.html',
         controller: 'TeacherUnitdetailCtrl',
         access: 'teacher'
       })
-      .when('/teacher/contents/blockdetail/:objectId', {
+      .when('/teacher/contents/blockdetail/:objectId/:secondId', {
           templateUrl: 'views/teacher/contents/blockdetail.html',
           controller: 'TeacherBlockdetailCtrl',
           access: 'teacher'
