@@ -484,12 +484,6 @@ input.editable-input:focus {
 .container-main .btn-default.btn3,
 .container-signup .btn-default.btn3,
 .container-login .btn-default.btn3,
-.container-offermeal .btn-default.btn3,
-.container-ordermeal .btn-default.btn3,
-.container-createmeal .btn-default.btn3,
-.container-myorders .btn-default.btn3,
-.container-vieworders .btn-default.btn3,
-.container-seller-home .btn-default.btn3,
 .order-modal .btn-default.btn3,
 .container-profile .btn-default.btn3{
     box-shadow: none;
@@ -511,10 +505,6 @@ input.editable-input:focus {
 }
 
 .order-modal .btn-default.btn3.btn2,
-.container-offermeal .btn-default.btn3.btn2,
-.container-myorders .btn-default.btn3.btn2,
-.container-vieworders .btn-default.btn3.btn2,
-.container-seller-home .btn-default.btn3.btn2,
 .container-main .btn-default.btn3.btn2 {
     background: #EEE;
     color: #333;
@@ -534,16 +524,7 @@ input.editable-input:focus {
     margin: 1em 0 0 0;
 }
 
-.container-offermeal .btn-default.btn3.btn2,
-.container-myorders .btn-default.btn3.btn2,
-.container-vieworders .btn-default.btn3.btn2,
-.container-seller-home .btn-default.btn3,
-.container-seller-home .btn-default.btn3.btn2,
-.container-main .btn-default.btn3.btn2,
-.container-offermeal .btn-default.btn3.btn-pagination,
-.container-ordermeal .btn-default.btn3.btn-pagination,
-.container-vieworders .btn-default.btn3,
-.container-myorders .btn-default.btn3  {
+.container-main .btn-default.btn3.btn2 {
     padding: 0 15px 0 15px;
 }
 
@@ -558,35 +539,14 @@ input.editable-input:focus {
     padding:0;
 }
 
-/*.container-signup .btn-default.btn3,
-.container-login .btn-default.btn3,
-.container-offermeal .btn-default.btn3,
-.container-ordermeal .btn-default.btn3,
-.container-createmeal .btn-default.btn3,
-.container-myorders .btn-default.btn3,
-.container-vieworders .btn-default.btn3,
-.order-modal .btn-default.btn3  {
-  line-height: 34px;
-}*/
-
 .container-main .btn-default.btn3:hover,
 .container-signup .btn-default.btn3:hover,
-.container-login .btn-default.btn3:hover,
-.container-offermeal .btn-default.btn3:hover,
-.container-ordermeal .btn-default.btn3:hover,
-.container-createmeal .btn-default.btn3:hover,
-.container-vieworders .btn-default.btn3:hover,
-.container-seller-home .btn-default.btn3:hover,
-.container-myorders .btn-default.btn3:hover{
+.container-login .btn-default.btn3:hover{
     background: #6D83FC;
 }
 
 .order-modal .btn-default.btn3.btn2:hover,
-.container-offermeal .btn-default.btn3.btn2:hover,
-.container-vieworders .btn-default.btn3.btn2:hover,
-.container-main .btn-default.btn3.btn2:hover,
-.container-seller-home .btn-default.btn3.btn2:hover,
-.container-myorders .btn-default.btn3.btn2:hover {
+.container-main .btn-default.btn3.btn2:hover{
     background: #DDD;
 }
 

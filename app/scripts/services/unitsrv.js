@@ -82,7 +82,7 @@ angular.module('tfaApp')
 
       modifyTopic: function unitModifyTopic(topicData, cb) {
           var topic = new (Parse.Object.extend('Topic'))();
-          topic.set('id', topicData.objectId);
+          topic.set('id', topicData.id);
           topic.set('title', topicData.title);
           topic.set('content', topicData.content);
           topic.save(null, {
@@ -101,19 +101,19 @@ angular.module('tfaApp')
 
       modifyUnit: function unitModifyTopic(unitData, cb) {
           var unit = new (Parse.Object.extend('Unit'))();
-          unit.set('id', unitData.objectId);
+          unit.set('id', unitData.id);
           unit.set('title', unitData.title);
-          unit.set('description', unitData.content);
+          unit.set('description', unitData.description);
           unit.set('number', unitData.number);
           unit.save(null, {
               success: function (or) {
                   if (cb && cb.success) {
-                      cb.success(or.toFullJSON());
+                      cb.success(or);
                   }
               },
               error: function (or, error) {
                   if (cb && cb.error) {
-                      cb.error(or.toFullJSON(), error);
+                      cb.error(or, error);
                   }
               }
           });
@@ -138,7 +138,7 @@ angular.module('tfaApp')
           });
       },
 
-      deleteTopic: function unitDeleteTopic(topicData, unitData, cb){
+      deleteTopic: function unitDeleteTopic(topicData, cb){
         var topic = new (Parse.Object.extend('Topic'))();
           topic.set('id', topicData.id);
           topic.set('status', '0');
@@ -156,7 +156,7 @@ angular.module('tfaApp')
           });
       },
 
-      deleteUnit: function unitDeleteTopic(unitData, blockData, cb) {
+      deleteUnit: function unitDeleteTopic(unitData, cb) {
           var unit = new (Parse.Object.extend('Unit'))();
           unit.set('id', unitData.id);
           unit.set('status', '0');

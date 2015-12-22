@@ -23,7 +23,7 @@
                     <h4 class="text-center">{{unit.get('title')}}</h4>
                     <p>{{unit.get('description')}}</p>
                 </div>
-                
+
                 <div class="top-corner">
                   <a href="#/teacher/contents/blockdetail/{{blockId}}/{{unitId}}"  class=" btn btn-default btn-xs">
                       <span  class="glyphicon glyphicon-arrow-left"></span>
@@ -43,29 +43,32 @@
                             <div class="angular-ui-tree-handle" style="text-align: left">
                                 <span ng-click="showTopic($index)"> {{topic.get('number')}} - {{topic.get('title')}} </span>
                                 <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setTopicToDelete($index)">
-                                    <span class="glyphicon glyphicon-remove"></span>
+                                    <span class="glyphicon glyphicon-trash"></span>
                                 </a>
-                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}">
+                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/{{topic.id}}/{{blockId}}">
                                     <span ng-click="switchEditMode($index)" class="glyphicon glyphicon-edit"></span>
                                 </a>
 
                             </div>
                         </li>
                     </ul>
-                    <button ng-disabled="editable" class="btn btn-default" ng-click="showCreatingTopic()">Nuevo Tema</button>
+                    <button ng-disabled="editable" class="btn btn-default btn3 btn-red btn-block" ng-click="showCreatingTopic()">Nuevo Tema</button>
                 </div>
             </div>
 
             <div class="col-md-9">
 
                 <div class="box">
-                    <div class="box-icon-3 bg-blue">
+                    <div ng-if="!creating" class="box-icon-3">
                         <span class="number-font">{{currentTopic.get('number')}}</span>
                     </div>
+                    <div ng-if="creating" class="box-icon-3">
+                        <span class="number-font"><span style="left: 53%" class="glyphicon glyphicon-plus"></span></span>
+                    </div>
 
-                    <div>
+                    <div ng-if="!editable && !creating" >
                         <h3 class="text-center">{{currentTopic.get('title')}}</h3>
-                        <p>{{currentTopic.get('description')}}</p>
+
 
                     </div>
                     <div ng-if="!editable && !creating" class="top-corner">
@@ -89,21 +92,30 @@
 
 
                     <div ng-if="editable" class="not-available">
-                        <span class="glyphicon glyphicon-edit"></span>
-                        <h1>MODO EDICION</h1>
+
+                        <h2><span class="glyphicon glyphicon-edit"></span> MODO EDICION</h2>
                     </div>
 
                     <div ng-if="!editable && !creating">
-                        <div ta-bind="text" ng-model="currentTopic.get('content')" ta-readonly='disabled'></div>
+                        <div ta-bind="text" ng-model="currentContent" ta-readonly='disabled'></div>
                     </div>
 
                     <div ng-if="editable && !creating">
-                        <div text-angular="text-angular" name="htmlcontent" ng-model="currentTopic.content" ta-disabled='false'></div>
+                      <div class="form-group signup-input">
+                          <p class="order-label"><strong>Numero de Tema</strong></p>
+                          <input type="number" class="form-control" ng-model="currentNumber" required>
+                      </div>
+                      <div class="form-group signup-input">
+                          <p class="order-label"><strong>Título</strong></p>
+                          <input type="text" class="form-control" ng-model="currentTitle" required>
+                      </div>
+                      <p class="order-label"><strong>Editor de Contenido</strong></p>
+                      <div text-angular="text-angular" name="htmlcontent" ng-model="currentContent" ta-disabled='false'></div>
 
-                        <div>
-                            <button ng-click="saveEditedTopic()" class="btn btn-default btn3">Guardar Cambios</button>
-                            <button data-toggle="modal" data-target="#cancelModal" class="btn btn-default">Cancelar Cambios</button>
-                        </div>
+                      <div>
+                            <button ng-click="saveEditedTopic(currentNumber, currentTitle, currentContent)" class="btn btn-default btn3 btn-red btn-block">Guardar Cambios</button>
+                            <button data-toggle="modal" data-target="#cancelModal" class="btn btn-default btn3 btn-red btn-block">Cancelar Cambios</button>
+                      </div>
                     </div>
 
                     <div ng-if="creating">
@@ -121,8 +133,8 @@
                             <div text-angular="text-angular" name="htmlcontent" ng-model="newContent" ta-disabled='false'></div>
 
                         </div>
-                        <button class="btn btn-default" ng-click="createNewTopic(newNumber, newTitle, newContent)">Crear Nuevo Topico</button>
-                        <button class="btn btn-default" ng-click="cancelCreation()">Cancelar</button>
+                        <button class="btn btn-default btn3 btn-red btn-block" ng-click="createNewTopic(newNumber, newTitle, newContent)">Crear Nuevo Topico</button>
+                        <button class="btn btn-default btn3 btn-red btn-block" ng-click="cancelCreation()">Cancelar</button>
                     </div>
 
                 </div>
@@ -171,10 +183,10 @@
                 <h4 class="modal-title">Confirmar eliminación</h4>
             </div>
             <div class="modal-body">
-                <p>¿Estas seguro que quieres eliminar el tópico?</p>
+                <p>¿Estas seguro que quieres eliminar este Tema?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" ng-click="deleteTopic()" class="btn btn-default" data-dismiss="modal">Eliminar</button>
+                <button type="button" ng-click="deleteTopic()" class="btn btn-default">Eliminar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
             </div>
         </div>

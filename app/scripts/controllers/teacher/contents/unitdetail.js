@@ -53,6 +53,9 @@ angular.module('tfaApp')
 
                   if (unit.get('topics')[i].id == topicId) {
                     $scope.currentTopic = unit.get('topics')[i];
+                    $scope.currentTitle  = $scope.currentTopic.get('title');
+                    $scope.currentNumber  = $scope.currentTopic.get('number');
+                    $scope.currentContent = $scope.currentTopic.get('content');
                     $scope.currentTopicCopy = angular.copy($scope.currentUnit);
                     flagUnitId = true;
                   }
@@ -60,6 +63,9 @@ angular.module('tfaApp')
                 $scope.topics = sortByKey($scope.topics, "number");
                 if (!flagUnitId) {
                   $scope.currentTopic = $scope.topics[0];
+                  $scope.currentTitle  = $scope.currentTopic.get('title');
+                  $scope.currentNumber  = $scope.currentTopic.get('number');
+                  $scope.currentContent = $scope.currentTopic.get('content');
                   $scope.currentTopicCopy = angular.copy($scope.currentTopic);
                 }
                 $scope.creating = false;
@@ -93,6 +99,9 @@ angular.module('tfaApp')
             $scope.editable = false;
             $scope.creating = false;
             $scope.currentTopic = $scope.topics[index];
+            $scope.currentTitle  = $scope.currentTopic.get('title');
+            $scope.currentNumber  = $scope.currentTopic.get('number');
+            $scope.currentContent = $scope.currentTopic.get('content');
             $scope.currentTopicCopy = angular.copy($scope.currentTopic);
             $scope.apply;
           };
@@ -109,7 +118,7 @@ angular.module('tfaApp')
           //cancel edition view ang come back to details view
           //cancel edition view ang come back to details view
           $scope.cancelEdition = function () {
-            $scope.currentUnit = angular.copy($scope.currentUnitCopy);
+            $scope.currentTopic = angular.copy($scope.currentUnitCopy);
             $scope.editable = false;
             $scope.creating = false;
           };
@@ -141,14 +150,18 @@ angular.module('tfaApp')
               topicData.number = newNumber;
               unitsrv.createTopic(topicData, $scope.unit, {
                 success: function (newTopic) {
-                  $scope.editable = false;
-                  $scope.creating = false;
-                  $scope.error = '';
-                  $scope.success = "Has agregado un nuevo topic correctamente";
-                  $scope.currentTopic = newTopic;
-                  $scope.topics.push(newTopic);
-                  $scope.currentTopicCopy = angular.copy($scope.currentTopic);
-                  $scope.$apply();
+                    $route.reload();
+//                  $scope.editable = false;
+//                  $scope.creating = false;
+//                  $scope.error = '';
+//                  $scope.success = "Has agregado un nuevo topic correctamente";
+//                  $scope.currentTopic = newTopic;
+//                  $scope.currentTitle  = $scope.currentTopic.get('title');
+//                  $scope.currentNumber  = $scope.currentTopic.get('number');
+//                  $scope.currentContent = $scope.currentTopic.get('content');
+//                  $scope.topics.push(newTopic);
+//                  $scope.currentTopicCopy = angular.copy($scope.currentTopic);
+//                  $scope.$apply();
 
                 },
                 error: function (newTopic, error) {
@@ -162,14 +175,18 @@ angular.module('tfaApp')
 
 
           //Save new topic to parse
-          $scope.saveEditedTopic = function () {
+          $scope.saveEditedTopic = function (number,title, content) {
+              $scope.currentTopic.title = title;
+              $scope.currentTopic.number = number;
+              $scope.currentTopic.content = content;
             unitsrv.modifyTopic($scope.currentTopic, {
               success: function () {
-                $scope.editable = false;
-                $scope.error = '';
-                $scope.currentTopicCopy = angular.copy($scope.currentTopic);
-                $scope.success = "Has modificado el topic correctamente";
-                $scope.$apply();
+                $route.reload();
+                // $scope.editable = false;
+                // $scope.error = '';
+                // $scope.currentTopicCopy = angular.copy($scope.currentTopic);
+                // $scope.success = "Has modificado el topic correctamente";
+                // $scope.$apply();
               },
               error: function (of, error) {
                 $scope.error = getErrorDesc(error);
@@ -182,7 +199,7 @@ angular.module('tfaApp')
 
           $scope.setTopicToDelete = function (index) {
             $scope.toDeleteTopic = $scope.topics[index];
-            $scope.$apply();
+            //$scope.$apply();
           };
 
           $scope.deleteTopic = function () {

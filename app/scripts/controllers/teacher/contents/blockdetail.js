@@ -18,7 +18,8 @@ angular.module('tfaApp')
       //For create new Topic
       $scope.newTitle = '';
       $scope.newNumber = '';
-      $scope.newDescription = 'Escriba su contenido aquí';
+      $scope.newDescription = '';
+      
 
       //Take objectID to query from the routeParams
       var objectId = 0;
@@ -47,7 +48,10 @@ angular.module('tfaApp')
                           $scope.units.push(block.get('units')[i]);
                           
                           if(block.get('units')[i].id == unitId){
-                             $scope.currentUnit= block.get('units')[i];
+                             $scope.currentUnit = block.get('units')[i];
+                             $scope.currentTitle  = $scope.currentUnit.get('title');
+                             $scope.currentNumber  = $scope.currentUnit.get('number');
+                             $scope.currentDescription = $scope.currentUnit.get('description');
                              $scope.currentUnitCopy = angular.copy($scope.currentUnit);
                              flagUnitId = true;
                           }
@@ -56,6 +60,9 @@ angular.module('tfaApp')
                   $scope.units = sortByKey($scope.units, "number");
                   if(!flagUnitId){
                     $scope.currentUnit= $scope.units[0];
+                    $scope.currentTitle  = $scope.currentUnit.get('title');
+                    $scope.currentNumber  = $scope.currentUnit.get('number');
+                    $scope.currentDescription = $scope.currentUnit.get('description');
                     $scope.currentUnitCopy = angular.copy($scope.currentUnit);
                   }
 
@@ -84,12 +91,14 @@ angular.module('tfaApp')
       });
 
 
-
       //To set view of Details about Topic
       $scope.showUnit = function (index) {
           $scope.editable = false;
           $scope.creating = false;
           $scope.currentUnit = $scope.units[index];
+          $scope.currentTitle  = $scope.currentUnit.get('title');
+          $scope.currentNumber  = $scope.currentUnit.get('number');
+          $scope.currentDescription = $scope.currentUnit.get('description');
           $scope.currentUnitCopy = angular.copy($scope.currentUnit);
           $scope.apply;
       };
@@ -98,6 +107,9 @@ angular.module('tfaApp')
       $scope.switchEditMode = function (index) {
           if (index) {
               $scope.currentUnit = $scope.units[index];
+              $scope.currentTitle  = $scope.currentUnit.get('title');
+              $scope.currentNumber = $scope.currentUnit.get('number');
+              $scope.currentDescription = $scope.currentUnit.get('description');
               $scope.apply;
           }
           $scope.editable = true;
@@ -128,7 +140,7 @@ angular.module('tfaApp')
           }
           if (existFlag) {
               //DO NOTHING
-              $scope.error = "El numero de topico ya existe";
+              $scope.error = "El número de unidad ya existe";
           } else {
               var unitData = {};
               unitData.title = newTitle;
@@ -136,14 +148,18 @@ angular.module('tfaApp')
               unitData.number = newNumber;
               unitsrv.createUnit(unitData, $scope.block, {
                   success: function (newUnit) {
-                      $scope.editable = false;
-                      $scope.creating = false;
-                      $scope.error = '';
-                      $scope.success = "Has agregado una nueva unidad correctamente";
-                      $scope.currentUnit = newUnit;
-                      $scope.units.push(newUnit);
-                      $scope.currentUnitCopy = angular.copy($scope.currentUnit);
-                      $scope.$apply();
+//                      $scope.editable = false;
+//                      $scope.creating = false;
+//                      $scope.error = '';
+//                      $scope.success = "Has agregado una nueva unidad correctamente";
+//                      $scope.currentUnit = newUnit;
+//                      $scope.currentTitle = $scope.currentUnit.get('title');
+//                      $scope.currentNumber  = $scope.currentUnit.get('number');
+//                      $scope.currentDescription = $scope.currentUnit.get('description');
+//                      $scope.units.push(newUnit);
+//                      $scope.currentUnitCopy = angular.copy($scope.currentUnit);
+//                      $scope.$apply();
+                      $route.reload();
 
                   },
                   error: function (currentUnit, error) {
@@ -156,36 +172,45 @@ angular.module('tfaApp')
       };
 
       //Save new topic to parse
-      $scope.saveEditedUnit = function () {
+      $scope.saveEditedUnit = function (number,title, desc) {
+
+          $scope.currentUnit.title = title;
+          $scope.currentUnit.number = number;
+          $scope.currentUnit.description = desc;
           unitsrv.modifyUnit($scope.currentUnit, {
-              success: function () {
-                  $scope.editable = false;
-                  $scope.error = '';
-                  $scope.currentUnitCopy = angular.copy($scope.currentUnit);
-                  $scope.success = "Has modificado el topic correctamente";
-                  $scope.$apply();
+              success: function (unit) {
+//                  $scope.currentUnit = unit;
+//                  $scope.currentTitle = $scope.currentUnit.get('title');
+//                  $scope.currentNumber  = $scope.currentUnit.get('number');
+//                  $scope.currentDescription = $scope.currentUnit.get('description');
+//                  $scope.editable = false;
+//                  $scope.error = '';
+//                  $scope.currentUnitCopy = angular.copy($scope.currentUnit);
+//                  $scope.success = "Has modificado la unidad correctamente";
+//                  $scope.$apply();
+                  $route.reload();
               },
               error: function (of, error) {
                   $scope.error = getErrorDesc(error);
                   $scope.$apply();
               }
           });
-
-
+        
       };
 
       $scope.setUnitToDelete = function (index) {
           $scope.toDeleteUnit = $scope.units[index];
-          $scope.$apply();
+          
       };
 
       $scope.deleteUnit = function () {
           unitsrv.deleteUnit($scope.toDeleteUnit, {
-              success: function () {
+              success: function (or) {
+                $scope.isDeleted = true;
                   $('.modal-backdrop').remove();
                   $('body').removeClass('modal-open');
                   $('body').removeAttr('style');
-                  $scope.$apply();
+//                  $scope.$apply();
                   $route.reload();
               },
               error: function (of, error) {
