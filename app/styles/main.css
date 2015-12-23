@@ -559,7 +559,7 @@ input.editable-input:focus {
     background: #B22C5B;
 }
 .order-modal .modal-header{
-    background: #FF3F82;
+    background: #772244;
     color: #FFF;
 }
 .order-modal .modal-header .close{
@@ -576,7 +576,7 @@ input.editable-input:focus {
 .order-modal p.order-label,
 .order-modal h2.order-value,
 .order-modal .order-name{
-    color: #B22C5B;
+    color: #883355;
 }
 
 .order-modal p.order-label.blue{
@@ -988,7 +988,7 @@ div.offer-line {
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-	color: #00b3fe;
+	color: #3297C0;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
@@ -1003,7 +1003,7 @@ div.offer-line {
 
 .dropdown-menu {
 	background: #384452;
-        padding: 15px !important;
+  padding: 15px !important;
 }
 
 .dropdown-menu > li > a {
@@ -1158,8 +1158,4 @@ a:focus {
 
 .hand{
     cursor: pointer;
-}
-
-.caret{
-    width: 13px;
 }

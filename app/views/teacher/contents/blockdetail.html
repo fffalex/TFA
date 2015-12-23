@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿<div class="column container-main">
     <div class="row">
         <div class="alert alert-danger alert-dismissable" role="alert" ng-show="error">
             <button class="close" ng-click="error = ''"><span aria-hidden="true">&times;</span></button>
@@ -25,11 +25,11 @@
                   <a href="#/teacher/contents/"  class=" btn btn-default btn-xs">
                       <span  class="glyphicon glyphicon-arrow-left"></span>
                   </a>
-                  <a class=" btn btn-default btn-xs">
-                      <span data-toggle="modal" data-target="#editModalBlock" class="glyphicon glyphicon-edit"></span>
+                  <a data-toggle="modal" data-target="#editModalBlock" class=" btn btn-default btn-xs">
+                      <span  class="glyphicon glyphicon-edit"></span>
                   </a>
-                  <a class="btn btn-danger btn-default btn-xs">
-                      <span data-toggle="modal" data-target="#deleteModalBlock" class="glyphicon glyphicon-trash"></span>
+                  <a data-toggle="modal" data-target="#deleteModalBlock" class="btn btn-danger btn-default btn-xs">
+                      <span  class="glyphicon glyphicon-trash"></span>
                   </a>
                 </div>
 
@@ -56,7 +56,7 @@
                             </div>
                         </li>
                     </ul>
-                    <button ng-disabled="editable" class="btn btn-default btn3 btn-red btn-block" ng-click="showCreatingUnit()">Nueva Unidad</button>
+                    <button ng-disabled="editable" class="btn btn-default btn3 btn2 btn-block" ng-click="showCreatingUnit()">Nueva Unidad</button>
                 </div>
             </div>
 
@@ -119,8 +119,15 @@
 
                         </div>
                         -->
-                        <button class="btn btn-default btn3 btn-red btn-block" ng-click="createNewUnit(newNumber, newTitle, newContent)">Crear Unidad</button>
-                        <button class="btn btn-default btn3 btn-red btn-block" ng-click="cancelCreation()">Cancelar</button>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="createNewUnit(newNumber, newTitle, newContent)">Crear Unidad</button>
+                          </div>
+                          <div class="col-md-6">
+                            <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="cancelCreation()">Cancelar</button>
+                          </div>
+                        </div>
+
                     </div>
 
                     <div ng-if="editable && !creating" class="not-available">
@@ -137,15 +144,23 @@
                             <input type="text" class="form-control" ng-model="currentTitle" required>
                         </div>
                         <p class="order-label"><strong>Descripción</strong></p>
+                        <div class="form-group createmeal-input">
                         <textarea class="form-control" ng-model="currentDescription" maxlength="400"></textarea>
+                      </div>
                         <!--
                         <div>
                             <div text-angular="text-angular" name="htmlcontent" ng-model="newContent" ta-disabled='false'></div>
 
                         </div>
                         -->
-                       <button ng-click="saveEditedUnit(currentNumber, currentTitle, currentDescription)" class="btn btn-default btn3">Guardar Cambios</button>
-                            <button data-toggle="modal" data-target="#cancelModal" class="btn btn-default">Cancelar Cambios</button>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="saveEditedUnit(currentNumber, currentTitle, currentDescription)">Guardar</button>
+                          </div>
+                          <div class="col-md-6">
+                            <button class="btn btn-default btn3 btn2 btn-red btn-block" data-toggle="modal" data-target="#cancelModal">Cancelar</button>
+                          </div>
+                        </div>
                     </div>
 
                 </div>
@@ -159,7 +174,7 @@
 
 <!-- Modal -->
 <div id="cancelModal" class="modal fade" role="dialog">
-    <div class="modal-dialog  modal-sm">
+    <div class="modal-dialog  modal-sm order-modal">
 
         <!-- Modal content-->
         <div class="modal-content">
@@ -168,11 +183,15 @@
                 <h4 class="modal-title">Cancelar cambios?</h4>
             </div>
             <div class="modal-body">
-                <p>¿Seguro que quieres descartar los cambios realizados?</p>
+                <p>¿Seguro que quieres descartar los cambios realizados y volver a la pantalla anterior?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" ng-click="cancelEdition()" class="btn btn-default" data-dismiss="modal">Descartar cambios</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Seguir editando</button>
+              <div class="col-xs-6">
+                <button type="button" ng-click="cancelEdition()" class="btn btn-default btn-block btn3 btn2" data-dismiss="modal">Si</button>
+              </div>
+              <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">No</button>
+              </div>
             </div>
         </div>
 
@@ -181,7 +200,7 @@
 
 <!-- Modal -->
 <div id="editModalBlock" class="modal fade" role="dialog">
-    <div class="modal-dialog  modal-sm">
+    <div class="modal-dialog  modal-sm order-modal">
         <!-- Modal content -->
         <div class="modal-content">
             <div class="alert alert-danger alert-dismissable" role="alert" ng-show="errorDelete">
@@ -204,8 +223,12 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" ng-click="modifyBlock(blockName, blockDescription)" class="btn btn-default">Guardar</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Descartar cambios</button>
+              <div class="col-xs-6">
+                <button type="button" ng-click="modifyBlock(blockName, blockDescription)" class="btn btn-default btn3 btn2 btn-block">Guardar</button>
+              </div>
+              <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Cancelar</button>
+              </div>
             </div>
         </div>
     </div>
@@ -213,7 +236,7 @@
 
 
 <div id="deleteModal" class="modal fade" role="dialog">
-    <div class="modal-dialog  modal-sm">
+    <div class="modal-dialog  modal-sm order-modal">
 
         <!-- Modal content-->
         <div ng-if="!isDeleted" class="modal-content">
@@ -229,8 +252,12 @@
                 <p>¿Estas seguro que quieres eliminar esta Unidad?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" ng-click="deleteUnit()" class="btn btn-default">Eliminar</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+              <div class="col-xs-6">
+                <button type="button" ng-click="deleteUnit()" class="btn btn-default btn-block btn3 btn2">Eliminar</button>
+              </div>
+              <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Cancelar</button>
+              </div>
             </div>
         </div>
     </div>
@@ -238,7 +265,7 @@
 
 
 <div id="deleteModalBlock" class="modal fade" role="dialog">
-    <div class="modal-dialog  modal-sm">
+    <div class="modal-dialog  modal-sm order-modal">
 
         <!-- Modal content-->
         <div ng-if="!isDeleted" class="modal-content">
@@ -254,8 +281,12 @@
                 <p>¿Estas seguro que quieres eliminar el Bloque Completo?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" ng-click="deleteBlock()" class="btn btn-default">Eliminar</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+              <div class="col-xs-6">
+                <button type="button" ng-click="deleteBlock()" class="btn btn-default btn3 btn2 btn-block">Eliminar</button>
+              </div>
+              <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Cancelar</button>
+              </div>
             </div>
         </div>
     </div>

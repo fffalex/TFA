@@ -1,4 +1,4 @@
-<div class="column container-vieworders">
+<div class="column container-main">
 
     <div class="row">
         <div class="col-md-6">
@@ -20,14 +20,23 @@
                 <button class="close" ng-click="success = ''"><span aria-hidden="true">&times;</span></button>
                 <strong>Éxito!</strong> {{ success }}
             </div>
-            <div ng-if="noOrders" class="col-md-12">
+            <!-- <div ng-if="noOrders" class="col-md-12">
                 <div class="alert alert-info" role="alert">No tiene pedidos</div>
-            </div>
+            </div> -->
         </div>
     </div>
-    
-    <div ng-if="students.length > 0">
+    <div class="col-md-6">
+      <ul class="dropdown">
+          <button class="btn btn-default btn3 btn2 dropdown-toggle" data-toggle="dropdown">  {{selectedCourse.schoolYear}} - {{selectedCourse.year}} {{selectedCourse.division}}, {{selectedCourse.turn}}<b class="caret" style="pull-right"></b></button>
+          <ul ng-repeat="course in courses" class="dropdown-menu" style="background-color: #f8faff">
+              <div ng-repeat="course in courses">
+                  <li ng-click="selectCourse($index)" ><a href="">{{course.schoolYear}} - {{course.year}} {{course.division}}, {{course.turn}}</a></li>
+              </div>
+          </ul>
+      </ul>
+  </div>
 
+    <div>
         <div class="row">
             <div class="table-responsive">
                 <table class="table">
@@ -37,13 +46,13 @@
                         </th>
                         <th>
                             <a href="" ng-click="orderField('student.lastName')">Nombre</a>
-                            <span class="sortorder" ng-show="predicate === 'buyer.lastName'" ng-class="{reverse:reverse}"></span>
+                            <span class="sortorder" ng-show="predicate === 'selectedCourse.students.lastName'" ng-class="{reverse:reverse}"></span>
                         </th>
                     </tr>
-                    <tr ng-repeat="student in students | orderBy:predicate:reverse">
+                    <tr ng-repeat="student in selectedCourse.students | orderBy:predicate:reverse">
                         <td><input type="checkbox" ng-model="order.selected" ng-true-value="true" ng-false-value="false"></td>
-                        <td>{{student.lastName}}, {{student.name}} </td>
- 
+                        <td>{{student.get('lastName')}}, {{student.get('name')}} </td>
+
                     </tr>
                 </table>
             </div>
@@ -58,5 +67,3 @@
         </div>
     </div>
 </div>
-
-

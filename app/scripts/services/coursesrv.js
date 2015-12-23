@@ -30,10 +30,14 @@ angular.module('tfaApp')
             });
       },
 
-        setContentBlock: function courseSetContentBlock(courseData, contentBlock, cb) {
+        //Comprobar que borra todo tranki
+        setContentBlock: function courseSetContentBlock(courseData, contentBlock, oldContentBlock, cb) {
           var course = new (Parse.Object.extend('Course'));
           course.set('id', courseData.id);
-          course.set('contentBlock', contentBlock);
+          var contentArray = { "__type": "Pointer", "className": "ContentBlock", "objectId": contentBlock.id };
+          var toDelete = { "__type": "Pointer", "className": "ContentBlock", "objectId": oldContentBlock.id };
+          course.add('contentBlock', contentArray);
+          course.remove('contentBlock', oldContentBlock);
           course.save(null, {
             success: function (of) {
               if (cb && cb.success) {
@@ -51,22 +55,21 @@ angular.module('tfaApp')
 
 
       //Obtiene todos los cursos disponibles!
-      // getAllCourses: function getAllCourses(cb){
-      //     var query = new Parse.Query('Course');
-      //     query.include('arrayUnits');
-      //     query.find({
-      //       success: function (courses) {
-      //         if (cb && cb.success) {
-      //           cb.success(courses.toFullJSON());
-      //         }
-      //       },
-      //       error: function (error) {
-      //         if (cb && cb.error) {
-      //           cb.error(error);
-      //         }
-      //       }
-      //     });
-      //   },
+      getAllCourses: function getAllCourses(cb){
+          var query = new Parse.Query('Course');
+          query.find({
+            success: function (courses) {
+              if (cb && cb.success) {
+                cb.success(courses.toFullJSON());
+              }
+            },
+            error: function (error) {
+              if (cb && cb.error) {
+                cb.error(error);
+              }
+            }
+          });
+        },
 
       //Obtiene los cursos asignados a un Teacher
       getTeacherCourses: function getTeacherCourse(teacher,cb){
@@ -79,8 +82,13 @@ angular.module('tfaApp')
             success: function (courses) {
                 var teacherCourses = [];
                 for (var i = 0; i < courses.length; i++) {
-                    if (courses[i].get('contentBlock').get('teacher').get('id') === teacher.get('id')) {
-                        teacherCourses.push(courses[i]);
+                    var contentArray = courses[i].get('contentBlock');
+                    for (var j = 0; j < contentArray.length; j++) {
+                      if (contentArray[j].get('teacher').id === teacher.id && contentArray[j].get('status') == 1) {
+                          courses[i].teacherContent = contentArray[j];
+                          teacherCourses.push(courses[i]);
+
+                      }
                     }
                 }
                 if (cb && cb.success) {
@@ -97,13 +105,13 @@ angular.module('tfaApp')
 
       //Use this
       getAllStudentsInCourse: function courseGetAllStudentsInCourse(teacher,cb){
-        getTeacherCourses(teacher, {
+        this.getTeacherCourses(teacher, {
           success: function (courses) {
-            newCourses = [];
+            var newCourses = [];
             var promises = [];
             courses.forEach(function(res){
               var query = new Parse.Query('User');
-              promises.push(query.equalTo('assignedTo', res.objectId).descending('lastName')
+              promises.push(query.equalTo('assignedTo', res).descending('lastName')
               .include('assignedTo').include('assignedTo.contentBlock').find({
                 success: function(students){
                   res = res.toFullJSON();

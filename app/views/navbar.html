@@ -3,24 +3,24 @@
 	  <div class="navbar navbar-default" role="navigation">
 	    <div class="container-fluid">
 	      <div class="navbar-header">
-	
+
 	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
 	          <span class="sr-only">Toggle navigation</span>
 	          <span class="icon-bar"></span>
 	          <span class="icon-bar"></span>
 	          <span class="icon-bar"></span>
 	        </button>
-	
+
 	        <a class="navbar-brand" href="#/"><strong>TFA</strong></a>
 	      </div>
-	
+
 	      <div class="collapse navbar-collapse" id="js-navbar-collapse">
-	
+
 	        <ul class="nav navbar-nav">
 	          <li ng-class="{active: isActive('/teacher/contents')}" ng-show="isTeacher"><a href="#/teacher/contents">CONTENIDOS</a></li>
 	          <!--<li ng-class="{active: isActive('/')}" ng-show="!isSeller"><a href="#/">Inicio</a></li>-->
-	          <li ng-class="{active: isActive('/seller/viewmeals')}" ng-show="isTeacher"><a href="#/seller/viewmeals">MIS EXÁMENES</a></li>
-	          <li ng-class="{active: isActive('/seller/vieworders')}" ng-show="isTeacher"><a href="#/seller/vieworders">MIS ALUMNOS</a></li>
+	          <li ng-class="{active: isActive('/teacher/exams')}" ng-show="isTeacher"><a href="#/teacher/exams">MIS EXÁMENES</a></li>
+	          <li ng-class="{active: isActive('//teacher/mystudents')}" ng-show="isTeacher"><a href="#/teacher/mystudents">MIS ALUMNOS</a></li>
 	          <li ng-class="{active: isActive('/student/contents')}" ng-show="isStudent"><a href="#/student/contents">MIS CLASES</a></li>
 	          <li ng-class="{active: isActive('/student/exams')}" ng-show="isStudent"><a href="#/student/exams">EXÁMENES</a></li>
 	          <li ng-class="{active: isActive('/about')}"><a href="#/about">ACERCA DE</a></li>

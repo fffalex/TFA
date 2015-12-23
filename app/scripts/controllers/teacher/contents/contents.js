@@ -57,7 +57,6 @@ angular.module('tfaApp')
 
       $scope.selectCourse = function(index){
         $scope.selectedCourse = $scope.fullCourses[index];
-        $scope.apply();
       };
 
       $scope.createBlock = function(name, desc){
