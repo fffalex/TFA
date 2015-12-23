@@ -43,6 +43,26 @@ angular.module('tfaApp')
             });
         },
 
+        createBlock: function unitCreateBlock(blockData,teacher, cb) {
+            var block = new (Parse.Object.extend('ContentBlock'));
+            block.set('name', blockData.name);
+            block.set('teacher', teacher);
+            block.set('description', blockData.description);
+            block.set('status', '1');
+            block.save(null, {
+              success: function (or) {
+                if (cb && cb.success) {
+                  cb.success(or);
+                }
+              },
+              error: function (of, error) {
+                if (cb && cb.error) {
+                  cb.error(of.toFullJSON(),error);
+                }
+              }
+            });
+        },
+
         createTopic: function unitCreateTopic (topicData, unitData ,cb) {
             var topic = new (Parse.Object.extend('Topic'));
             topic.set('title', topicData.title);
@@ -119,11 +139,33 @@ angular.module('tfaApp')
           });
       },
 
+      modifyBlock: function unitModifyBlock(blockData, cb) {
+          var block = new (Parse.Object.extend('ContentBlock'))();
+          block.set('id', blockData.id);
+          block.set('description', blockData.description);
+          block.set('name', blockData.name);
+          block.save(null, {
+              success: function (or) {
+                  if (cb && cb.success) {
+                      cb.success(or);
+                  }
+              },
+              error: function (or, error) {
+                  if (cb && cb.error) {
+                      cb.error(or, error);
+                  }
+              }
+          });
+      },
+
+      //Get all Data relation abour units and topics
       getAllTeacherContentBlocks: function unitGeAllContentBlocks(teacher,cb){
           var query = new Parse.Query('ContentBlock');
           query.equalTo('teacher', teacher);
           query.include('units');
+          query.equalTo('status', '1');
           query.include('units.topics');
+          query.include('units.topics.seenBy');
           query.find({
               success: function (contentBlocks) {
                   if (cb && cb.success) {
@@ -138,11 +180,51 @@ angular.module('tfaApp')
           });
       },
 
+      //Get Specific ContentBlock alla Data
+      getContentBlock: function unitGeAllContentBlocks(contentData, cb){
+          var query = new Parse.Query('ContentBlock');
+          query.equalTo('id', contentData.id);
+          query.include('units');
+          query.include('units.topics');
+          query.include('units.topics.seenBy');
+          query.find({
+              success: function (contentBlock) {
+                  if (cb && cb.success) {
+                      cb.success(contentBlock);
+                  }
+              },
+              error: function (error) {
+                  if (cb && cb.error) {
+                      cb.error(error);
+                  }
+              }
+          });
+      },
+
+
       deleteTopic: function unitDeleteTopic(topicData, cb){
         var topic = new (Parse.Object.extend('Topic'))();
           topic.set('id', topicData.id);
           topic.set('status', '0');
           topic.save(null, {
+              success: function (or) {
+                  if (cb && cb.success) {
+                      cb.success(or.toFullJSON());
+                  }
+              },
+              error: function (or, error) {
+                  if (cb && cb.error) {
+                      cb.error(or.toFullJSON(), error);
+                  }
+              }
+          });
+      },
+
+      deleteBlock: function unitDeleteTopic(blockData, cb){
+        var block = new (Parse.Object.extend('ContentBlock'))();
+          block.set('id', blockData.id);
+          block.set('status', '0');
+          block.save(null, {
               success: function (or) {
                   if (cb && cb.success) {
                       cb.success(or.toFullJSON());
@@ -172,6 +254,105 @@ angular.module('tfaApp')
                   }
               }
           });
-      }
+      },
+
+      //Add a new question to the Unit (for unit evaluations)
+      addQuestion: function unitAddQuestion(unitData, questionData, cb) {
+          var unit = new (Parse.Object.extend('Unit'))();
+          unit.set('id', unitData.id);
+          var question = new (Parse.Object.extend('Question'))();
+          question.set('unit', unit);
+          question.save(null, {
+              success: function (or) {
+                  if (cb && cb.success) {
+                      cb.success(or.toFullJSON());
+                  }
+              },
+              error: function (or, error) {
+                  if (cb && cb.error) {
+                      cb.error(or.toFullJSON(), error);
+                  }
+              }
+          });
+      },
+
+      markTopicSeenBy: function unitMarkTopicSeenBy(topicData, studentData, cb) {
+        var topic = new (Parse.Object.extend('Unit'));
+        topic.set('id', topicData.id);
+        var studentArray = { "__type": "Pointer", "className": "User", "objectId": studentData.id };
+        topic.add('seenBy', studentArray);
+        topic.save({
+            success: function (r) {
+                console.log('ok!');
+                cb.success(r);
+            },
+            error: function (r, error) {
+                console.log(error);
+                cb.error(top, error);
+            }
+        });
+      },
+
+      getAllQuestions: function unitGetAllQuestion(unitData){
+        // var unit = new (Parse.Object.extend('Unit'))();
+        // unit.set('id', unitData.id);
+        var query = new Parse.Query('Question');
+        query.equalTo('unit', unitData.id);
+        query.equalTo('status', '1');
+        query.find({
+            success: function (question) {
+                if (cb && cb.success) {
+                    cb.success(question);
+                }
+            },
+            error: function (error) {
+                if (cb && cb.error) {
+                    cb.error(error);
+                }
+            }
+        });
+      },
+
+      //Add randomize to the question's array
+      getAllRandomQuestions: function unitGetAllQuestion(unitData){
+        // var unit = new (Parse.Object.extend('Unit'))();
+        // unit.set('id', unitData.id);
+        var query = new Parse.Query('Question');
+        query.equalTo('unit', unitData.id);
+        query.equalTo('status', '1');
+        query.find({
+            success: function (question) {
+                if (cb && cb.success) {
+                    cb.success(question);
+                }
+            },
+            error: function (error) {
+                if (cb && cb.error) {
+                    cb.error(error);
+                }
+            }
+        });
+      },
+
+      removeQuestion: function unitRemoveQuestion(questionData, cb) {
+          var question = new (Parse.Object.extend('Question'))();
+          question.set('ic', questionData.id);
+          question.set('status', '0');
+          question.save(null, {
+              success: function (or) {
+                  if (cb && cb.success) {
+                      cb.success(or.toFullJSON());
+                  }
+              },
+              error: function (or, error) {
+                  if (cb && cb.error) {
+                      cb.error(or.toFullJSON(), error);
+                  }
+              }
+          });
+      },
+
+
+
     };
   });

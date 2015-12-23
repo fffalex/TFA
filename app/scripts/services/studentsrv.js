@@ -10,7 +10,7 @@
 angular.module('tfaApp')
   .factory('studentsrv', function () {
     return {
-        getAllStudents: function unitCreateUnit(courseData,cb) {
+        getAllStudents: function studentGetAllStudents(courseData,cb) {
             var query = new Parse.Query('User');
             query.equalTo('assignedTo', courseData.objectId);
             query.find({
@@ -26,10 +26,10 @@ angular.module('tfaApp')
               }
             });
         },
-        
+
         getAllCourseStudents: function studentGetAllCourseStudents (cb) {
-          
-          
+
+
         }
     };
   });

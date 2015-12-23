@@ -2,7 +2,7 @@
 /// <reference path="../../bower_components/angular-modal-service/dst/angular-modal-service.js" />
 'use strict';
 
-//load initial config for keys using json 
+//load initial config for keys using json
 var config=$.parseJSON($.ajax({url: 'config/global.json', dataType: 'json', async: false}).responseText);
 
 Parse.initialize(config.parse.applicationId,config.parse.javaScriptKey);
@@ -28,7 +28,7 @@ angular
     'textAngular'
     //'pickadate',
     //'xeditable'
-    
+
   ]).config(function ($routeProvider) {
     //create a custom provider to set a default resolve attribute
     //that will initialize autsrv data (Roles + extra data)
@@ -74,7 +74,7 @@ angular
         return this;
       }
     });
-    
+
     customRouteProvider//$routeProvider
 //      .when('/', {
 //        templateUrl: 'views/main.html',
@@ -127,7 +127,7 @@ angular
           controller: 'TeacherBlockdetailCtrl',
           access: 'teacher'
       })
-      
+
       .when('/teacher/mystudents/', {
           templateUrl: 'views/teacher/mystudents.html',
           controller: 'MyStudentsCtrl',
@@ -151,11 +151,11 @@ angular
       if(next.$$route && next.$$route.originalPath !== '/login') {
         authsrv.setPreviousUrl(next.$$route.originalPath);
       }
-      
+
       //IF i am going to use some modal
       $('.modal').modal('hide');
       $('.modal').on('hidden', function () {
-        //becose it bugged it 
+        //becose it bugged it
         $('.modal-backdrop').remove();
         $('body').removeClass('modal-open');
       });
@@ -184,7 +184,7 @@ angular
      //desactivo el editable
      //editableOptions.theme = 'bs3';
   });
-  
+
 //  .config(function ($routeProvider) {
 //    $routeProvider
 //      .when('/', {
@@ -198,4 +198,3 @@ angular
 //      .otherwise({
 //        redirectTo: '/'
 //      });
-  

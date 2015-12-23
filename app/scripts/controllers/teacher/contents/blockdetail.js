@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('tfaApp')
-  .controller('TeacherBlockdetailCtrl', function ($scope, $routeParams, unitsrv, coursesrv, ModalService, $route) {
+  .controller('TeacherBlockdetailCtrl', function ($scope, $routeParams, $location, unitsrv, coursesrv, ModalService, $route) {
       //initial data set
       $scope.block = {};
       $scope.units = [];
@@ -19,7 +19,7 @@ angular.module('tfaApp')
       $scope.newTitle = '';
       $scope.newNumber = '';
       $scope.newDescription = '';
-      
+
 
       //Take objectID to query from the routeParams
       var objectId = 0;
@@ -31,7 +31,7 @@ angular.module('tfaApp')
       $scope.blockId = objectId;
       var defaultUnit = new (Parse.Object.extend('Unit'));
       defaultUnit.set('number', 1);
-      defaultUnit.set('title', 'No posee ningún tema para esta unidad');
+      defaultUnit.set('title', 'No posee ninguna Unidad para este Bloque');
       defaultUnit.set('content', 'Seleccione crear tema');
       //Initial query to set te Unit and Topic array
       var query = new Parse.Query('ContentBlock');
@@ -40,13 +40,16 @@ angular.module('tfaApp')
       query.include('units');
       query.first({
           success: function (block) {
+            if(block){
               $scope.block = block;
+              $scope.blockName = $scope.block.get('name');
+              $scope.blockDescription = $scope.block.get('description');
               $scope.units = [];
-              if (block.get('units') !== undefined) {
+              if (block.get('units')) {
                   for (var i = 0; i < block.get('units').length; i++) {
                       if (block.get('units')[i].get('status') == 1) {
                           $scope.units.push(block.get('units')[i]);
-                          
+
                           if(block.get('units')[i].id == unitId){
                              $scope.currentUnit = block.get('units')[i];
                              $scope.currentTitle  = $scope.currentUnit.get('title');
@@ -72,6 +75,10 @@ angular.module('tfaApp')
                   $scope.currentUnit = defaultUnit;
                   $scope.$apply();
               }
+            } else {
+              $scope.error = "No se encuentra el Bloque de Contenido solicitado";
+              $scope.$apply();
+            }
           },
           //success: function (unit) {
           //    $scope.unit = unit.toFullJSON();
@@ -86,7 +93,8 @@ angular.module('tfaApp')
           //    });
           //},
           error: function (error) {
-              $scope.error = "TODO MAL CHABON";
+                $scope.error = "No se encuentra el Bloque de Contenido solicitado. Vuelva a intentar más tarde";
+                $scope.$apply();
           }
       });
 
@@ -195,12 +203,12 @@ angular.module('tfaApp')
                   $scope.$apply();
               }
           });
-        
+
       };
 
       $scope.setUnitToDelete = function (index) {
           $scope.toDeleteUnit = $scope.units[index];
-          
+
       };
 
       $scope.deleteUnit = function () {
@@ -220,4 +228,38 @@ angular.module('tfaApp')
           });
 
       };
+
+      $scope.modifyBlock = function(name,desc){
+        $scope.block.name = name;
+        $scope.block.description = desc;
+        unitsrv.modifyBlock($scope.block, {
+          success: function(or){
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
+            $('body').removeAttr('style');
+            $route.reload();
+          },
+          error: function(){
+            $scope.error = getErrorDesc(error);
+            $scope.$apply();
+          }
+        });
+      }
+
+      $scope.deleteBlock = function(){
+        unitsrv.deleteBlock($scope.block, {
+            success: function (or) {
+                $('.modal-backdrop').remove();
+                $('body').removeClass('modal-open');
+                $('body').removeAttr('style');
+//                  $scope.$apply();
+                //$route.reload();
+                 $location.path('/teacher/contents/');
+            },
+            error: function (of, error) {
+                $scope.errorDelete = getErrorDesc(error);
+                $scope.$apply();
+            }
+        });
+      }
   });

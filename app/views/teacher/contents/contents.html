@@ -1,22 +1,22 @@
 
 <div class="col-md-12">
     <div class="col-md-6">
-        <div class="box">
-            <div class="box-icon-2">
-                <span class="number-font">Cursos</span>
-            </div>
-            <ul class="dropdown">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown">  {{selectedCourse.get('schoolYear')}} - {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}, {{selectedCourse.get('turn')}}    <b class="caret"></b></a>
-                <ul ng-repeat="course in fullCourses" class="dropdown-menu" style="background-color: #f8faff">
-                    <div ng-repeat="course in fullCourses">
-                        <li ng-click="selectCourse($index)" ><a href="">     {{course.get('schoolYear')}} - {{course.get('year')}} {{course.get('division')}}, {{course.get('turn')}}     </a></li>
-                    </div>
+            <div class="box">
+                <div class="box-icon-2">
+                    <span class="number-font">Cursos</span>
+                </div>
+                <ul class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">  {{selectedCourse.get('schoolYear')}} - {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}, {{selectedCourse.get('turn')}}    <b class="caret"></b></a>
+                    <ul ng-repeat="course in fullCourses" class="dropdown-menu" style="background-color: #f8faff">
+                        <div ng-repeat="course in fullCourses">
+                            <li ng-click="selectCourse($index)" ><a href="">     {{course.get('schoolYear')}} - {{course.get('year')}} {{course.get('division')}}, {{course.get('turn')}}     </a></li>
+                        </div>
+                    </ul>
                 </ul>
-            </ul>
-            <h4><b>A�o: </b> {{selectedCourse.get('schoolYear')}} </h4>
-            <h4><b>Grado: </b> {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}</h4>
-            <h4>Turno: {{selectedCourse.get('turn')}}   </h4>
-        </div>
+                <h4><b>Año: </b> {{selectedCourse.get('schoolYear')}} </h4>
+                <h4><b>Grado: </b> {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}</h4>
+                <h4>Turno: {{selectedCourse.get('turn')}}   </h4>
+            </div>
 
             <div class="box">
                 <div class="box-icon-2">
@@ -28,14 +28,10 @@
                             <div ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
                                 <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
                                 <span class="hand" ng-click="toggle(this)">{{unit.get('number')}}- {{unit.get('title')}}</span>
-
-                                <a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </a>
                                 <!--<a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>-->
-                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}">
+                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/blockdetail/{{selectedCourse.get('contentBlock').id}}/{{unit.id}}">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a>
 
@@ -43,8 +39,11 @@
                             <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.get('topics')" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
                                 <li ng-repeat="topic in unit.get('topics')" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
                                     <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
+                                        <span class="hand">{{unit.get('number')}}.{{topic.get('number')}}- {{topic.get('title')}}</span>
 
-                                        {{unit.get('number')}}.{{topic.get('number')}}- {{topic.get('title')}}
+                                        <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/{{topic.id}}/{{selectedCourse.get('contentBlock').id}}">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </a>
                                 </li>
                             </ol>
                         </li>
@@ -80,11 +79,7 @@
                                     <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
                                     <span class="hand" ng-click="toggle(this)"> {{unit.get('number')}}- {{unit.get('title')}} </span>
 
-                                    <a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-
-                                    <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}">
+                                    <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/blockdetail/{{content.id}}/{{unit.id}}">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
 
@@ -93,7 +88,11 @@
                                 <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.get('topics')" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
                                     <li ng-repeat="topic in unit.get('topics')" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="true">
                                         <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
-                                            {{unit.get('number')}}.{{topic.get('number')}}- {{topic.get('title')}}
+                                          <span class="hand">{{unit.get('number')}}.{{topic.get('number')}}- {{topic.get('title')}}</span>
+
+                                          <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/{{topic.id}}/{{content.id}}">
+                                              <span class="glyphicon glyphicon-edit"></span>
+                                          </a>
                                     </li>
                                 </ol>
                             </li>
@@ -132,6 +131,42 @@
 
                     </li>
                 </ol>
+            </div>
+            <button data-toggle="modal" data-target="#newModalBlock" class="btn btn-default btn3 btn-red btn-block">Nuevo Bloque</button>
+          </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="newModalBlock" class="modal fade" role="dialog">
+    <div class="modal-dialog  modal-sm">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="alert alert-danger alert-dismissable" role="alert" ng-show="errorDelete">
+                <button class="close" ng-click="errorDelete = ''"><span aria-hidden="true">&times;</span></button>
+                <strong>Error!</strong> {{ errorDelete}}
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Crear Bloque de Contenidos</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group signup-input">
+                  <p class="order-label"><strong>Nombre</strong></p>
+                  <input type="text" class="form-control" ng-model="blockName" required>
+              </div>
+              <p class="order-label"><strong>Descripción</strong></p>
+              <div class="form-group createmeal-input">
+                  <textarea class="form-control" ng-model="blockDescription" maxlength="400"></textarea>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" ng-click="createBlock(blockName, blockDescription)" class="btn btn-default">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Descartar cambios</button>
             </div>
         </div>
     </div>

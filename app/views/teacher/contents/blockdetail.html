@@ -6,24 +6,30 @@
         </div>
         <div class="alert alert-success alert-dismissable" role="alert" ng-show="success">
             <button class="close" ng-click="success = ''"><span aria-hidden="true">&times;</span></button>
-            <strong>Éxito!</strong> {{ success}}
+            <strong>Éxito!</strong>{{ success}}
         </div>
+
 
         <div class="col-md-12">
 
             <div class="box" style="background-color: #F6F2F4">
                 <div class="box-icon-2" style="width:50%; background-color: #772244">
-                    <span class="number-font" >Mis Bloques de Contenidos</span>
+                    <span class="number-font">Bloque de Contenido</span>
                 </div>
                 <div class="info">
                     <h4 class="text-center">{{block.get('name')}}</h4>
+                    <p class="text-center">{{block.get('description')}}</p>
                 </div>
+                <!-- ADD FUNCTIONALITY! -->
                 <div class="top-corner">
-                    <a class=" btn btn-default btn-xs">
-                      <span ng-click="switchEditMode($index)" class="glyphicon glyphicon-edit"></span>
+                  <a href="#/teacher/contents/"  class=" btn btn-default btn-xs">
+                      <span  class="glyphicon glyphicon-arrow-left"></span>
+                  </a>
+                  <a class=" btn btn-default btn-xs">
+                      <span data-toggle="modal" data-target="#editModalBlock" class="glyphicon glyphicon-edit"></span>
                   </a>
                   <a class="btn btn-danger btn-default btn-xs">
-                      <span ng-click="switchEditMode($index)" class="glyphicon glyphicon-trash"></span>
+                      <span data-toggle="modal" data-target="#deleteModalBlock" class="glyphicon glyphicon-trash"></span>
                   </a>
                 </div>
 
@@ -39,7 +45,7 @@
                     <ul class="">
                         <li ng-repeat="unit in units" class="angular-ui-tree-node">
                             <div class="angular-ui-tree-handle" style="text-align: left">
-                                <span ng-click="showTopic($index)"> {{unit.get('number')}} - {{unit.get('title')}} </span>
+                                <span style="font-size: 13px" class="hand" ng-click="showUnit($index)"> {{unit.get('number')}} - {{unit.get('title')}} </span>
                                 <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setUnitToDelete($index)">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
@@ -60,7 +66,7 @@
                     <div ng-if="!creating" class="box-icon-3 .bg-red" style="background-color: #884466">
                         <span class="number-font">{{currentUnit.get('number')}}</span>
                     </div>
-                    
+
                     <div ng-if="creating" class="box-icon-3 .bg-red" style="background-color: #884466">
                         <span class="number-font"><span style="left: 53%" class="glyphicon glyphicon-edit"></span></span>
                     </div>
@@ -118,7 +124,7 @@
                     </div>
 
                     <div ng-if="editable && !creating" class="not-available">
-                        
+
                         <h2><span class="glyphicon glyphicon-edit"></span> EDICIÓN</h2>
                     </div>
                     <div ng-if="editable && !creating">
@@ -150,6 +156,7 @@
 
 
 <!-- MODALS SECTION -->
+
 <!-- Modal -->
 <div id="cancelModal" class="modal fade" role="dialog">
     <div class="modal-dialog  modal-sm">
@@ -173,6 +180,38 @@
 </div>
 
 <!-- Modal -->
+<div id="editModalBlock" class="modal fade" role="dialog">
+    <div class="modal-dialog  modal-sm">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="alert alert-danger alert-dismissable" role="alert" ng-show="errorDelete">
+                <button class="close" ng-click="errorDelete = ''"><span aria-hidden="true">&times;</span></button>
+                <strong>Error!</strong> {{ errorDelete}}
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Editar Bloque de Contenido</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group signup-input">
+                  <p class="order-label"><strong>Nombre</strong></p>
+                  <input type="text" class="form-control" ng-model="blockName" required>
+              </div>
+              <p class="order-label"><strong>Descripción</strong></p>
+              <div class="form-group createmeal-input">
+                  <textarea class="form-control" ng-model="blockDescription" maxlength="400"></textarea>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" ng-click="modifyBlock(blockName, blockDescription)" class="btn btn-default">Guardar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Descartar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="deleteModal" class="modal fade" role="dialog">
     <div class="modal-dialog  modal-sm">
 
@@ -187,26 +226,37 @@
                 <h4 class="modal-title">Confirmar eliminación</h4>
             </div>
             <div class="modal-body">
-                <p>¿Estas seguro que quieres eliminar la unidad?</p>
+                <p>¿Estas seguro que quieres eliminar esta Unidad?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" ng-click="deleteUnit()" class="btn btn-default">Eliminar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
             </div>
         </div>
+    </div>
+</div>
 
-        <div ng-if="isDeleted" class="modal-content">
+
+<div id="deleteModalBlock" class="modal fade" role="dialog">
+    <div class="modal-dialog  modal-sm">
+
+        <!-- Modal content-->
+        <div ng-if="!isDeleted" class="modal-content">
+            <div class="alert alert-danger alert-dismissable" role="alert" ng-show="errorDelete">
+                <button class="close" ng-click="errorDelete = ''"><span aria-hidden="true">&times;</span></button>
+                <strong>Error!</strong> {{ errorDelete}}
+            </div>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Confirmar eliminación</h4>
             </div>
             <div class="modal-body">
-                <p>Se ha eliminado correctamente</p>
+                <p>¿Estas seguro que quieres eliminar el Bloque Completo?</p>
             </div>
             <div class="modal-footer">
+                <button type="button" ng-click="deleteBlock()" class="btn btn-default">Eliminar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
             </div>
         </div>
-
     </div>
 </div>

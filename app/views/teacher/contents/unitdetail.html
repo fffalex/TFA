@@ -41,7 +41,7 @@
                     <ul class="">
                         <li ng-repeat="topic in topics" class="angular-ui-tree-node">
                             <div class="angular-ui-tree-handle" style="text-align: left">
-                                <span ng-click="showTopic($index)"> {{topic.get('number')}} - {{topic.get('title')}} </span>
+                                <span style="font-size: 13px" class="hand" ng-click="showTopic($index)"> {{topic.get('number')}} - {{topic.get('title')}} </span>
                                 <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setTopicToDelete($index)">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
