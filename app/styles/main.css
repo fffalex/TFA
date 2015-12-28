@@ -735,10 +735,9 @@ div.offer-line {
     display: block;
 }
 
-.container-vieworders .table td,
-.container-vieworders .table th,
-.container-myorders .table td,
-.container-myorders .table th {
+
+.container-main .table td,
+.container-main .table th {
     text-align: center;
 }
 
@@ -748,11 +747,11 @@ div.offer-line {
     text-transform: uppercase;
 }
 
-.container-vieworders .table-header,
-.container-myorders .table-header {
-    background-color: white;
+
+.container-main .table-header {
+    background-color: #468499;
     border-color: transparent;
-    color: #2F4FFC;
+    color: #fff;
 }
 
 .container-myorders .td-button {
