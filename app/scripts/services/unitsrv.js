@@ -159,7 +159,7 @@ angular.module('tfaApp')
       },
 
       //Get all Data relation abour units and topics
-      getAllTeacherContentBlocks: function unitGeAllContentBlocks(teacher,cb){
+      getAllTeacherContentBlocks: function unitGeAllTeacherContentBlocks(teacher,cb){
           var query = new Parse.Query('ContentBlock');
           query.equalTo('teacher', teacher);
           query.include('units');
@@ -181,7 +181,7 @@ angular.module('tfaApp')
       },
 
       //Get Specific ContentBlock alla Data
-      getContentBlock: function unitGeAllContentBlocks(contentData, cb){
+      getContentBlock: function unitGetContentBlock(contentData, cb){
           var query = new Parse.Query('ContentBlock');
           query.equalTo('id', contentData.id);
           query.include('units');

@@ -31,7 +31,7 @@
                                 <!--<a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>-->
-                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/blockdetail/{{selectedCourse.get('contentBlock').id}}/{{unit.id}}">
+                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/blockdetail/{{selectedCourse.teacherContent.id}}/{{unit.id}}">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a>
 
@@ -41,7 +41,7 @@
                                     <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
                                         <span class="hand">{{unit.get('number')}}.{{topic.get('number')}}- {{topic.get('title')}}</span>
 
-                                        <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/{{topic.id}}/{{selectedCourse.get('contentBlock').id}}">
+                                        <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/{{topic.id}}/{{selectedCourse.teacherContent.id}}">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>
                                 </li>
