@@ -133,7 +133,7 @@ angular
           controller: 'MyStudentsCtrl',
                 access: 'teacher'
             })
-      .when('/student/contents/', {
+      .when('/student/contents/classes/:blockId/:unitId/:topicId', {
           templateUrl: 'views/student/contents/classes.html',
           controller: 'StudentClassesCtrl',
                 access: 'student'

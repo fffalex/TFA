@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('StudentClassesCtrl', function ($scope, unitsrv, coursesrv) {
+  .controller('StudentClassesCtrl', function ($scope, unitsrv, coursesrv, $routeParams ) {
 
     //courses call
     //initial data set
@@ -16,19 +16,24 @@ angular.module('tfaApp')
     $scope.creating = false;
 
     //Take objectID to query from the routeParams
-    var objectId = 0;
+    var unitId = 0;
     var blockId = 0;
     var topicId = 0;
     if ($routeParams) {
-      objectId = $routeParams.objectId;
-      topicId = $routeParams.secondId;
-      blockId = $routeParams.blockId;
-
+      $scope.unitId = $routeParams.unitId;
+      $scope.topicId = $routeParams.topicId;
+      $scope.blockId = $routeParams.blockId;
     }
-    $scope.unitId = objectId;
-    $scope.blockId = blockId;
     var flagUnitId = false;
     //Initial query to set te Unit and Topic array
+    unitsrv.getContentBlock({id:'WSrnTu2Luw'},{
+      success: function(block){
+        $scope.block = block;
+      },
+      error: function(error){
+        console.console.log(error);;
+      }
+    });
     var query = new Parse.Query('Unit');
     query.equalTo('objectId', objectId);
     query.include('topics');

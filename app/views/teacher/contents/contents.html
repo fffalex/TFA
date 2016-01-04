@@ -25,7 +25,7 @@
                 <div ui-tree class="ng-scope angular-ui-tree">
                     <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="selectedCourse.teacherContent" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
                         <li ng-repeat="unit in selectedCourse.teacherContent.get('units')" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
-                            <div ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
+                            <div ng-if="unit.get('status') !== 0" ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
                                 <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
                                 <span class="hand" ng-click="toggle(this)">{{unit.get('number')}}- {{unit.get('title')}}</span>
                                 <!--<a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
@@ -38,12 +38,13 @@
                             </div>
                             <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.get('topics')" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
                                 <li ng-repeat="topic in unit.get('topics')" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
-                                    <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
+                                    <div ng-if="topic.get('status') !== 0" ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
                                         <span class="hand">{{unit.get('number')}}.{{topic.get('number')}}- {{topic.get('title')}}</span>
 
                                         <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/{{topic.id}}/{{selectedCourse.teacherContent.id}}">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>
+                                      </div>
                                 </li>
                             </ol>
                         </li>

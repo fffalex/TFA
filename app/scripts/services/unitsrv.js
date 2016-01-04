@@ -187,6 +187,8 @@ angular.module('tfaApp')
           query.include('units');
           query.include('units.topics');
           query.include('units.topics.seenBy');
+          query.equalTo('units.status',1);
+          query.equalTo('units.topics.status',1);
           query.find({
               success: function (contentBlock) {
                   if (cb && cb.success) {
