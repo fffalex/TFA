@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<!-- <div class="col-md-12">
 
     <div class="col-md-3">
         <div class="box">
@@ -10,14 +10,14 @@
                     <li ng-repeat="unit in fullUnits" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
                         <div  ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
                             <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
-                            <span style="cursor: pointer" ng-click="showUnit($index)">{{unit.number}} - {{unit.title}}</span>
+                            <span style="cursor: pointer" ng-click="showUnit($index)">{{unit.number}} - {{unit.title}}</span> -->
 
 
                             <!--<a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>-->
 
-                        </div>
+                        <!-- </div>
                         <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.topics" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
                             <li ng-repeat="topic in unit.topicsJSON" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
                                 <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
@@ -59,6 +59,235 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="column container-main">
+    <div class="row">
+        <div class="alert alert-danger alert-dismissable" role="alert" ng-show="error">
+            <button class="close" ng-click="error = ''"><span aria-hidden="true">&times;</span></button>
+            <strong>Error!</strong> {{ error}}
+        </div>
+        <div class="alert alert-success alert-dismissable" role="alert" ng-show="success">
+            <button class="close" ng-click="success = ''"><span aria-hidden="true">&times;</span></button>
+            <strong>Éxito!</strong> {{ success}}
+        </div>
+
+        <div class="col-md-12">
+            <h2>DETALLES DE LA UNIDAD</h2>
+        </div>
+
+        <div class="col-md-12">
+            <div class="box" style="background-color: #F5F8F9">
+
+                <div class="box-icon bg-darkblue">
+                    <span class="number-font">{{unit.get('number')}}</span>
+                </div>
+                <div class="info">
+                    <h4 class="text-center">{{unit.get('title')}}</h4>
+                    <p>{{unit.get('description')}}</p>
+                </div>
+
+                <div class="top-corner">
+                  <a href="#/teacher/contents/blockdetail/{{blockId}}/{{unitId}}"  class=" btn btn-default btn-xs">
+                      <span  class="glyphicon glyphicon-arrow-left"></span>
+                  </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="box" style="background-color: #F5F8F9">
+                    <div class="box-icon-2 bg-darkblue">
+                        <span class="number-font">Temas</span>
+                    </div>
+                    <ul class="">
+                        <li ng-repeat="topic in topics" class="angular-ui-tree-node">
+                            <div class="angular-ui-tree-handle" style="text-align: left">
+                                <span style="font-size: 13px" class="hand" ng-click="showTopic($index)"> {{topic.get('number')}} - {{topic.get('title')}} </span>
+                                <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setTopicToDelete($index)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/{{topic.id}}/{{blockId}}">
+                                    <span ng-click="switchEditMode($index)" class="glyphicon glyphicon-edit"></span>
+                                </a>
+
+                            </div>
+                        </li>
+                    </ul>
+                    <button ng-disabled="editable" class="btn btn-default btn3 btn2 btn-block" ng-click="showCreatingTopic()">Nuevo Tema</button>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="box">
+                    <div ng-if="!creating" class="box-icon-3">
+                        <span class="number-font">{{currentTopic.get('number')}}</span>
+                    </div>
+                    <div ng-if="creating" class="box-icon-3">
+                        <span class="number-font"><span style="left: 53%" class="glyphicon glyphicon-plus"></span></span>
+                    </div>
+
+                    <div ng-if="!editable && !creating" >
+                        <h3 class="text-center">{{currentTopic.get('title')}}</h3>
+
+
+                    </div>
+                    <div ng-if="!editable && !creating" class="top-corner">
+                        <a ng-click="switchEditMode($index)" class=" btn btn-default btn-xs">
+                            <span  class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-default btn-xs">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </div>
+                    <div data-toggle="modal" data-target="#cancelModal" ng-if="editable" class="top-corner">
+                        <a class=" btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
+                    <div ng-if="creating" class="top-corner">
+                        <a data-toggle="modal" data-target="#cancelModal" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
+
+
+                    <div ng-if="editable" class="not-available">
+
+                        <h2><span class="glyphicon glyphicon-edit"></span> MODO EDICION</h2>
+                    </div>
+
+                    <div ng-if="!editable && !creating">
+                        <div ta-bind="text" ng-model="currentContent" ta-readonly='disabled'></div>
+                    </div>
+
+                    <div ng-if="editable && !creating">
+                      <div class="form-group signup-input">
+                          <p class="order-label"><strong>Numero de Tema</strong></p>
+                          <input type="number" class="form-control" ng-model="currentNumber" required>
+                      </div>
+                      <div class="form-group signup-input">
+                          <p class="order-label"><strong>Título</strong></p>
+                          <input type="text" class="form-control" ng-model="currentTitle" required>
+                      </div>
+                      <p class="order-label"><strong>Editor de Contenido</strong></p>
+                      <div text-angular="text-angular" name="htmlcontent" ng-model="currentContent" ta-disabled='false'></div>
+
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="saveEditedTopic(currentNumber, currentTitle, currentContent)">Guardar cambios</button>
+                        </div>
+                        <div class="col-md-6">
+                          <button class="btn btn-default btn3 btn2 btn-red btn-block" data-toggle="modal" data-target="#cancelModal">Cancelar</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div ng-if="creating">
+                        <div class="form-group signup-input">
+                            <p class="order-label"><strong>Número de tema</strong></p>
+                            <input type="number" class="form-control" ng-model="newNumber" required>
+                        </div>
+                        <div class="form-group signup-input">
+                            <p class="order-label"><strong>Título</strong></p>
+                            <input type="text" class="form-control" ng-model="newTitle" required>
+                            <p>{{newNumber}}</p>
+                        </div>
+                        <p class="order-label"><strong>Editor de contenido</strong></p>
+                        <div>
+                            <div text-angular="text-angular" name="htmlcontent" ng-model="newContent" ta-disabled='false'></div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6">
+                            <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="createNewTopic(newNumber, newTitle, newContent)">Crear tema</button>
+                          </div>
+                          <div class="col-md-6">
+                            <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="cancelCreation()">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
+<!-- MODALS SECTION -->
+
+<!-- Modal -->
+<div id="cancelModal" class="modal fade" role="dialog">
+    <div class="modal-dialog  modal-sm order-modal">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cancelar cambios?</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Seguro que quieres descartar los cambios realizados y volver a la anterior pantalla?</p>
+            </div>
+            <div class="modal-footer">
+                <div class="col-xs-6">
+                <button type="button" ng-click="cancelEdition()" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">SI</button>
+              </div>
+                <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">No</button>
+              </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="deleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog  modal-sm order-modal">
+
+        <!-- Modal content-->
+        <div ng-if="!isDeleted" class="modal-content">
+            <div class="alert alert-danger alert-dismissable" role="alert" ng-show="errorDelete">
+                <button class="close" ng-click="errorDelete = ''"><span aria-hidden="true">&times;</span></button>
+                <strong>Error!</strong> {{ errorDelete}}
+            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Estas seguro que quieres eliminar este Tema?</p>
+            </div>
+            <div class="modal-footer">
+                <div class="col-xs-6">
+                <button type="button" ng-click="deleteTopic()" class="btn btn-default btn3 btn2 btn-block">Eliminar</button>
+              </div>
+                <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Volver</button>
+              </div>
+            </div>
+        </div>
+
+        <!-- <div ng-if="isDeleted" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>Se ha eliminado Correctamente</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+            </div>
+        </div> -->
+
+    </div>
+</div>
+</div>
