@@ -183,13 +183,11 @@ angular.module('tfaApp')
       //Get Specific ContentBlock alla Data
       getContentBlock: function unitGetContentBlock(contentData, cb){
           var query = new Parse.Query('ContentBlock');
-          query.equalTo('id', contentData.id);
+          query.equalTo('objectId', contentData.id);
           query.include('units');
           query.include('units.topics');
-          query.include('units.topics.seenBy');
-          query.equalTo('units.status',1);
-          query.equalTo('units.topics.status',1);
-          query.find({
+          //query.include('units.topics.seenBy');
+          query.first({
               success: function (contentBlock) {
                   if (cb && cb.success) {
                       cb.success(contentBlock);

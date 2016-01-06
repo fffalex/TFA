@@ -1,65 +1,3 @@
-<!-- <div class="col-md-12">
-
-    <div class="col-md-3">
-        <div class="box">
-            <div class="box-icon-2">
-                <span class="number-font">Índice</span>
-            </div>
-            <div ui-tree class="ng-scope angular-ui-tree">
-                <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="course" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
-                    <li ng-repeat="unit in fullUnits" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
-                        <div  ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
-                            <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
-                            <span style="cursor: pointer" ng-click="showUnit($index)">{{unit.number}} - {{unit.title}}</span> -->
-
-
-                            <!--<a class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </a>-->
-
-                        <!-- </div>
-                        <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.topics" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
-                            <li ng-repeat="topic in unit.topicsJSON" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
-                                <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
-
-                                    <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-down" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
-                                    <span style="cursor: pointer" ng-click="showTopic($index, unit.objectId)">{{unit.number}}.{{topic.number}} - {{topic.title}}</span>
-                                    <span ng-if="unit.topicsJSON.seenBy == studentId" class="glyphicon glyphicon-check"></span>
-                            </li>
-                        </ol>
-                    </li>
-                </ol>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-9">
-        <div class="col-md-12">
-            <div class="box">
-                <div class="box-icon">
-                    <span class="number-font">{{currentUnit.number}}</span>
-                </div>
-                <div class="info">
-                    <h4 class="text-center">{{currentUnit.title}}</h4>
-                    <p>{{currentUnit.description}}</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="box">
-                <div class="box-icon-3">
-                    <span class="number-font">{{currentTopic.number}}</span>
-                </div>
-
-                <div>
-                    <h3 class="text-center">{{currentTopic.title}}</h3>
-                    <p>{{currentTopic.description}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 <div class="column container-main">
     <div class="row">
@@ -73,24 +11,22 @@
         </div>
 
         <div class="col-md-12">
-            <h2>DETALLES DE LA UNIDAD</h2>
+            <h2>CLASES</h2>
         </div>
 
         <div class="col-md-12">
             <div class="box" style="background-color: #F5F8F9">
 
                 <div class="box-icon bg-darkblue">
-                    <span class="number-font">{{unit.get('number')}}</span>
+                    <span class="number-font">{{currentUnit.get('number')}}</span>
                 </div>
                 <div class="info">
-                    <h4 class="text-center">{{unit.get('title')}}</h4>
-                    <p>{{unit.get('description')}}</p>
+                    <h4 class="text-center">{{currentUnit.get('title')}}</h4>
+                    <p>{{currentUnit.get('description')}}</p>
                 </div>
 
-                <div class="top-corner">
-                  <a href="#/teacher/contents/blockdetail/{{blockId}}/{{unitId}}"  class=" btn btn-default btn-xs">
-                      <span  class="glyphicon glyphicon-arrow-left"></span>
-                  </a>
+                <div ng-if="currentUnit.seen" class="top-corner">
+                    <span  style="color: #529C52; font-size: 30px; margin-right: 5px;" class="glyphicon glyphicon-ok-sign"></span>
                 </div>
             </div>
         </div>
@@ -103,50 +39,27 @@
                     </div>
 
                     <div ui-tree class="ng-scope angular-ui-tree">
-                        <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="selectedCourse.teacherContent" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
-                            <li ng-repeat="unit in selectedCourse.teacherContent.get('units')" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
+                        <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="block" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
+                            <li ng-repeat="unit in block.unitsX" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
                                 <div ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
                                     <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
                                     <span class="hand" ng-click="toggle(this)">{{unit.get('number')}}- {{unit.get('title')}}</span>
+                                    <span ng-if="unit.seen" class="pull-right glyphicon glyphicon-ok"></span>
                                     <!--<a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </a>-->
-                                    <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/blockdetail/{{selectedCourse.teacherContent.id}}/{{unit.id}}">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </a>
-
                                 </div>
                                 <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.get('topics')" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
-                                    <li ng-repeat="topic in unit.get('topics')" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
+                                    <li ng-repeat="topic in unit.topicsX" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
                                         <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
-                                            <span class="hand">{{unit.get('number')}}.{{topic.get('number')}}- {{topic.get('title')}}</span>
-
-                                            <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/{{topic.id}}/{{selectedCourse.teacherContent.id}}">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </a>
+                                            <span ng-click="showTopic(unit.id,$index)" class="hand">{{unit.get('number')}}.{{topic.get('number')}}- {{topic.get('title')}}</span>
+                                            <span ng-if="topic.seen" class="pull-right glyphicon glyphicon-ok"></span>
+                                        </div>
                                     </li>
                                 </ol>
                             </li>
                         </ol>
                     </div>
-                </div>
-                    <!-- <ul class="">
-                        <li ng-repeat="topic in topics" class="angular-ui-tree-node">
-                            <div class="angular-ui-tree-handle" style="text-align: left">
-                                <span style="font-size: 13px" class="hand" ng-click="showTopic($index)"> {{topic.get('number')}} - {{topic.get('title')}} </span>
-                                <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setTopicToDelete($index)">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </a>
-
-                                <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/{{topic.id}}/{{blockId}}">
-                                    <span ng-click="switchEditMode($index)" class="glyphicon glyphicon-edit"></span>
-                                </a>
-
-                            </div>
-                        </li>
-                    </ul> -->
-
-
                 </div>
             </div>
 
@@ -166,6 +79,18 @@
                     <div>
                         <div ta-bind="text" ng-model="currentContent" ta-readonly='disabled'></div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <button data-toggle="modal" data-target="#seenModal" class="btn btn-default btn3 btn2 btn-red btn-block"><span ng-if="!topic.seen" class="pull-right glyphicon glyphicon-ok"></span>Marcar como leído</button>
+                      </div>
+                      <div class="col-md-6">
+
+                      </div>
+                    </div>
+
+                    <div ng-if="currentTopic.seen" class="top-corner">
+                      <span  style="color: #529C52; font-size: 30px; margin-right: 5px;" class="glyphicon glyphicon-ok-sign"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -176,21 +101,21 @@
 <!-- MODALS SECTION -->
 
 <!-- Modal -->
-<div id="cancelModal" class="modal fade" role="dialog">
+<div id="seenModal" class="modal fade" role="dialog">
     <div class="modal-dialog  modal-sm order-modal">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Cancelar cambios?</h4>
+                <h4 class="modal-title">Marcar como leído</h4>
             </div>
             <div class="modal-body">
-                <p>¿Seguro que quieres descartar los cambios realizados y volver a la anterior pantalla?</p>
+                <p>¿Has terminado de leer este tema?</p>
             </div>
             <div class="modal-footer">
                 <div class="col-xs-6">
-                <button type="button" ng-click="cancelEdition()" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">SI</button>
+                <button type="button" ng-click="markAsRead()" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Si</button>
               </div>
                 <div class="col-xs-6">
                 <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">No</button>
@@ -227,20 +152,6 @@
               </div>
             </div>
         </div>
-
-        <!-- <div ng-if="isDeleted" class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Confirmar eliminación</h4>
-            </div>
-            <div class="modal-body">
-                <p>Se ha eliminado Correctamente</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
-            </div>
-        </div> -->
-
     </div>
 </div>
 </div>

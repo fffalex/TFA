@@ -80,6 +80,26 @@ angular.module('tfaApp')
           success: function (courses) {
               $scope.fullCourses = courses;
               //$scope.fullUnits = $scope.fullCourses[0].get('contentBlock').get('units');
+              for (var i = 0; i < $scope.fullCourses.length; i++) {
+                //$scope.allContents[i].unitsX = [];
+                $scope.fullCourses[i].teacherContent.unitsX = [];
+                //For each unit in Content
+                for (var j = 0; j < $scope.fullCourses[i].teacherContent.get('units').length; j++) {
+                    var unit = $scope.fullCourses[i].teacherContent.get('units')[j];
+                    unit.topicsX = [];
+                    if( unit.get('status') != 0){
+                      //For each topic in Unit
+                      if(unit.get('topics') != undefined){
+                        for (var k = 0; k < unit.get('topics').length; k++) {
+                          if(unit.get('topics')[k].get('status') != 0){
+                            unit.topicsX.push(unit.get('topics')[k]);
+                          }
+                        }
+                      }
+                      $scope.fullCourses[i].teacherContent.unitsX.push(unit);
+                    }
+                }
+              }
               $scope.selectedCourse = $scope.fullCourses[0];
               $scope.$apply();
           }
@@ -87,6 +107,29 @@ angular.module('tfaApp')
       unitsrv.getAllTeacherContentBlocks(Parse.User.current(), {
           success: function (contents) {
               $scope.allContents = contents;
+              //For each content
+              for (var i = 0; i < $scope.allContents.length; i++) {
+                $scope.allContents[i].unitsX = [];
+                //For each unit in Content
+                if($scope.allContents[i].get('units') != undefined){
+
+                  for (var j = 0; j < $scope.allContents[i].get('units').length; j++) {
+                    var unit = $scope.allContents[i].get('units')[j];
+                    unit.topicsX = [];
+                    if( unit.get('status') != 0){
+                      //For each topic in Unit
+                      if(unit.get('topics') != undefined){
+                        for (var k = 0; k < unit.get('topics').length; k++) {
+                          if(unit.get('topics')[k].get('status') != 0){
+                            unit.topicsX.push(unit.get('topics')[k]);
+                          }
+                        }
+                      }
+                      $scope.allContents[i].unitsX.push(unit);
+                    }
+                  }
+                }
+              }
               $scope.$apply();
           },
           error: function (error) {

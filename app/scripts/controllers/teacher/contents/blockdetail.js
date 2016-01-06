@@ -208,6 +208,7 @@ angular.module('tfaApp')
 
       $scope.setUnitToDelete = function (index) {
           $scope.toDeleteUnit = $scope.units[index];
+          $scope.$apply();
 
       };
 
