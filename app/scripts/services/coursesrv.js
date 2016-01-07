@@ -50,7 +50,26 @@ angular.module('tfaApp')
               }
             }
           });
-    },
+        },
+
+      getCourse: function courseGetCourse(courseData,cb){
+        var query = new Parse.Query('Course');
+        query.equalTo('objectId',courseData.id);
+        query.include('contentBlock');
+        query.include('contentBlock.teacher');
+        query.first({
+          success: function(course){
+            if (cb && cb.success) {
+              cb.success(course);
+            }
+          },
+          error: function(error){
+            if (cb && cb.error) {
+              cb.error(error);
+            }
+          }
+        });
+      },
 
 
 
@@ -103,6 +122,8 @@ angular.module('tfaApp')
           });
       },
 
+
+
       //Use this
       getAllStudentsInCourse: function courseGetAllStudentsInCourse(teacher,cb){
         this.getTeacherCourses(teacher, {
@@ -143,6 +164,7 @@ angular.module('tfaApp')
           }
         });
       },
+
 
 
       getStudentsCourse: function getTeacherCourse(teacher,cb){

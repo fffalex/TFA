@@ -277,7 +277,7 @@ angular.module('tfaApp')
       },
 
       markTopicSeenBy: function unitMarkTopicSeenBy(topicData, studentData, cb) {
-        var topic = new (Parse.Object.extend('Unit'));
+        var topic = new (Parse.Object.extend('Topic'));
         topic.set('id', topicData.id);
         var studentArray = { "__type": "Pointer", "className": "User", "objectId": studentData.id };
         topic.add('seenBy', studentArray);

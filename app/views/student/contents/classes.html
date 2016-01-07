@@ -81,7 +81,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-6">
-                        <button data-toggle="modal" data-target="#seenModal" class="btn btn-default btn3 btn2 btn-red btn-block"><span ng-if="!topic.seen" class="pull-right glyphicon glyphicon-ok"></span>Marcar como leído</button>
+                        <button ng-if="!currentTopic.seen" data-toggle="modal" data-target="#seenModal" class="btn btn-default btn3 btn2 btn-red btn-block"><span ng-if="!topic.seen" class="pull-right glyphicon glyphicon-ok"></span>Marcar como leído</button>
                       </div>
                       <div class="col-md-6">
 

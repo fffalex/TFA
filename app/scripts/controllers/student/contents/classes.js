@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('StudentClassesCtrl', function ($scope, unitsrv, coursesrv, $routeParams ) {
+  .controller('StudentClassesCtrl', function ($scope,$route, unitsrv, coursesrv, $routeParams ) {
 
     //courses call
     //initial data set
@@ -63,7 +63,7 @@ angular.module('tfaApp')
         $scope.$apply();
       },
       error: function(error){
-        console.log(error);;
+        $scope.error = error;;
       }
     });
 
@@ -84,15 +84,18 @@ angular.module('tfaApp')
           $('.modal-backdrop').remove();
           $('body').removeClass('modal-open');
           $('body').removeAttr('style');
+          $scope.currentTopic.seen = true;
+          $scope.currentUnit.seen = true;
+          for (var i = 0; i < $scope.currentUnit.topicsX.length; i++) {
+            if ($scope.currentUnit.topicsX[i].seen != true){
+              $scope.currentUnit.seen = false;
+            }
+          }
           $scope.$apply();
-          $route.reload();
         },
         error: function(error){
           $scope.error(error);
         }
-
       } );
     };
-
-
 });
