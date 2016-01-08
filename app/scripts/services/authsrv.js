@@ -5,13 +5,13 @@
  * @name tfa.authsrv
  * @description
  * # authsrv
- * Authentication service for user authorization and authentication and 
+ * Authentication service for user authorization and authentication and
  * grant role access.
  */
 
 angular.module('tfaApp')
   .factory('authsrv', function ($q) {
-    
+
     // current authenticated user and role
     var currentUser=null, currentRoles=null;
 
@@ -123,7 +123,7 @@ angular.module('tfaApp')
             updateCurrentUser(null,{success:resolve,error:reject});
           }else{
             resolve();
-          } 
+          }
         });
       },
 
@@ -155,7 +155,7 @@ angular.module('tfaApp')
         //To set a relation many-to-many
         //var relation = user.relation("teachOn");
         //relation.add(userData.teachOn);
-        
+
         //user.set('assignedTo', userData.teachOn);
 
         //
@@ -165,6 +165,9 @@ angular.module('tfaApp')
           user.set('assignedTo',course);
         }
         else{
+          for (var i=0; i<userData.courses.length; i++){
+            user.add('sellsOn', createPointer('Office',userData.offices[i].id))
+          }
 //          var course = new (Parse.Object.extend('Course'));
 //          course.set('id',userData.assignedTo.objectId);
 //          user.relation("teachOn").add(course);
@@ -397,7 +400,7 @@ angular.module('tfaApp')
               user.save(null, {
                 success: function (user) {
 
-                   //Ver si se puede forzar de otra manera los datos 
+                   //Ver si se puede forzar de otra manera los datos
                    //del local storage luego de hacer la edicion del user
 
                     Parse.User.current().set('id',userData.objectId);
@@ -425,11 +428,11 @@ angular.module('tfaApp')
               }
             }
           });
-        } else { 
+        } else {
 
           user.save(null, {
             success: function (user) {
-              //Ver si se puede forzar de otra manera los datos 
+              //Ver si se puede forzar de otra manera los datos
               //del local storage luego de hacer la edicion del user
               Parse.User.current().set('id',userData.objectId);
               Parse.User.current().set('name', userData.name);

@@ -14,9 +14,11 @@ angular.module('tfaApp')
             $scope.form = {};
             //change this for teacher profile!
             $scope.form.isTeacher = false;
+            $scope.form.myCourse;
             $scope.error = '';
             $scope.courses = [];
-            $scope.myCourse;
+            $scope.addedCourses = [];
+
 
             var phone = /^(\+)?\d{0,20}$/;
             var username = /^[a-zA-Z0-9_-]+$/;
@@ -39,11 +41,25 @@ angular.module('tfaApp')
                 }
             });
 
+            $scope.addCourse = function(course){
+              var index = $scope.courses.indexOf(course);
+              if($scope.addedCourses.indexOf(courses) == -1){
+                $scope.addedCourses.push($scope.courses[index]);
+                //console.log("agrego tranka");
+
+              }else{
+                console.log("Salio -1 faill");
+              }
+            };
+            $scope.removeCourse = function(index){
+              $scope.addedCourses.splice(index, 1);
+            };
+
 
 
             $scope.doSignUp = function () {
-                $scope.form.assignedTo = $scope.myCourse;
-                $scope.form.courses = $scope.courses;
+                $scope.form.courses = $scope.addedCourses;
+                $scope.form.myCourse;
                 if (!$scope.form.username || $scope.form.username.length < 4 || $scope.form.username.length > 16) {
                     $scope.error = 'El nombre de usuario debe tener entre 4 y 16 caracteres';
                 } else if (!$scope.form.username || !username.test($scope.form.username)) {

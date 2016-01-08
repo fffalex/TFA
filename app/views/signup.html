@@ -68,7 +68,6 @@
                     <div ng-if="!form.isTeacher" class="form-group signup-input">
                             <p class="order-label"><strong>Curso</strong></p>
                             <select ng-model="myCourse" ng-options="course.year for course in courses"></select>
-
                             <ul class="dropdown">
                                 <button class="btn btn-theme dropdown-toggle" data-toggle="dropdown">  {{selectedCourse.get('schoolYear')}} - {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}, {{selectedCourse.get('turn')}}    <b class="caret"></b></button>
                                 <ul ng-repeat="course in fullCourses" class="dropdown-menu" style="background-color: #f8faff">
@@ -77,8 +76,27 @@
                                     </div>
                                 </ul>
                             </ul>
-
                     </div>
+
+                    <div ng-if="form.isTeacher" class="form-group signup-input">
+                        <p class="order-label"><strong>Cursos</strong></p>
+                        <div class="row">
+                            <div class="col-md-11">
+                                <select ng-model="form.myOffice" ng-options="course.get('companyName') for office in offices" class="form-control"></select>
+                            </div>
+                            <div style="height: 100%" class="col-md-1  no-padding container-offermeal">
+                                <button type="button" class="btn btn-default btn3 btn3-small btn-block" ng-click="addOffice(form.myOffice)" aria-hidden="true"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
+                        </div>
+                        <div>
+                             <div class="row" ng-repeat="office in addedOffices">
+                                    <div class=" card">
+                                        {{office.get('companyName')}} - {{office.get('address')}}<button type="button" class="close pull-right" ng-click="removeOffice($index)" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div ng-if="form.isTeacher">
                         <div class="form-group signup-input">
                              <p class="order-label"><strong>Especialidad</strong></p>
