@@ -165,9 +165,6 @@ angular.module('tfaApp')
           user.set('assignedTo',course);
         }
         else{
-          for (var i=0; i<userData.courses.length; i++){
-            user.add('sellsOn', createPointer('Office',userData.offices[i].id))
-          }
 //          var course = new (Parse.Object.extend('Course'));
 //          course.set('id',userData.assignedTo.objectId);
 //          user.relation("teachOn").add(course);
@@ -177,12 +174,39 @@ angular.module('tfaApp')
         user.signUp(null, {
           success: function (user) {
             if(userData.isTeacher){
-                for(var i = 0; i < userData.courses.length; i++){
-                    var course = new (Parse.Object.extend('Course'));
-                    course.set('id',userData.courses[i].objectId);
-                    course.set('teacher',user);
-                    course.save();
-                }
+                  var content = new (Parse.Object.extend('ContentBlock'));
+                  content.set('teacher', user);
+                  content.set('status', '2');
+                  content.save(null, {
+                    success: function(rcontent){
+                      var arrayCourse = [];
+                      for(var i = 0; i < userData.courses.length; i++){
+                        var course = new (Parse.Object.extend('Course'));
+                        course.set('id',userData.courses[i].id)
+                        course.add('contentBlock', createPointer('ContentBlock',rcontent.id));
+                        arrayCourse.push(course);
+                      }
+                      Parse.Object.saveAll(arrayCourse, {
+                          success: function(objs) {
+                            if(cb && cb.success){
+                              cb.success(objs);
+                            }
+                            // objects have been saved...
+                          },
+                          error: function(error) {
+                              // an error occurred...
+                              if (cb && cb.error) {
+                                cb.error(error);
+                              }
+                          }
+                      });
+                    },
+                    error: function(error){
+                      if (cb && cb.error) {
+                        cb.error(error);
+                      }
+                    }
+                  });
             }
             updateCurrentUser(user.toFullJSON(), cb);
           },

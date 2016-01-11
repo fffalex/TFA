@@ -43,7 +43,7 @@ angular.module('tfaApp')
 
             $scope.addCourse = function(course){
               var index = $scope.courses.indexOf(course);
-              if($scope.addedCourses.indexOf(courses) == -1){
+              if($scope.addedCourses.indexOf(course) == -1){
                 $scope.addedCourses.push($scope.courses[index]);
                 //console.log("agrego tranka");
 

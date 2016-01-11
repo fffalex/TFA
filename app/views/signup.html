@@ -82,16 +82,16 @@
                         <p class="order-label"><strong>Cursos</strong></p>
                         <div class="row">
                             <div class="col-md-11">
-                                <select ng-model="form.myOffice" ng-options="course.get('companyName') for office in offices" class="form-control"></select>
+                                <select ng-model="form.myCourse" ng-options="course.get('name') for course in courses" class="form-control"></select>
                             </div>
                             <div style="height: 100%" class="col-md-1  no-padding container-offermeal">
-                                <button type="button" class="btn btn-default btn3 btn3-small btn-block" ng-click="addOffice(form.myOffice)" aria-hidden="true"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button type="button" class="btn btn-default btn3 btn3-small btn-block" ng-click="addCourse(form.myCourse)" aria-hidden="true"><span class="glyphicon glyphicon-plus"></span></button>
                             </div>
                         </div>
                         <div>
-                             <div class="row" ng-repeat="office in addedOffices">
+                             <div class="row" ng-repeat="course in addedCourses">
                                     <div class=" card">
-                                        {{office.get('companyName')}} - {{office.get('address')}}<button type="button" class="close pull-right" ng-click="removeOffice($index)" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                                        {{course.get('name')}}<button type="button" class="close pull-right" ng-click="removeOffice($index)" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
                                     </div>
                             </div>
                         </div>

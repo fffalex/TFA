@@ -79,7 +79,7 @@ angular.module('tfaApp')
           query.find({
             success: function (courses) {
               if (cb && cb.success) {
-                cb.success(courses.toFullJSON());
+                cb.success(courses);
               }
             },
             error: function (error) {

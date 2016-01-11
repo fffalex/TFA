@@ -51,7 +51,7 @@ var errorCodes = [
   {Code: 151, Message: 'Archivo no guardado.'},
   {Code: 153, Message: 'Fallo al borrar el archivo.'},
   {Code: 155, Message: 'La aplicación ha excedido su límite de solicitudes, intente nuevamente en unos minutos.'},
-  {Code: 160, Message: 'Nombre de evento inválido.'}, 
+  {Code: 160, Message: 'Nombre de evento inválido.'},
   {Code: 200, Message: 'Nombre de usuario faltante o vacío.'},
   {Code: 201, Message: 'Password faltante o vacío.'},
   {Code: 202, Message: 'EL nombre de usuario ya está siendo utilizado por otro usuario.'},
@@ -99,6 +99,10 @@ var charsMap = {
   'ſ':'s','ƒ':'f','Ơ':'O','ơ':'o','Ư':'U','ư':'u','Ǎ':'A','ǎ':'a','Ǐ':'I','ǐ':'i','Ǒ':'O','ǒ':'o',
   'Ǔ':'U','ǔ':'u','Ǖ':'U','ǖ':'u','Ǘ':'U','ǘ':'u','Ǚ':'U','ǚ':'u','Ǜ':'U','ǜ':'u',
   'Ǻ':'A','ǻ':'a','Ǽ':'AE','ǽ':'ae','Ǿ':'O','ǿ':'o'
+};
+
+function createPointer(className, objectId){
+  return {"__type":"Pointer","className":className,"objectId":objectId}
 };
 
 //get error description for parse error code...
@@ -207,4 +211,3 @@ Array.prototype.toFullJSON = function(){
     return m;
   });
 };
-

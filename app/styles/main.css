@@ -961,6 +961,19 @@ div.offer-line {
 
 }
 
+.card{
+/*  margin-bottom: 20px;
+  border: 5px solid transparent;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .05);*/
+  padding:1.5rem;
+  box-shadow: 1px 2px 3px #bbb;
+  background-color: rgba(255, 255, 255, .5);
+  margin:0 1rem 1rem;
+  border-radius:3px;
+}
+
 
 /*	################################################################
 	BOOTSTRAP MODIFICATIONS & TWEAKS
