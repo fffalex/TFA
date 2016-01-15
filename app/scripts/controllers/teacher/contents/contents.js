@@ -50,6 +50,7 @@ angular.module('tfaApp')
       $scope.fullCourses = [];
       $scope.blockName = '';
       $scope.blockDescription = '';
+      $scope.blockSetCourse = {};
 
       $scope.show = function show(id){
           alert("se apreto el bicho "+id);
@@ -59,11 +60,29 @@ angular.module('tfaApp')
         $scope.selectedCourse = $scope.fullCourses[index];
       };
 
+      $scope.selectBlockToSet = function(index){
+        $scope.blockSetCourse = $scope.allContents[index];
+      };
+
       $scope.createBlock = function(name, desc){
         var block = {}
         block.name = name;
         block.description = desc;
         unitsrv.createBlock(block,Parse.User.current(),{
+          success: function(or){
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
+            $('body').removeAttr('style');
+            $route.reload();
+          },
+          error: function(error){
+            $scope.error = error;
+          }
+        });
+      }
+
+      $scope.setBlockToCourse = function(block, course){
+        unitsrv.setContentBlock(course, block, $scope.selectedCourse.teacherContent,{
           success: function(or){
             $('.modal-backdrop').remove();
             $('body').removeClass('modal-open');
@@ -84,20 +103,22 @@ angular.module('tfaApp')
                 //$scope.allContents[i].unitsX = [];
                 $scope.fullCourses[i].teacherContent.unitsX = [];
                 //For each unit in Content
-                for (var j = 0; j < $scope.fullCourses[i].teacherContent.get('units').length; j++) {
-                    var unit = $scope.fullCourses[i].teacherContent.get('units')[j];
-                    unit.topicsX = [];
-                    if( unit.get('status') != 0){
-                      //For each topic in Unit
-                      if(unit.get('topics') != undefined){
-                        for (var k = 0; k < unit.get('topics').length; k++) {
-                          if(unit.get('topics')[k].get('status') != 0){
-                            unit.topicsX.push(unit.get('topics')[k]);
+                if($scope.fullCourses[i].teacherContent.get('units') != undefined){
+                  for (var j = 0; j < $scope.fullCourses[i].teacherContent.get('units').length; j++) {
+                      var unit = $scope.fullCourses[i].teacherContent.get('units')[j];
+                      unit.topicsX = [];
+                      if( unit.get('status') != 0){
+                        //For each topic in Unit
+                        if(unit.get('topics') != undefined){
+                          for (var k = 0; k < unit.get('topics').length; k++) {
+                            if(unit.get('topics')[k].get('status') != 0){
+                              unit.topicsX.push(unit.get('topics')[k]);
+                            }
                           }
                         }
+                        $scope.fullCourses[i].teacherContent.unitsX.push(unit);
                       }
-                      $scope.fullCourses[i].teacherContent.unitsX.push(unit);
-                    }
+                  }
                 }
               }
               $scope.selectedCourse = $scope.fullCourses[0];

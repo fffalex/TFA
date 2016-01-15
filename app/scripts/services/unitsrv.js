@@ -21,8 +21,8 @@ angular.module('tfaApp')
                 if (cb && cb.success) {
                     var block = new (Parse.Object.extend('ContentBlock'));
                     block.set('id', blockData.id);
-                    var unitArray = { "__type": "Pointer", "className": "Unit", "objectId": un.id };
-                    block.add('units', unitArray);
+                    //var unitArray = { "__type": "Pointer", "className": "Unit", "objectId": un.id };
+                    block.add('units',createPointer('Unit', un.id));
                     block.save({
                         success: function (r) {
                             console.log('ok!');
@@ -77,8 +77,8 @@ angular.module('tfaApp')
                     if (cb && cb.success) {
                         var unit = new (Parse.Object.extend('Unit'));
                         unit.set('id', unitData.id);
-                        var topicArray = { "__type": "Pointer", "className": "Topic", "objectId": top.id };
-                        unit.add('topics', topicArray);
+                        //var topicArray = { "__type": "Pointer", "className": "Topic", "objectId": top.id };
+                        unit.add('topics', createPointer('Topic', top.id));
                         unit.save({
                             success: function (r) {
                                 console.log('ok!');
@@ -279,8 +279,8 @@ angular.module('tfaApp')
       markTopicSeenBy: function unitMarkTopicSeenBy(topicData, studentData, cb) {
         var topic = new (Parse.Object.extend('Topic'));
         topic.set('id', topicData.id);
-        var studentArray = { "__type": "Pointer", "className": "User", "objectId": studentData.id };
-        topic.add('seenBy', studentArray);
+        //var studentArray = { "__type": "Pointer", "className": "User", "objectId": studentData.id };
+        topic.add('seenBy', createPointer('User', studentData.id));
         topic.save({
             success: function (r) {
                 console.log('ok!');

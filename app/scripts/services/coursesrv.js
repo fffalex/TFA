@@ -34,9 +34,8 @@ angular.module('tfaApp')
         setContentBlock: function courseSetContentBlock(courseData, contentBlock, oldContentBlock, cb) {
           var course = new (Parse.Object.extend('Course'));
           course.set('id', courseData.id);
-          var contentArray = { "__type": "Pointer", "className": "ContentBlock", "objectId": contentBlock.id };
-          var toDelete = { "__type": "Pointer", "className": "ContentBlock", "objectId": oldContentBlock.id };
-          course.add('contentBlock', contentArray);
+          //var toDelete = { "__type": "Pointer", "className": "ContentBlock", "objectId": oldContentBlock.id };
+          course.add('contentBlock', createPointer('ContentBlock', contentBlock.id));
           course.remove('contentBlock', oldContentBlock);
           course.save(null, {
             success: function (of) {
@@ -103,7 +102,7 @@ angular.module('tfaApp')
                 for (var i = 0; i < courses.length; i++) {
                     var contentArray = courses[i].get('contentBlock');
                     for (var j = 0; j < contentArray.length; j++) {
-                      if (contentArray[j].get('teacher').id === teacher.id && contentArray[j].get('status') == 1) {
+                      if (contentArray[j].get('teacher').id === teacher.id && contentArray[j].get('status') != 0) {
                           courses[i].teacherContent = contentArray[j];
                           teacherCourses.push(courses[i]);
 

@@ -16,13 +16,14 @@
                 <h4><b>Año: </b> {{selectedCourse.get('schoolYear')}} </h4>
                 <h4><b>Grado: </b> {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}</h4>
                 <h4>Turno: {{selectedCourse.get('turn')}}   </h4>
+                <h4>Bloque asignado: {{selectedCourse.teacherContent.get('name')}}   </h4>
             </div>
 
             <div class="box">
                 <div class="box-icon-2">
                     <span class="number-font">Temas</span>
                 </div>
-                <div ui-tree class="ng-scope angular-ui-tree">
+                <div ng-if="selectedCourse.teacherContent.get('status') == 1" ui-tree class="ng-scope angular-ui-tree">
                     <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="selectedCourse.teacherContent" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
                         <li ng-repeat="unit in selectedCourse.teacherContent.unitsX" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
                             <div ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
@@ -50,6 +51,9 @@
                         </li>
                     </ol>
                 </div>
+                <div ng-if="selectedCourse.teacherContent.get('status') != 1">
+                  No tiene ningún contenido asociado al curso
+                </div>
             </div>
         </div>
 
@@ -64,7 +68,7 @@
                     <span class="number-font" >Mis Bloques de Contenidos</span>
                 </div>
                 <div class="row">
-                <div ui-tree class="ng-scope angular-ui-tree">
+                <div ng-if="allContents.length > 0 " ui-tree class="ng-scope angular-ui-tree">
                     <!--  OL for contentBlock-->
                     <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="allContents" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
                         <li ng-repeat="content in allContents" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
@@ -135,6 +139,9 @@
                     </ol>
                 </div>
               </div>
+              <div ng-if="allContents.length == 0">
+                No tiene ningún contenido creado
+              </div>
                 <div class="row">
                     <button data-toggle="modal" data-target="#newModalBlock" style="margin-top:3%;" class="btn btn-default btn3 btn2 btn-block">Nuevo Bloque</button>
                 </div>
@@ -169,6 +176,46 @@
 
                 <div class="modal-footer">
                     <button type="button" ng-click="createBlock(blockName, blockDescription)" class="btn btn-default">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Descartar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="setModalBlock" class="modal fade" role="dialog">
+        <div class="modal-dialog  modal-sm">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="alert alert-danger alert-dismissable" role="alert" ng-show="errorDelete">
+                    <button class="close" ng-click="errorDelete = ''"><span aria-hidden="true">&times;</span></button>
+                    <strong>Error!</strong> {{ errorDelete}}
+                </div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Asignar Bloque de Contenidos</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group signup-input">
+                        <p class="order-label"><strong>Seleccione el Bloque de Contenido</strong></p>
+                        <h4><b>Año: </b> {{selectedCourse.get('schoolYear')}} </h4>
+                        <h4><b>Grado: </b> {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}</h4>
+                        <h4>Turno: {{selectedCourse.get('turn')}}   </h4>
+                        <h4>Bloque asignado: {{selectedCourse.teacherContent.get('name')}}   </h4>
+                        <h4>Nuevo Bloque a asignar: {{blockSetCourse.get('name')}}   </h4>
+                        <ul class="dropdown">
+                            <button class="btn btn-default btn3 btn2 dropdown-toggle" data-toggle="dropdown">  {{blockSetCourse.get('name')}}     <b class="caret"></b></button>
+                            <ul ng-repeat="content in allContents" class="dropdown-menu" style="background-color: #f8faff">
+                                <div ng-repeat="content in allContents">
+                                    <li ng-click="selectBlockToSet($index)" ><a href="">     {{content.get('name')}}    </a></li>
+                                </div>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" ng-click="setBlockToCourse(blockSetCourse, selectedCourse)" class="btn btn-default">Guardar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Descartar cambios</button>
                 </div>
             </div>
