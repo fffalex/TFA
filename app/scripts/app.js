@@ -25,9 +25,9 @@ angular
     'ngTouch',
     'ui.tree',
     'angularModalService',
-    'textAngular'
+    'textAngular',
     //'pickadate',
-    //'xeditable'
+    'xeditable'
 
   ]).config(function ($routeProvider) {
     //create a custom provider to set a default resolve attribute
@@ -127,12 +127,17 @@ angular
           controller: 'TeacherBlockdetailCtrl',
           access: 'teacher'
       })
+      .when('/teacher/contents/examtemplate/:objectId/:blockId', {
+          templateUrl: 'views/teacher/contents/examtemplate.html',
+          controller: 'TeacherExamTemplateCtrl',
+          access: 'teacher'
+          })
 
       .when('/teacher/mystudents/', {
           templateUrl: 'views/teacher/mystudents.html',
           controller: 'MyStudentsCtrl',
                 access: 'teacher'
-            })
+          })
       .when('/student/contents/classes/:blockId/:unitId/:topicId', {
           templateUrl: 'views/student/contents/classes.html',
           controller: 'StudentClassesCtrl',
@@ -149,7 +154,8 @@ angular
   })
   //cambio para no usar xeditable
   //.run(function ($rootScope, $location, $timeout, authsrv, editableOptions) {
-  .run(function ($rootScope, $location, $timeout, authsrv) {
+  .run(function ($rootScope, $location, $timeout, authsrv, editableOptions) {
+    editableOptions.theme = 'bs3';
     $rootScope.$on('$routeChangeStart', function (event, next /*,current*/ ) {
       //save previous url that has been intented to access
       //to will be used when login is success

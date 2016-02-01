@@ -262,6 +262,69 @@ angular.module('tfaApp')
           unit.set('id', unitData.id);
           var question = new (Parse.Object.extend('Question'))();
           question.set('unit', unit);
+          question.set('status', '1');
+          if( questionData.question == "" || questionData.question == undefined
+              || questionData.trueAnswer== "" || questionData.trueAnswer == undefined
+              || questionData.falseAnswer1 == "" || questionData.falseAnswer1 == undefined){
+                cb.error('La pregunta, la respuesta verdadera y la primer respuesta incorrecta no pueden ser vacías');
+          } else {
+            question.set('question', questionData.question);
+            question.set('trueAnswer', questionData.trueAnswer);
+            question.set('falseAnswer1', questionData.falseAnswer1);
+            if(questionData.falseAnswer2)
+              question.set('falseAnswer2', questionData.falseAnswer2);
+            if(questionData.falseAnswer3)
+              question.set('falseAnswer3', questionData.falseAnswer3);
+            question.save(null, {
+                success: function (or) {
+                    if (cb && cb.success) {
+                        cb.success(or.toFullJSON());
+                    }
+                },
+                error: function (or, error) {
+                    if (cb && cb.error) {
+                        cb.error(error);
+                    }
+                }
+            });
+          }
+      },
+
+      //Edit a new question to the Unit (for unit evaluations)
+      editQuestion: function unitAddQuestion(questionData, cb) {
+          var question = new (Parse.Object.extend('Question'))();
+          question.set('objectId', questionData.objectId);
+          if( questionData.question == "" || questionData.question == undefined
+              || questionData.trueAnswer== "" || questionData.trueAnswer == undefined
+              || questionData.falseAnswer1 == "" || questionData.falseAnswer1 == undefined){
+                cb.error('La pregunta, la respuesta verdadera y la primer respuesta incorrecta no pueden ser vacías');
+          } else {
+            question.set('question', questionData.question);
+            question.set('trueAnswer', questionData.trueAnswer);
+            question.set('falseAnswer1', questionData.falseAnswer1);
+            if(questionData.falseAnswer2)
+              question.set('falseAnswer2', questionData.falseAnswer2);
+            if(questionData.falseAnswer3)
+              question.set('falseAnswer3', questionData.falseAnswer3);
+            question.save(null, {
+                success: function (or) {
+                    if (cb && cb.success) {
+                        cb.success(or.toFullJSON());
+                    }
+                },
+                error: function (or, error) {
+                    if (cb && cb.error) {
+                        cb.error(error);
+                    }
+                }
+            });
+          }
+      },
+
+      removeQuestion: function unitRemoveQuestion(questionData, cb) {
+          var question = new (Parse.Object.extend('Question'))();
+          question.set('id', questionData.id);
+          question.set('status', '0');
           question.save(null, {
               success: function (or) {
                   if (cb && cb.success) {
@@ -293,11 +356,11 @@ angular.module('tfaApp')
         });
       },
 
-      getAllQuestions: function unitGetAllQuestion(unitData){
+      getAllQuestions: function unitGetAllQuestion(unitData,cb){
         // var unit = new (Parse.Object.extend('Unit'))();
         // unit.set('id', unitData.id);
         var query = new Parse.Query('Question');
-        query.equalTo('unit', unitData.id);
+        query.equalTo('unit', unitData);
         query.equalTo('status', '1');
         query.find({
             success: function (question) {
@@ -333,26 +396,6 @@ angular.module('tfaApp')
             }
         });
       },
-
-      removeQuestion: function unitRemoveQuestion(questionData, cb) {
-          var question = new (Parse.Object.extend('Question'))();
-          question.set('ic', questionData.id);
-          question.set('status', '0');
-          question.save(null, {
-              success: function (or) {
-                  if (cb && cb.success) {
-                      cb.success(or.toFullJSON());
-                  }
-              },
-              error: function (or, error) {
-                  if (cb && cb.error) {
-                      cb.error(or.toFullJSON(), error);
-                  }
-              }
-          });
-      },
-
-
 
     };
   });
