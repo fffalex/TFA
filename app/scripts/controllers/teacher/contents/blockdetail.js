@@ -142,14 +142,17 @@ angular.module('tfaApp')
       $scope.createNewUnit = function (newNumber, newTitle, newDescription) {
           var existFlag = false
           for (var i = 0; i < $scope.units.length; i++) {
-              if ($scope.units[i].number == newNumber) {
+              if ($scope.units[i].get("number") == newNumber) {
                   existFlag = true;
               }
           }
           if (existFlag) {
               //DO NOTHING
               $scope.error = "El número de unidad ya existe";
-          } else {
+          } else
+              if (newNumber == "" || newTitle == "" || newDescription == "") {
+                  $scope.error = "Debe completar todos los campos solicitados";
+              } else {
               var unitData = {};
               unitData.title = newTitle;
               unitData.description = newDescription;
