@@ -82,7 +82,7 @@ angular.module('tfaApp')
       }
 
       $scope.setBlockToCourse = function(block, course){
-        unitsrv.setContentBlock(course, block, $scope.selectedCourse.teacherContent,{
+        coursesrv.setContentBlock(course, block, $scope.selectedCourse.teacherContent,{
           success: function(or){
             $('.modal-backdrop').remove();
             $('body').removeClass('modal-open');
@@ -128,6 +128,7 @@ angular.module('tfaApp')
       unitsrv.getAllTeacherContentBlocks(Parse.User.current(), {
           success: function (contents) {
               $scope.allContents = contents;
+              $scope.blockSetCourse = $scope.allContents[0];
               //For each content
               for (var i = 0; i < $scope.allContents.length; i++) {
                 $scope.allContents[i].unitsX = [];

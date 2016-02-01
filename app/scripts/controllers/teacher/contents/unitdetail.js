@@ -135,7 +135,7 @@ angular.module('tfaApp')
           $scope.createNewTopic = function (newNumber, newTitle, newContent) {
             var existFlag = false
             for (var i = 0; i < $scope.topics.length; i++) {
-              if ($scope.topics[i].number == newNumber)
+              if ($scope.topics[i].get("number") == newNumber)
               {
                 existFlag = true;
               }
@@ -143,7 +143,10 @@ angular.module('tfaApp')
             if (existFlag) {
               //DO NOTHING
               $scope.error = "El numero de topico ya existe";
-            } else {
+            } else
+                if (newNumber == "" || newTitle == "" || newContent == "") {
+                    $scope.error = "Debe completar todos los campos solicitados";
+                } else {
               var topicData = {};
               topicData.title = newTitle;
               topicData.content = newContent;

@@ -36,16 +36,25 @@ angular.module('tfaApp')
           course.set('id', courseData.id);
           //var toDelete = { "__type": "Pointer", "className": "ContentBlock", "objectId": oldContentBlock.id };
           course.add('contentBlock', createPointer('ContentBlock', contentBlock.id));
-          course.remove('contentBlock', oldContentBlock);
           course.save(null, {
-            success: function (of) {
-              if (cb && cb.success) {
-                cb.success(of.toFullJSON());
-              }
+              success: function (of) {
+                  course.remove('contentBlock', oldContentBlock);
+                  course.save(null, {
+                      success: function (of){
+                          if (cb && cb.success) {
+                              cb.success(of.toFullJSON());
+                          }
+                      },
+                      error: function(error){
+                          if (cb && cb.error) {
+                              cb.error(error);
+                          }
+                      }
+                  });
             },
-            error: function (of, error) {
+            error: function (error) {
               if (cb && cb.error) {
-                cb.error(of.toFullJSON(),error);
+                cb.error(error);
               }
             }
           });
