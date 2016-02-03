@@ -271,9 +271,9 @@ angular.module('tfaApp')
             question.set('question', questionData.question);
             question.set('trueAnswer', questionData.trueAnswer);
             question.set('falseAnswer1', questionData.falseAnswer1);
-            if(questionData.falseAnswer2)
+            if(questionData.falseAnswer2 != "" && questionData.falseAnswer2 != undefined)
               question.set('falseAnswer2', questionData.falseAnswer2);
-            if(questionData.falseAnswer3)
+            if(questionData.falseAnswer3 != "" && questionData.falseAnswer3 != undefined)
               question.set('falseAnswer3', questionData.falseAnswer3);
             question.save(null, {
                 success: function (or) {
@@ -302,9 +302,9 @@ angular.module('tfaApp')
             question.set('question', questionData.question);
             question.set('trueAnswer', questionData.trueAnswer);
             question.set('falseAnswer1', questionData.falseAnswer1);
-            if(questionData.falseAnswer2)
+            if(questionData.falseAnswer2 != "" && questionData.falseAnswer2 != undefined)
               question.set('falseAnswer2', questionData.falseAnswer2);
-            if(questionData.falseAnswer3)
+            if(questionData.falseAnswer3 != "" && questionData.falseAnswer3 != undefined)
               question.set('falseAnswer3', questionData.falseAnswer3);
             question.save(null, {
                 success: function (or) {
@@ -363,9 +363,9 @@ angular.module('tfaApp')
         query.equalTo('unit', unitData);
         query.equalTo('status', '1');
         query.find({
-            success: function (question) {
+            success: function (questions){
                 if (cb && cb.success) {
-                    cb.success(question);
+                    cb.success(questions);
                 }
             },
             error: function (error) {
@@ -377,17 +377,33 @@ angular.module('tfaApp')
       },
 
       //Add randomize to the question's array
-      getAllRandomQuestions: function unitGetAllQuestion(unitData){
-        // var unit = new (Parse.Object.extend('Unit'))();
-        // unit.set('id', unitData.id);
+      getAllRandomQuestions: function unitGetAllQuestion(unitData,cb){
+        var unit = new (Parse.Object.extend('Unit'))();
+        unit.set('id', unitData.id);
         var query = new Parse.Query('Question');
-        query.equalTo('unit', unitData.id);
+        query.equalTo('unit', unit);
         query.equalTo('status', '1');
         query.find({
-            success: function (question) {
-                if (cb && cb.success) {
-                    cb.success(question);
+            success: function (questions) {
+              for (var i = 0; i < questions.length; i++) {
+                questions[i].answers = [];
+                questions[i].answers.push(questions[i].get('trueAnswer'));
+                questions[i].answers.push(questions[i].get('falseAnswer1'));
+                if(questions[i].get('falseAnswer2') != "" && questions[i].get('falseAnswer2') != undefined)
+                {
+                  questions[i].answers.push(questions[i].get('falseAnswer2'));
                 }
+                if(questions[i].get('falseAnswer3') != "" && questions[i].get('falseAnswer3') != undefined)
+                {
+                  questions[i].answers.push(questions[i].get('falseAnswer3'));
+                }
+                questions[i].answers = shuffle(questions[i].answers);
+                questions[i].choose = "";
+
+              }
+              if (cb && cb.success) {
+                  cb.success(questions);
+              }
             },
             error: function (error) {
                 if (cb && cb.error) {

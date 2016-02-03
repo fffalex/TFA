@@ -59,6 +59,9 @@
                                 </ol>
                             </li>
                         </ol>
+                        <div ng-if="currentUnit.seen" class="col-md-12">
+                              <button class="btn btn-default btn3 btn2 btn-red btn-block" data-toggle="modal" data-target="#toExamModal">Rendir Examen</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,4 +157,31 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="toExamModal" class="modal fade" role="dialog">
+    <div class="modal-dialog  modal-sm order-modal">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Comenzar Examen</h4>
+            </div>
+            <div class="modal-body">
+                <p>Estas a punto de realizar el examen</p>
+            </div>
+            <div class="modal-footer">
+                <div class="col-xs-6">
+                <button type="button" ng-click="markAsRead()" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Rendir</button>
+              </div>
+                <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Salir</button>
+              </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 </div>

@@ -148,6 +148,11 @@ angular
           controller: 'StudentMyContentCtrl',
           access: 'student'
       })
+      .when('/student/doexam/:objectId', {
+          templateUrl: 'views/student/doexam.html',
+          controller: 'StudentDoExamCtrl',
+          access: 'student'
+      })
       .otherwise({
         redirectTo: '/'
       });

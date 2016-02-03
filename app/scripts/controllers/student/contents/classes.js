@@ -21,6 +21,7 @@ angular.module('tfaApp')
       $scope.topicId = $routeParams.topicId;
       $scope.blockId = $routeParams.blockId;
     }
+
     var flagUnitId = false;
     //Initial query to set te Unit and Topic array
     unitsrv.getContentBlock({id:'WSrnTu2Luw'},{
