@@ -27,7 +27,8 @@ angular
     'angularModalService',
     'textAngular',
     //'pickadate',
-    'xeditable'
+    'xeditable',
+    'timer'
 
   ]).config(function ($routeProvider) {
     //create a custom provider to set a default resolve attribute

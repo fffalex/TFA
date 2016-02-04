@@ -21,7 +21,6 @@
                 </div>
                 <div class="info">
                     <h4 class="text-center">{{unit.get('title')}}</h4>
-                    <p>{{unit.get('description')}}</p>
                 </div>
             </div>
         </div>
@@ -34,52 +33,49 @@
               <h4>Total: {{allQuestion.length}}</h4>
               <div ng-repeat="question in allQuestion">
                 <div class="card flat-d">
-                <div class="info">
-                    <h5 class="text-center flat-p">{{question.get('question')}}</h5>
-                    <div class="form-group">
-                        <div ng-repeat="answer in question.answers" class="radio">
-                            <label>
-                                <input type="radio" ng-model="question.choose" ng-value="answer" checked>
-                                <span class="cr">
-                                    <i class="cr-icon fa fa-check"></i>
-                                </span>
-                                <span class="radio-label-text">{{answer}}</span>
-                            </label>
-                        </div>
-                    </div>
+                  <div class="info">
+                      <h5 class="text-center flat-p">{{question.get('question')}}</h5>
+                      <div class="form-group">
+                          <div ng-repeat="answer in question.answers" style="display: block !important" class="radio">
+                              <label>
+                                  <input type="radio" ng-model="question.choose" ng-value="answer">
+                                  <span class="cr">
+                                      <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                  <span class="radio-label-text">{{answer}}</span>
+                              </label>
+                              <br>
+                          </div>
+                      </div>
 
-                    <!-- <label ng-repeat="answer in question.answers">
-                      <input
-                        type="checkbox"
-                        value="{{answer}}"
-                        ng-checked="selection.indexOf(fruitName) > -1"
-                        ng-click="toggleSelection(fruitName)"
-                      > {{fruitName}}
-                    </label>
+                      <!-- <label ng-repeat="answer in question.answers">
+                        <input
+                          type="checkbox"
+                          value="{{answer}}"
+                          ng-checked="selection.indexOf(fruitName) > -1"
+                          ng-click="toggleSelection(fruitName)"
+                        > {{fruitName}}
+                      </label>
 
-                    <div>
-                        <p class="order-label"><strong>¿Dónde lo va a entregar?</strong></p>
-                        <br>
-                        <select ng-model="whereDeliverIt.selectedOption.id" ng-options="option.id as option.label for option in whereDeliverIt.availableOptions" class="form-control"></select>
-                        <input id="floorNumber" class="form-control" ng-model="floor" placeholder="Ingrese el piso" ng-show="whereDeliverIt.selectedOption.id==3">
-                        <br>
-                    </div>
-                    <div ng-repeat="answer in question.answers">
-                      <p>{{answer}}</p>
-                    </div> -->
-                </div>
-                <div class="top-corner">
-
+                      <div>
+                          <p class="order-label"><strong>¿Dónde lo va a entregar?</strong></p>
+                          <br>
+                          <select ng-model="whereDeliverIt.selectedOption.id" ng-options="option.id as option.label for option in whereDeliverIt.availableOptions" class="form-control"></select>
+                          <input id="floorNumber" class="form-control" ng-model="floor" placeholder="Ingrese el piso" ng-show="whereDeliverIt.selectedOption.id==3">
+                          <br>
+                      </div>
+                      <div ng-repeat="answer in question.answers">
+                        <p>{{answer}}</p>
+                      </div> -->
+                  </div>
                 </div>
               </div>
-            </div>
-
             </div>
         </div>
       </div>
 
       <!-- Modal -->
-      <div id="editModalQuestion" class="modal fade" role="dialog">
+      <div id="finishModal" class="modal fade" role="dialog">
           <div class="modal-dialog  modal-bg order-modal">
               <!-- Modal content -->
               <div class="modal-content">
@@ -89,31 +85,10 @@
                   </div>
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Editar Pregunta</h4>
+                      <h4 class="modal-title">Desea finalizar el examen</h4>
                   </div>
                   <div class="modal-body">
-                    <div class="form-group signup-input">
-                        <p class="order-label"><strong>Pregunta</strong></p>
-                        <textarea class="form-control" ng-model="setQuestion.question" maxlength="400"></textarea>
-                    </div>
-                    <div class="col-md-12" style="background-color: #CEE1BA">
-                      <div class="form-group createmeal-input" >
-                          <p class="order-label" style="color: #292D25"><strong>Respuesta correcta</strong></p>
-                          <textarea class="form-control" ng-model="setQuestion.trueAnswer" maxlength="400"></textarea>
-                      </div>
-                    </div>
-                    <div class="col-md-12" style="background-color: #E7D0D0">
-                      <div class="form-group createmeal-input">
-                          <p class="order-label"><strong>Respuestas incorrectas</strong></p>
-                          <textarea class="form-control" ng-model="setQuestion.falseAnswer1" maxlength="400"></textarea>
-                      </div>
-                      <div class="form-group createmeal-input">
-                          <textarea class="form-control" ng-model="setQuestion.falseAnswer2" maxlength="400"></textarea>
-                      </div>
-                      <div class="form-group createmeal-input">
-                          <textarea class="form-control" ng-model="setQuestion.falseAnswer3" maxlength="400"></textarea>
-                      </div>
-                    </div>
+
                   </div>
                   <div class="modal-footer">
                     <div class="col-md-12" style="margin-top: 10px">
@@ -178,4 +153,27 @@
               </div>
           </div>
       </div>
-  </div>
+
+      <!--Sticky footer -->
+      <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+          <div class="col-md-12">
+            <div class="col-md-6">
+            <h3 style="color: white">
+              <timer finish-callback="callModal()" countdown="10" interval="1000">{{mminutes}} minuto{{minutesS}}, {{sseconds}} segundo{{secondsS}}</timer>
+            </h3>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-4 pull-right">
+              <button type="button" ng-click="finishExam()" class="btn btn-default btn3 btn2 btn-block">Terminar</button>
+            </div>
+          </div>
+          </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+  callModal = function(){
+    $("#finishModal").modal('show');
+  }
+</script>
