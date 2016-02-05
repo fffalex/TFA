@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('StudentDoExamCtrl', function ($scope,$route, unitsrv, coursesrv, examsrv, $routeParams ) {
+  .controller('StudentDoExamCtrl', function ($scope,$route, unitsrv, coursesrv, examsrv,$location, $routeParams ) {
 
     //initial data set
     $scope.unit = {};
     $scope.error = "";
     $scope.success = "";
+    $scope.finished = false;
+    $scope.canDoExam = true;
 
     //Take objectID to query from the routeParams
     var unitId = 0;
@@ -15,26 +17,55 @@ angular.module('tfaApp')
     }
     $scope.allQuestion = [];
 
+    //Get the unit
     var query = new Parse.Query('Unit');
     query.equalTo('objectId', unitId);
     query.first({
       success: function (unit) {
         $scope.unit = unit;
-        unitsrv.getAllRandomQuestions(unit,{
-          success: function(questions){
-            $scope.allQuestion = questions;
-            $scope.$apply();
+
+        //Get the exam if already exist
+        var query = new Parse.Query('Exam');
+        query.equalTo('unit', $scope.unit);
+        query.equalTo('student', Parse.User.current());
+        query.find({
+          success: function(exam){
+            //there are not exam for this unit and student
+            if (exam.length == 0){
+              unitsrv.getAllRandomQuestions(unit,{
+                success: function(questions){
+                  $scope.allQuestion = questions;
+                  $scope.$apply();
+                },
+                error: function(error){
+                  $scope.error = error;
+                }
+              });
+            } else {
+              $scope.canDoExam = false;
+              $scope.error = "Ya has rendido este examen";
+              $scope.$apply();
+            }
           },
           error: function(error){
-            $scope.error = error;
+              $scope.error = error;
           }
-        });
+        })
+
+
       },
       error: function(error){
           $scope.error = error;
       }
     });
 
+
+
+
+    $scope.results = {};
+    $scope.results.grade = 0;
+    $scope.results.corrects = 0;
+    $scope.results.incorrects = 0;
     $scope.finishExam = function(){
       var correctCount = 0;
       for (var i = 0; i < $scope.allQuestion.length; i++) {
@@ -45,9 +76,16 @@ angular.module('tfaApp')
       }
       var incorrectCount = $scope.allQuestion.length - correctCount;
       var grade = (correctCount / $scope.allQuestion.length) * 100;
+
+      $scope.results.grade = grade;
+      $scope.results.corrects = correctCount;
+      $scope.results.incorrects = incorrectCount;
+      $scope.finished = true;
       examsrv.create($scope.unit, $scope.allQuestion,grade,correctCount,incorrectCount,{
         success: function(ok){
           console.log("tranco todo");
+          $scope.finished = true;
+          $scope.$apply();
         },
         error: function(error){
           console.log(error);
@@ -55,11 +93,19 @@ angular.module('tfaApp')
       });
     }
 
-    $scope.endTime = function(){
-      debugger;
-      console.log("se termino");
+    //To call method when time is over
+    $scope.callbackTimer = {}
+    $scope.callbackTimer.finished=function(){
+      $('#timeoutModal').modal('show');
+      $scope.finishExam(true);
+
     }
 
-
+    $scope.redirectToUnit = function(){
+      $('.modal-backdrop').remove();
+      $('body').removeClass('modal-open');
+      $('body').removeAttr('style');
+      $location.path( "/student/contents/classes/"+unitId+"/0/0" );
+    }
 
   });

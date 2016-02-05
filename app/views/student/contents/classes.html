@@ -56,12 +56,14 @@
                                             <span ng-if="topic.seen" class="pull-right glyphicon glyphicon-ok"></span>
                                         </div>
                                     </li>
+                                    <li ng-if="unit.seen" class="angular-ui-tree-node">
+                                          <button ng-click="setUnitExam(unit)" class="btn btn-default btn3 btn2 btn-red btn-block" data-toggle="modal" data-target="#toExamModal">Rendir Examen</button>
+                                    </li>
                                 </ol>
+
                             </li>
                         </ol>
-                        <div ng-if="currentUnit.seen" class="col-md-12">
-                              <button class="btn btn-default btn3 btn2 btn-red btn-block" data-toggle="modal" data-target="#toExamModal">Rendir Examen</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -173,7 +175,7 @@
             </div>
             <div class="modal-footer">
                 <div class="col-xs-6">
-                <button type="button" ng-click="markAsRead()" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Rendir</button>
+                <button ng-click="toExam()" type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Rendir</button>
               </div>
                 <div class="col-xs-6">
                 <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Salir</button>

@@ -13,7 +13,12 @@
             <h2>Exámen</h2>
         </div>
 
-        <div class="col-md-12">
+        <div ng-if="finished" class="alert alert-success alert-dismissable" role="alert" ng-show="error">
+            <strong>Examen terminado!</strong>
+            <a href="#/student/contents/classes/{{unitId}}/0/0" >Volver a la unidad {{unit.number}}</a>
+        </div>
+
+        <div ng-if="!finished && canDoExam" class="col-md-12">
             <div class="box" style="background-color: #F5F8F9">
 
                 <div class="box-icon bg-darkblue">
@@ -25,7 +30,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div ng-if="!finished && canDoExam" class="col-md-12">
             <div class="box" style="background-color: #DCE7EA">
               <div class="box-icon-2 bg-darkblue">
                   <span class="number-font">Preguntas</span>
@@ -78,11 +83,11 @@
       <div id="finishModal" class="modal fade" role="dialog">
           <div class="modal-dialog  modal-bg order-modal">
               <!-- Modal content -->
-              <div class="modal-content">
-                  <div class="alert alert-danger alert-dismissable" role="alert" ng-show="errorDelete">
-                      <button class="close" ng-click="errorDelete = ''"><span aria-hidden="true">&times;</span></button>
-                      <strong>Error!</strong> {{ errorDelete}}
-                  </div>
+              <div ng-if="!finished" class="modal-content">
+                <div class="alert alert-danger alert-dismissable" role="alert" ng-show="error">
+                    <button class="close" ng-click="error = ''"><span aria-hidden="true">&times;</span></button>
+                    <strong>Error!</strong> {{ error}}
+                </div>
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title">Desea finalizar el examen</h4>
@@ -93,63 +98,56 @@
                   <div class="modal-footer">
                     <div class="col-md-12" style="margin-top: 10px">
                       <div class="col-xs-6">
-                        <button type="button" ng-click="saveQuestion(setQuestion)" class="btn btn-default btn3 btn2 btn-block">Guardar</button>
+                        <button type="button" ng-click="finishExam()" class="btn btn-default btn3 btn2 btn-block">Si</button>
                       </div>
                       <div class="col-xs-6">
-                        <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">No</button>
                       </div>
+                    </div>
+                  </div>
+              </div>
+
+              <div ng-if="finished" class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Resultado del examen</h4>
+                  </div>
+                  <div class="modal-body">
+                    <h3 class="text-center">{{results.grade}}</h3>
+                    <p>Correctas: {{results.corrects}}</p>
+                    <p>Incorrectas: {{results.incorrects}}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="col-md-12" style="margin-top: 10px">
+                        <button type="button" ng-click="redirectToUnit()" class="btn btn-default btn3 btn2 btn-block">Volver a la unidad</button>
                     </div>
                   </div>
               </div>
           </div>
       </div>
 
-      <div id="addModalQuestion" class="modal fade" role="dialog">
-          <div class="modal-dialog  modal-bg order-modal">
+      <div id="timeoutModal" class="modal fade" role="dialog">
+          <div class="modal-dialog  modal-sm order-modal">
               <!-- Modal content -->
               <div class="modal-content">
-                  <div class="alert alert-danger alert-dismissable" role="alert" ng-show="errorDelete">
-                      <button class="close" ng-click="errorDelete = ''"><span aria-hidden="true">&times;</span></button>
-                      <strong>Error!</strong> {{ errorDelete}}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Resultado del Examen</h4>
+                </div>
+                <div class="modal-body">
+                      <div class="alert alert-danger alert-dismissable" role="alert">
+                          <button class="close" ng-click="errorDelete = ''"><span aria-hidden="true">&times;</span></button>
+                          <strong>Tiempo agotado!</strong>
+                      </div>
+                      <h3 class="text-center">{{results.grade}}</h3>
+                      <p>Correctas: {{results.corrects}}</p>
+                      <p>Incorrectas: {{results.incorrects}}</p>
+                </div>
+                <div class="modal-footer">
+                  <div class="col-md-12" style="margin-top: 10px">
+                      <button type="button" ng-click="redirectToUnit()" class="btn btn-default btn3 btn2 btn-block">Volver a la unidad</button>
                   </div>
-                  <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Crear pregunta</h4>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-group signup-input">
-                        <p class="order-label"><strong>Pregunta</strong></p>
-                        <textarea class="form-control" ng-model="newQuestion.question" maxlength="400"></textarea>
-                    </div>
-                    <div class="col-md-12" style="background-color: #CEE1BA">
-                      <div class="form-group createmeal-input" >
-                          <p class="order-label" style="color: #292D25"><strong>Respuesta correcta</strong></p>
-                          <textarea class="form-control" ng-model="newQuestion.trueAnswer" maxlength="400"></textarea>
-                      </div>
-                    </div>
-                    <div class="col-md-12" style="background-color: #E7D0D0">
-                      <div class="form-group createmeal-input">
-                          <p class="order-label"><strong>Respuestas incorrectas</strong></p>
-                          <textarea class="form-control" ng-model="newQuestion.falseAnswer1" maxlength="400"></textarea>
-                      </div>
-                      <div class="form-group createmeal-input">
-                          <textarea class="form-control" ng-model="newQuestion.falseAnswer2" maxlength="400"></textarea>
-                      </div>
-                      <div class="form-group createmeal-input">
-                          <textarea class="form-control" ng-model="newQuestion.falseAnswer3" maxlength="400"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <div class="col-md-12" style="margin-top: 10px">
-                      <div class="col-xs-6">
-                        <button type="button" ng-click="addQuestion(newQuestion)" class="btn btn-default btn3 btn2 btn-block">Guardar</button>
-                      </div>
-                      <div class="col-xs-6">
-                        <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Cancelar</button>
-                      </div>
-                    </div>
-                  </div>
+                </div>
               </div>
           </div>
       </div>
@@ -160,20 +158,15 @@
           <div class="col-md-12">
             <div class="col-md-6">
             <h3 style="color: white">
-              <timer finish-callback="callModal()" countdown="10" interval="1000">{{mminutes}} minuto{{minutesS}}, {{sseconds}} segundo{{secondsS}}</timer>
+              <timer finish-callback="callbackTimer.finished()" countdown="60" interval="1000">{{mminutes}} minuto{{minutesS}}, {{sseconds}} segundo{{secondsS}}</timer>
             </h3>
           </div>
           <div class="col-md-6">
             <div class="col-md-4 pull-right">
-              <button type="button" ng-click="finishExam()" class="btn btn-default btn3 btn2 btn-block">Terminar</button>
+              <button type="button" data-toggle="modal" data-target="#finishModal" class="btn btn-default btn3 btn2 btn-block">Terminar</button>
             </div>
           </div>
           </div>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-  callModal = function(){
-    $("#finishModal").modal('show');
-  }
-</script>

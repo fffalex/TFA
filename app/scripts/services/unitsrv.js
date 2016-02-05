@@ -201,7 +201,6 @@ angular.module('tfaApp')
           });
       },
 
-
       deleteTopic: function unitDeleteTopic(topicData, cb){
         var topic = new (Parse.Object.extend('Topic'))();
           topic.set('id', topicData.id);

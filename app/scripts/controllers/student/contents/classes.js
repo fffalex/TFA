@@ -79,6 +79,19 @@ angular.module('tfaApp')
         $scope.$apply();
     };
 
+    $scope.unitToExam = {};
+    $scope.setUnitExam = function(unit){
+      $scope.unitToExam = unit;
+      $scope.$apply();
+    }
+
+    $scope.toExam = function(){
+      $('.modal-backdrop').remove();
+      $('body').removeClass('modal-open');
+      $('body').removeAttr('style');
+      $location.path( "/student/doexam/"+$scope.unitToExam.id+"/0/0" );
+    }
+
     $scope.markAsRead = function(){
       unitsrv.markTopicSeenBy($scope.currentTopic, Parse.User.current()  ,{
         success: function(ok){
