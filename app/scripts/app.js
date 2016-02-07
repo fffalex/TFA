@@ -27,7 +27,7 @@ angular
     'angularModalService',
     'textAngular',
     //'pickadate',
-    'xeditable',
+    //'xeditable',
     'timer'
 
   ]).config(function ($routeProvider) {
@@ -160,8 +160,8 @@ angular
   })
   //cambio para no usar xeditable
   //.run(function ($rootScope, $location, $timeout, authsrv, editableOptions) {
-  .run(function ($rootScope, $location, $timeout, authsrv, editableOptions) {
-    editableOptions.theme = 'bs3';
+  .run(function ($rootScope, $location, $timeout, authsrv) {
+    //editableOptions.theme = 'bs3';
     $rootScope.$on('$routeChangeStart', function (event, next /*,current*/ ) {
       //save previous url that has been intented to access
       //to will be used when login is success

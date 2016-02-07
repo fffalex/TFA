@@ -25,8 +25,11 @@
                     <p>{{currentUnit.get('description')}}</p>
                 </div>
 
-                <div ng-if="currentUnit.seen" class="top-corner">
+                <div ng-if="currentUnit.seen && !headExamDone" class="top-corner">
                     <span  style="color: #529C52; font-size: 30px; margin-right: 5px;" class="glyphicon glyphicon-ok-sign"></span>
+                </div>
+                <div ng-if="currentUnit.seen && headExamDone" class="top-corner">
+                    <span style="color: #000000; font-size: 30px !important; margin-right: 5px;" class="glyphicon glyphicon-education">{{headExamGrade}}</span>
                 </div>
             </div>
         </div>
@@ -45,6 +48,7 @@
                                     <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
                                     <span class="hand" ng-click="toggle(this)">{{unit.get('number')}}- {{unit.get('title')}}</span>
                                     <span ng-if="unit.seen" class="pull-right glyphicon glyphicon-ok"></span>
+                                    
                                     <!--<a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </a>-->
@@ -56,8 +60,8 @@
                                             <span ng-if="topic.seen" class="pull-right glyphicon glyphicon-ok"></span>
                                         </div>
                                     </li>
-                                    <li ng-if="unit.seen" class="angular-ui-tree-node">
-                                          <button ng-click="setUnitExam(unit)" class="btn btn-default btn3 btn2 btn-red btn-block" data-toggle="modal" data-target="#toExamModal">Rendir Examen</button>
+                                    <li ng-if="unit.seen && unit.get('takeExam')" class="angular-ui-tree-node">           
+                                        <button ng-click="setUnitExam(unit)" class="btn btn-default btn3 btn2 btn-red btn-block"  data-toggle="modal" data-target="#toExamModal"><span class="pull-left glyphicon glyphicon-education" style="margin-top:8px"></span> Examen</button>
                                     </li>
                                 </ol>
 
@@ -168,12 +172,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Comenzar Examen</h4>
+                <h4 ng-if="!examDone" class="modal-title">Comenzar Examen</h4>
+                <h4 ng-if="examDone" class="modal-title">Resultados del Examen</h4>
             </div>
-            <div class="modal-body">
+
+            <div ng-if="examDone" class="modal-body">
+                <h3 class="text-center">{{currentExam.get('grade')}}</h3>
+                <p>Correctas: {{currentExam.get('correctsAnswers')}}</p>
+                <p>Incorrectas: {{currentExam.get('incorrectsAnswers')}}</p>
+            </div>
+
+            <div ng-if="!examDone" class="modal-body">
                 <p>Estas a punto de realizar el examen</p>
             </div>
-            <div class="modal-footer">
+
+            <div ng-if="!examDone" class="modal-footer">
                 <div class="col-xs-6">
                 <button ng-click="toExam()" type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Rendir</button>
               </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('StudentClassesCtrl', function ($scope,$route, unitsrv, coursesrv, $routeParams ) {
+  .controller('StudentClassesCtrl', function ($scope,$route, unitsrv, coursesrv,$location ,$routeParams ) {
 
     //courses call
     //initial data set
@@ -61,6 +61,27 @@ angular.module('tfaApp')
         }
         $scope.currentUnit = $scope.block.unitsX[0];
         $scope.currentTopic = $scope.currentUnit.topicsX[0];
+
+        var query = new Parse.Query('Exam');
+        query.equalTo('unit', $scope.currentUnit);
+        query.equalTo('student', Parse.User.current());
+        query.find({
+            success: function (exam) {
+                //there are not exam for this unit and student
+                if (exam.length == 0) {
+                    $scope.headExamDone = false;
+                    $scope.$apply();
+
+                } else {
+                    $scope.headExamDone = true;
+                    $scope.headExamGrade = exam[0].get('grade');
+                    $scope.$apply();
+                }
+            },
+            error: function () {
+            }
+        });
+
         $scope.$apply();
       },
       error: function(error){
@@ -68,6 +89,8 @@ angular.module('tfaApp')
       }
     });
 
+    $scope.headExamGrade = 0;
+    $scope.headExamDone = false;
     //To set view of Details about Topic
     $scope.showTopic = function (unitId, topicIndex) {
         for (var i = 0; i < $scope.block.unitsX.length; i++) {
@@ -76,12 +99,58 @@ angular.module('tfaApp')
           }
         }
         $scope.currentTopic = $scope.currentUnit.topicsX[topicIndex];
+
+        //To mark if can do the exam in header!
+        var query = new Parse.Query('Exam');
+        query.equalTo('unit', $scope.currentUnit);
+        query.equalTo('student', Parse.User.current());
+        query.find({
+            success: function (exam) {
+                //there are not exam for this unit and student
+                if (exam.length == 0) {
+                    $scope.headExamDone = false;
+                    $scope.$apply();
+
+                } else {
+                    $scope.headExamDone = true;
+                    $scope.headExamGrade = exam[0].get('grade');
+                    $scope.$apply();
+                }
+            },
+            error: function () {
+            }
+        });
+
         $scope.$apply();
     };
 
     $scope.unitToExam = {};
+    $scope.examDone = false;
+    $scope.currentExam = {};
     $scope.setUnitExam = function(unit){
-      $scope.unitToExam = unit;
+        $scope.unitToExam = unit;
+        //Get the exam if already exist
+
+        
+        var query = new Parse.Query('Exam');
+        query.equalTo('unit', $scope.unitToExam);
+        query.equalTo('student', Parse.User.current());
+        query.find({
+            success: function (exam) {
+                //there are not exam for this unit and student
+                if (exam.length == 0) {
+                    $scope.examDone = false;
+                    $scope.$apply();
+                    
+                } else {
+                    $scope.examDone = true;
+                    $scope.currentExam = exam[0];
+                    $scope.$apply();
+                }
+            },
+            error: function () {
+            }
+        });
       $scope.$apply();
     }
 
@@ -89,7 +158,7 @@ angular.module('tfaApp')
       $('.modal-backdrop').remove();
       $('body').removeClass('modal-open');
       $('body').removeAttr('style');
-      $location.path( "/student/doexam/"+$scope.unitToExam.id+"/0/0" );
+      $location.path( "/student/doexam/"+$scope.unitToExam.id);
     }
 
     $scope.markAsRead = function(){
@@ -112,4 +181,9 @@ angular.module('tfaApp')
         }
       } );
     };
+
+    function setExamHead(unit) {
+
+
+    }
 });

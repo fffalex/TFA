@@ -388,61 +388,70 @@ input.editable-input:focus {
 }
 
 /*Radio button style */
-.container-signup .radio, .container-signup .checkbox {
-    display: inline-block;
+/*Register Form Radio Buttons*/
+.radio, .checkbox, .radio {
+  display: inline-block;
 }
 
-.container-signup .radio label {
-    padding-left: 0;
-    padding-right: 15px;
+.radio label {
+  padding-left: 0;
+  padding-right: 15px;
 }
 
-.container-signup .radio-label-text {
-    padding-top: 4%;
-    display: inline-block;
-    font-weight: bold;
+.radio-label-text,
+.checkbox-label-text {
+  padding-top: 4%;
+  display: inline-block;
+  font-weight: bold;
 }
 
-.container-signup .radio label:after {
-    content: '';
-    display: table;
-    clear: both;
+.radio label:after,
+.checkbox label:after {
+   content: '';
+   display: table;
+   clear: both;
 }
-.container-signup .radio .cr {
-    -moz-box-shadow: 0px 2px 1px #CCC;
-    -webkit-box-shadow: 0px 2px 1px #CCC;
-    box-shadow: 0px 2px 1px #CCC;
-    background-color: #FFF;
-    position: relative;
-    display: inline-block;
-    border: 1px solid #dcdcdc;
-    width: 34px;
-    height: 34px;
-    float: left;
-    margin-right: .5em;
+.radio .cr,
+.checkbox .cr{
+   -moz-box-shadow: 0px 2px 1px #CCC;
+   -webkit-box-shadow: 0px 2px 1px #CCC;
+   box-shadow: 0px 2px 1px #CCC;
+   background-color: #FFF;
+   position: relative;
+   display: inline-block;
+   border: 1px solid #dcdcdc;
+   width: 34px;
+   height: 34px;
+   float: left;
+   margin-right: .5em;
 }
-.container-signup .radio .cr .cr-icon {
-    color: #2f4ffc;
-    position: absolute;
-    font-size: 1.45em;
-    line-height: 0;
-    top: 50%;
-    left: 20%;
+.radio .cr .cr-icon,
+.checkbox .cr .cr-icon {
+   color: #43A047;
+   position: absolute;
+   font-size: 1.45em;
+   line-height: 0;
+   top: 50%;
+   left: 20%;
 }
-.container-signup .radio label input[type="radio"] {
-    display: none;
+ .radio label input[type="radio"],
+ .checkbox label input[type="radio"] {
+   display: none;
 }
-.container-signup .radio label input[type="radio"] + .cr > .cr-icon {
-    transform: scale(3) rotateZ(-20deg);
-    opacity: 0;
-    transition: all .3s ease-in;
+ .radio label input[type="radio"] + .cr > .cr-icon,
+ .checkbox label input[type="checkbox"] + .cr > .cr-icon {
+   transform: scale(3) rotateZ(-20deg);
+   opacity: 0;
+   transition: all .3s ease-in;
 }
-.container-signup .radio label input[type="radio"]:checked + .cr > .cr-icon {
-    transform: scale(1) rotateZ(0deg);
-    opacity: 1;
+ .radio label input[type="radio"]:checked + .cr > .cr-icon,
+ .checkbox label input[type="checkbox"]:checked + .cr > .cr-icon {
+   transform: scale(1) rotateZ(0deg);
+   opacity: 1;
 }
-.container-signup .radio label input[type="radio"]:disabled + .cr {
-    opacity: .5;
+ .radio label input[type="radio"]:disabled + .cr,
+ .checkbox label input[type="checkbox"]:disabled + .cr {
+   opacity: .5;
 }
 
 .container-signup .panel,
