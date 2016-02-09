@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('tfaApp')
-  .controller('TeacherBlockdetailCtrl', function ($scope, $routeParams, $location, unitsrv, coursesrv, ModalService, $route) {
+  .controller('TeacherBlockdetailCtrl', function ($scope, $routeParams, $location, unitsrv, coursesrv, ModalService,toastr, $route) {
       //initial data set
       $scope.block = {};
       $scope.units = [];
@@ -76,8 +76,7 @@ angular.module('tfaApp')
                   $scope.$apply();
               }
             } else {
-              $scope.error = "No se encuentra el Bloque de Contenido solicitado";
-              $scope.$apply();
+                toastr.error("No se encuentra el Bloque de Contenido solicitado");
             }
           },
           //success: function (unit) {
@@ -93,8 +92,7 @@ angular.module('tfaApp')
           //    });
           //},
           error: function (error) {
-                $scope.error = "No se encuentra el Bloque de Contenido solicitado. Vuelva a intentar más tarde";
-                $scope.$apply();
+              toastr.error(getErrorDesc(error));
           }
       });
 
@@ -148,10 +146,10 @@ angular.module('tfaApp')
           }
           if (existFlag) {
               //DO NOTHING
-              $scope.error = "El número de unidad ya existe";
+              toastr.warning("El número de unidad ya existe. Debés usar otro");
           } else
               if (newNumber == "" || newTitle == "" || newDescription == "") {
-                  $scope.error = "Debe completar todos los campos solicitados";
+                  toastr.warning("Debés completar todos los campos solicitados");
               } else {
               var unitData = {};
               unitData.title = newTitle;
@@ -159,6 +157,7 @@ angular.module('tfaApp')
               unitData.number = newNumber;
               unitsrv.createUnit(unitData, $scope.block, {
                   success: function (newUnit) {
+                      toastr.success("Creaste una nueva unidad");
 //                      $scope.editable = false;
 //                      $scope.creating = false;
 //                      $scope.error = '';
@@ -174,8 +173,7 @@ angular.module('tfaApp')
 
                   },
                   error: function (currentUnit, error) {
-                      $scope.error = getErrorDesc(error);
-                      $scope.$apply();
+                      toastr.error(getErrorDesc(error));
                   }
               });
           }
@@ -184,28 +182,44 @@ angular.module('tfaApp')
 
       //Save new topic to parse
       $scope.saveEditedUnit = function (number,title, desc) {
-
-          $scope.currentUnit.title = title;
-          $scope.currentUnit.number = number;
-          $scope.currentUnit.description = desc;
-          unitsrv.modifyUnit($scope.currentUnit, {
-              success: function (unit) {
-//                  $scope.currentUnit = unit;
-//                  $scope.currentTitle = $scope.currentUnit.get('title');
-//                  $scope.currentNumber  = $scope.currentUnit.get('number');
-//                  $scope.currentDescription = $scope.currentUnit.get('description');
-//                  $scope.editable = false;
-//                  $scope.error = '';
-//                  $scope.currentUnitCopy = angular.copy($scope.currentUnit);
-//                  $scope.success = "Has modificado la unidad correctamente";
-//                  $scope.$apply();
-                  $route.reload();
-              },
-              error: function (of, error) {
-                  $scope.error = getErrorDesc(error);
-                  $scope.$apply();
+          var existFlag = false
+          for (var i = 0; i < $scope.topics.length; i++) {
+              if ($scope.topics[i].get("number") == number && $scope.currentTopic.get('number') != number) {
+                  existFlag = true;
               }
-          });
+          }
+          if (existFlag) {
+              //DO NOTHING
+              toastr.warning("El número de tema ya existe. Debés usar otro");
+              //$scope.error = "El numero de topico ya existe";
+          } else
+              if (number == "" || title == "" || content == "") {
+                  toastr.warning("Debés completar todos los campos solicitados");
+                  //$scope.error = "Debe completar todos los campos solicitados";
+              } else {
+                  $scope.currentUnit.title = title;
+                  $scope.currentUnit.number = number;
+                  $scope.currentUnit.description = desc;
+                  unitsrv.modifyUnit($scope.currentUnit, {
+                      success: function (unit) {
+                          toastr.success("Modificaste la unidad correctamente");
+                          //                  $scope.currentUnit = unit;
+                          //                  $scope.currentTitle = $scope.currentUnit.get('title');
+                          //                  $scope.currentNumber  = $scope.currentUnit.get('number');
+                          //                  $scope.currentDescription = $scope.currentUnit.get('description');
+                          //                  $scope.editable = false;
+                          //                  $scope.error = '';
+                          //                  $scope.currentUnitCopy = angular.copy($scope.currentUnit);
+                          //                  $scope.success = "Has modificado la unidad correctamente";
+                          //                  $scope.$apply();
+                          $route.reload();
+                      },
+                      error: function (of, error) {
+                          toastr.error(getErrorDesc(error));
+                         
+                      }
+                  });
+              }
 
       };
 
@@ -218,41 +232,45 @@ angular.module('tfaApp')
       $scope.deleteUnit = function () {
           unitsrv.deleteUnit($scope.toDeleteUnit, {
               success: function (or) {
-                $scope.isDeleted = true;
+                  toastr.success("Eliminaste la unidad correctamente");
                   $('.modal-backdrop').remove();
                   $('body').removeClass('modal-open');
                   $('body').removeAttr('style');
-//                  $scope.$apply();
                   $route.reload();
               },
               error: function (of, error) {
-                  $scope.errorDelete = getErrorDesc(error);
-                  $scope.$apply();
+                  toastr.error(getErrorDesc(error));
               }
           });
 
       };
 
       $scope.modifyBlock = function(name,desc){
-        $scope.block.name = name;
-        $scope.block.description = desc;
-        unitsrv.modifyBlock($scope.block, {
-          success: function(or){
-            $('.modal-backdrop').remove();
-            $('body').removeClass('modal-open');
-            $('body').removeAttr('style');
-            $route.reload();
-          },
-          error: function(){
-            $scope.error = getErrorDesc(error);
-            $scope.$apply();
-          }
-        });
+          $scope.block.name = name;
+          $scope.block.description = desc;
+          if(name == "" || desc == ""){
+            toastr.warning("Los campos no pueden estar vacíos")
+          } else {
+          unitsrv.modifyBlock($scope.block, {
+              success: function (or) {
+                  toastr.success("Modificaste el bloque de contenido correctamente");
+                  $('.modal-backdrop').remove();
+                  $('body').removeClass('modal-open');
+                  $('body').removeAttr('style');
+                  $route.reload();
+              },
+              error: function(){
+                  toastr.error(getErrorDesc(error));
+
+              }
+          });
+        }
       }
 
       $scope.deleteBlock = function(){
         unitsrv.deleteBlock($scope.block, {
             success: function (or) {
+                toastr.success("Eliminaste el bloque de contenido correctamente");
                 $('.modal-backdrop').remove();
                 $('body').removeClass('modal-open');
                 $('body').removeAttr('style');
@@ -261,8 +279,7 @@ angular.module('tfaApp')
                  $location.path('/teacher/contents/');
             },
             error: function (of, error) {
-                $scope.errorDelete = getErrorDesc(error);
-                $scope.$apply();
+                toastr.error(getErrorDesc(error));
             }
         });
       }

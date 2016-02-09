@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('StudentClassesCtrl', function ($scope,$route, unitsrv, coursesrv,$location ,$routeParams ) {
+  .controller('StudentClassesCtrl', function ($scope,$route,toastr, unitsrv, coursesrv,$location ,$routeParams ) {
 
     //courses call
     //initial data set
@@ -78,14 +78,15 @@ angular.module('tfaApp')
                     $scope.$apply();
                 }
             },
-            error: function () {
+            error: function (error) {
+                toastr.error(getErrorDesc(error));
             }
         });
 
         $scope.$apply();
       },
       error: function(error){
-        $scope.error = error;;
+        toastr.error(getErrorDesc(error));;
       }
     });
 
@@ -154,7 +155,8 @@ angular.module('tfaApp')
       $scope.$apply();
     }
 
-    $scope.toExam = function(){
+    $scope.toExam = function () {
+      toastr.info("Comanzaste el examen")
       $('.modal-backdrop').remove();
       $('body').removeClass('modal-open');
       $('body').removeAttr('style');
@@ -163,7 +165,8 @@ angular.module('tfaApp')
 
     $scope.markAsRead = function(){
       unitsrv.markTopicSeenBy($scope.currentTopic, Parse.User.current()  ,{
-        success: function(ok){
+          success: function (ok) {
+          toastr.success("Marcaste esta unidad como leída");
           $('.modal-backdrop').remove();
           $('body').removeClass('modal-open');
           $('body').removeAttr('style');
@@ -177,7 +180,7 @@ angular.module('tfaApp')
           $scope.$apply();
         },
         error: function(error){
-          $scope.error(error);
+            toastr.error(error);
         }
       } );
     };

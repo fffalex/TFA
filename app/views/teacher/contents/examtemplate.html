@@ -29,7 +29,7 @@
                         <div class="form-group signup-input">
                             <h4>Total de preguntas: {{allQuestion.length}}</h4>
                             <p class="order-label inline-block"><strong>Cantidad de preguntas incluídas: </strong></p>
-                            <input type="number" class="form-control text-center" style="padding-left:10px;" ng-model="$scope.quantity" required>
+                            <input type="number" class="form-control text-center" style="padding-left:10px;" ng-model="unit.quantity" required>
                         </div>
 
 
@@ -50,7 +50,7 @@
                         <div class="form-group signup-input">
                             <div class="checkbox">
                                 <label style="padding-left:0px">
-                                    <input type="checkbox" ng-model="isMorning" style="display:none">
+                                    <input type="checkbox" ng-model="unit.takeExam" style="display:none">
 
                                     <span class="cr">
                                         <i class="cr-icon fa fa-check"></i>
@@ -59,7 +59,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Guardar</button>
+                        <button ng-click="saveSettings(unit.quantity,unit.takeExam)" type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Guardar</button>
                         
                     </div>
                     <br />
@@ -83,7 +83,7 @@
 
                     <div class="top-corner">
                         <a href="#/teacher/contents/blockdetail/{{unitId}}/0/{{blockId}}" class=" btn btn-default btn-xs">
-                            <span class="glyphicon glyphicon-arrow-left"></span>
+                            <span class="glyphicon glyphicon-arrow-left" tooltips tooltip-template="Volver a la pantalla de edición de la unidad"></span>
                         </a>
                     </div>
                 <div class="row"></div>
@@ -97,19 +97,17 @@
               <div class="box-icon-2 bg-darkblue">
                   <span class="number-font">Preguntas</span>
               </div>
-              
-              <div class="top-corner">
-                <a  data-toggle="modal" data-target="#addModalQuestion" data-toggle="modal" data-target="#addModalQuestion" class=" btn btn-default btn-xs">
-                    <span  class="glyphicon glyphicon-plus"></span>
-                </a>
-              </div>
+              <br />
+        
+              <button type="button" data-toggle="modal" data-target="#addModalQuestion" style="margin-bottom:10px" class="btn btn-default btn3 btn2 btn-block">Nueva pregunta</button>
+              <br />
               <div ng-repeat="question in allQuestion">
                 <div class="card flat-d">
                     <a class="pull-right btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" ng-click="setQuestionEdit(question)">
-                        <span class="glyphicon glyphicon-remove" style="cursor: pointer"></span>
+                        <span class="glyphicon glyphicon-remove" tooltips tooltip-template="Eliminar esta pregunta" style="cursor: pointer"></span>
                     </a>
                   <a class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#editModalQuestion" ng-click="setQuestionEdit(question)">
-                      <span  class="glyphicon glyphicon-edit" style="cursor: pointer"></span>
+                      <span  class="glyphicon glyphicon-edit" style="cursor: pointer" tooltips tooltip-template="Editar esta pregunta"></span>
                   </a>
         
                 <div class="info">
@@ -194,17 +192,17 @@
                       <h4 class="modal-title">Crear pregunta</h4>
                   </div>
                   <div class="modal-body">
-                    <div class="form-group signup-input">
+                    <div class="form-group signup-input card" style="background-color: #EEE">
                         <p class="order-label"><strong>Pregunta</strong></p>
                         <textarea class="form-control" ng-model="newQuestion.question" maxlength="400"></textarea>
                     </div>
-                    <div class="col-md-12" style="background-color: #CEE1BA">
+                    <div class="card" style="background-color: #CEE1BA">
                       <div class="form-group createmeal-input" >
                           <p class="order-label" style="color: #292D25"><strong>Respuesta correcta</strong></p>
                           <textarea class="form-control" ng-model="newQuestion.trueAnswer" maxlength="400"></textarea>
                       </div>
                     </div>
-                    <div class="col-md-12" style="background-color: #E7D0D0">
+                    <div class="card" style="background-color: #E7D0D0">
                       <div class="form-group createmeal-input">
                           <p class="order-label"><strong>Respuestas incorrectas</strong></p>
                           <textarea class="form-control" ng-model="newQuestion.falseAnswer1" maxlength="400"></textarea>

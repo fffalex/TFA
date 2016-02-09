@@ -26,6 +26,8 @@ angular
     'ui.tree',
     'angularModalService',
     'textAngular',
+    '720kb.tooltips',
+    'toastr',
     //'pickadate',
     //'xeditable',
     'timer'

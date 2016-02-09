@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('TeacherContentsCtrl', function ($scope, $route, unitsrv, coursesrv) {
+  .controller('TeacherContentsCtrl', function ($scope, $route,toastr, unitsrv, coursesrv) {
 
       //To create Units to Course
       //    var u = new (Parse.Object.extend('Unit'));
@@ -26,12 +26,6 @@ angular.module('tfaApp')
       //    relation.add(t5);
       //
       //    u5.save();
-
-
-
-
-
-
       //    var units = [];
       //    var topics = [];
       //
@@ -52,10 +46,6 @@ angular.module('tfaApp')
       $scope.blockDescription = '';
       $scope.blockSetCourse = {};
 
-      $scope.show = function show(id){
-          alert("se apreto el bicho "+id);
-      };
-
       $scope.selectCourse = function(index){
         $scope.selectedCourse = $scope.fullCourses[index];
       };
@@ -68,29 +58,37 @@ angular.module('tfaApp')
         var block = {}
         block.name = name;
         block.description = desc;
-        unitsrv.createBlock(block,Parse.User.current(),{
-          success: function(or){
-            $('.modal-backdrop').remove();
-            $('body').removeClass('modal-open');
-            $('body').removeAttr('style');
-            $route.reload();
-          },
-          error: function(error){
-            $scope.error = error;
-          }
-        });
+        if (name == "" || desc == "") {
+            toastr.warning("Los campos no pueden estar vacíos");
+        } else {
+
+            unitsrv.createBlock(block,Parse.User.current(),{
+                success: function (or) {
+                toastr.success("Creaste un nuevo bloque de contenidos");
+                $('.modal-backdrop').remove();
+                $('body').removeClass('modal-open');
+                $('body').removeAttr('style');
+                $route.reload();
+              },
+              error: function (error) {
+                  toastr.error(getErrorDesc(error));
+            
+              }
+            });
+        }
       }
 
       $scope.setBlockToCourse = function(block, course){
         coursesrv.setContentBlock(course, block, $scope.selectedCourse.teacherContent,{
-          success: function(or){
+            success: function (or) {
+            toastr.success("Cambiaste el bloque asignado al curso correctamente")
             $('.modal-backdrop').remove();
             $('body').removeClass('modal-open');
             $('body').removeAttr('style');
             $route.reload();
           },
-          error: function(error){
-            $scope.error = error;
+          error: function (error) {
+              toastr.error(getErrorDesc(error));
           }
         });
       }
@@ -123,6 +121,9 @@ angular.module('tfaApp')
               }
               $scope.selectedCourse = $scope.fullCourses[0];
               $scope.$apply();
+          },
+          error: function (error) {
+              toastr.error(getErrorDesc(error));
           }
       });
       unitsrv.getAllTeacherContentBlocks(Parse.User.current(), {
@@ -155,18 +156,11 @@ angular.module('tfaApp')
               $scope.$apply();
           },
           error: function (error) {
-              $scope.error = error;
+              toastr.error(getErrorDesc(error));
           }
       });
 
   });
-
-
-
-
-
-
-
 
               //COMPLEX CALL!
 //              unitsrv.getAllUnitsAndTopics(coursesArr[0],{

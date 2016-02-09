@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('TeacherExamTemplateCtrl', function ($scope, $route,$routeParams,unitsrv) {
+  .controller('TeacherExamTemplateCtrl', function ($scope, toastr, $route,$routeParams,unitsrv) {
 
     $scope.error = "";
     $scope.success = "";
@@ -33,17 +33,18 @@ angular.module('tfaApp')
         unitsrv.getAllQuestions(unit,{
           success:function(questions){
             $scope.allQuestion = questions;
+
+            $scope.unit.takeExam = $scope.unit.get('takeExam');
+            $scope.unit.quantity = $scope.unit.get('questionExamQuantity');
             $scope.$apply();
           },
           error: function(error){
-            $scope.error = error;
-            $scope.$apply();
+            toastr.error(getErrorDesc(error));
           }
         });
       },
       error: function(error){
-          $scope.error = error;
-          $scope.$apply();
+          toastr.error(getErrorDesc(error));
       }
     });
     $scope.setQuestion = {}
@@ -55,43 +56,62 @@ angular.module('tfaApp')
 
     $scope.saveQuestion = function(question){
       unitsrv.editQuestion(question,{
-        success:function(ok){
+          success: function (ok) {
+              toastr.success("Modificaste la pregunta correctamente");
           $('.modal-backdrop').remove();
           $('body').removeClass('modal-open');
           $('body').removeAttr('style');
           $route.reload();
         },
         error:function(error){
-          $scope.error = error;
+            toastr.error(getErrorDesc(error));
         }
       });
 
     };
 
+    $scope.saveSettings = function (quantity,takeExam) {
+        var unit = new (Parse.Object.extend('Unit'))();
+        unit.set('objectId', $scope.unit.id);
+        unit.set('takeExam', takeExam);
+        unit.set('questionExamQuantity', quantity);
+        unit.save(null, {
+            success: function (unit) {
+                toastr.success("Se han guardado los cambios correctamente");
+            },
+            error: function () {
+                toastr.error("Error al intentar guardar los cambios. Intentá más tarde");
+            }
+        });
+        
+    }
+
     $scope.deleteQuestion = function(question){
       unitsrv.removeQuestion(question, {
-        success:function(ok){
+          success: function (ok) {
+          toastr.success("Eliminaste la pregunta correctamente");
           $('.modal-backdrop').remove();
           $('body').removeClass('modal-open');
           $('body').removeAttr('style');
           $route.reload();
         },
         error:function(error){
-          $scope.error = error;
+          toastr.error(getDescError(error));
         }
       })
     };
 
     $scope.addQuestion = function(question){
       unitsrv.addQuestion($scope.unit, question, {
-        success:function(ok){
+          success: function (ok) {
+              toastr.success("Creaste una nueva pregunta");
           $('.modal-backdrop').remove();
           $('body').removeClass('modal-open');
           $('body').removeAttr('style');
           $route.reload();
         },
         error:function(error){
-          $scope.error = error;
+          toastr.error(getErrorDesc(error));
         }
       })
     };

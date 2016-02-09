@@ -322,7 +322,7 @@ angular.module('tfaApp')
 
       removeQuestion: function unitRemoveQuestion(questionData, cb) {
           var question = new (Parse.Object.extend('Question'))();
-          question.set('id', questionData.id);
+          question.set('id', questionData.objectId);
           question.set('status', '0');
           question.save(null, {
               success: function (or) {

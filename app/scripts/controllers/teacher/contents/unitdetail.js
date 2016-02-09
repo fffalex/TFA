@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tfaApp')
-        .controller('TeacherUnitdetailCtrl', function ($scope, $routeParams, unitsrv, coursesrv, ModalService, $route) {
+        .controller('TeacherUnitdetailCtrl', function ($scope, $routeParams, toastr, unitsrv, coursesrv, ModalService, $route) {
           //initial data set
           $scope.unit = {};
           $scope.topics = [];
@@ -88,7 +88,8 @@ angular.module('tfaApp')
             //    });
             //},
             error: function (error) {
-              $scope.error = "TODO MAL CHABON";
+                toastr.error(getErrorDesc(error));
+                
             }
           });
 
@@ -141,18 +142,21 @@ angular.module('tfaApp')
               }
             }
             if (existFlag) {
-              //DO NOTHING
-              $scope.error = "El numero de topico ya existe";
+                //DO NOTHING
+                toastr.warning("El número de tema ya existe. Debés usar otro");
+              //$scope.error = "El numero de topico ya existe";
             } else
                 if (newNumber == "" || newTitle == "" || newContent == "") {
-                    $scope.error = "Debe completar todos los campos solicitados";
+                    toastr.warning("Debés completar todos los campos solicitados");
+                    //$scope.error = "Debe completar todos los campos solicitados";
                 } else {
               var topicData = {};
               topicData.title = newTitle;
               topicData.content = newContent;
               topicData.number = newNumber;
               unitsrv.createTopic(topicData, $scope.unit, {
-                success: function (newTopic) {
+                  success: function (newTopic) {
+                    toastr.success("Creaste un nuevo tema");
                     $route.reload();
 //                  $scope.editable = false;
 //                  $scope.creating = false;
@@ -167,9 +171,8 @@ angular.module('tfaApp')
 //                  $scope.$apply();
 
                 },
-                error: function (newTopic, error) {
-                  $scope.error = getErrorDesc(error);
-                  $scope.$apply();
+                  error: function (newTopic, error) {
+                      toastr.error(getErrorDesc(error));
                 }
               });
             }
@@ -178,26 +181,42 @@ angular.module('tfaApp')
 
 
           //Save new topic to parse
-          $scope.saveEditedTopic = function (number,title, content) {
-              $scope.currentTopic.title = title;
-              $scope.currentTopic.number = number;
-              $scope.currentTopic.content = content;
-            unitsrv.modifyTopic($scope.currentTopic, {
-              success: function () {
-                $route.reload();
-                // $scope.editable = false;
-                // $scope.error = '';
-                // $scope.currentTopicCopy = angular.copy($scope.currentTopic);
-                // $scope.success = "Has modificado el topic correctamente";
-                // $scope.$apply();
-              },
-              error: function (of, error) {
-                $scope.error = getErrorDesc(error);
-                $scope.$apply();
+          $scope.saveEditedTopic = function (number, title, content) {
+              var existFlag = false
+              for (var i = 0; i < $scope.topics.length; i++) {
+                  if ($scope.topics[i].get("number") == number && $scope.currentTopic.get('number') != number) {
+                      existFlag = true;
+                  }
               }
-            });
-
-
+              if (existFlag) {
+                  //DO NOTHING
+                  toastr.warning("El número de tema ya existe. Debés usar otro");
+                  //$scope.error = "El numero de topico ya existe";
+              } else
+                  if (number == "" || title == "" || content == "") {
+                      toastr.warning("Debés completar todos los campos solicitados");
+                      //$scope.error = "Debe completar todos los campos solicitados";
+                  } else {
+                      $scope.currentTopic.title = title;
+                      $scope.currentTopic.number = number;
+                      $scope.currentTopic.content = content;
+                    unitsrv.modifyTopic($scope.currentTopic, {
+                        success: function () {
+                        toastr.success("Modificaste el tema correctamente");
+                        $route.reload();
+                        // $scope.editable = false;
+                        // $scope.error = '';
+                        // $scope.currentTopicCopy = angular.copy($scope.currentTopic);
+                        // $scope.success = "Has modificado el topic correctamente";
+                        // $scope.$apply();
+                      },
+                        error: function (of, error) {
+                        toastr.error(getErrorDesc(error));
+                        //$scope.error = getErrorDesc(error);
+                        $scope.$apply();
+                      }
+                    });
+              }
           };
 
           $scope.setTopicToDelete = function (index) {
@@ -207,7 +226,8 @@ angular.module('tfaApp')
 
           $scope.deleteTopic = function () {
             unitsrv.deleteTopic($scope.toDeleteTopic, {
-              success: function () {
+                success: function () {
+                toastr.success("Eliminaste el tema correctamente");
                 $('.modal-backdrop').remove();
                 $('body').removeClass('modal-open');
                 $('body').removeAttr('style');
@@ -215,7 +235,7 @@ angular.module('tfaApp')
                 $route.reload();
               },
               error: function (of, error) {
-                $scope.errorDelete = getErrorDesc(error);
+                toastr.error(getErrorDesc(error));
                 $scope.$apply();
               }
             });

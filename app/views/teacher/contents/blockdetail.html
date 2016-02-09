@@ -23,13 +23,13 @@
                 <!-- ADD FUNCTIONALITY! -->
                 <div class="top-corner">
                   <a href="#/teacher/contents/"  class=" btn btn-default btn-xs">
-                      <span  class="glyphicon glyphicon-arrow-left"></span>
+                      <span  class="glyphicon glyphicon-arrow-left" tooltips tooltip-template="Regresar a la pantalla de mis contenidos"></span>
                   </a>
                   <a data-toggle="modal" data-target="#editModalBlock" class=" btn btn-default btn-xs">
-                      <span  class="glyphicon glyphicon-edit"></span>
+                      <span  class="glyphicon glyphicon-edit" tooltips tooltip-template="Editar este bloque de contenido"></span>
                   </a>
                   <a data-toggle="modal" data-target="#deleteModalBlock" class="btn btn-danger btn-default btn-xs">
-                      <span  class="glyphicon glyphicon-trash"></span>
+                      <span  class="glyphicon glyphicon-trash" tooltips tooltip-template="Eliminar este bloque de contenido"></span>
                   </a>
                 </div>
 
@@ -47,10 +47,10 @@
                             <div class="angular-ui-tree-handle" style="text-align: left">
                                 <span style="font-size: 13px" class="hand" ng-click="showUnit($index)"> {{unit.get('number')}} - {{unit.get('title')}} </span>
                                 <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setUnitToDelete($index)">
-                                    <span class="glyphicon glyphicon-trash"></span>
+                                    <span class="glyphicon glyphicon-trash" tooltips tooltip-template="Eliminar esta unidad"></span>
                                 </a>
                                 <a class="pull-right btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{unit.id}}/0/{{blockId}}">
-                                    <span  class="glyphicon glyphicon-list"></span>
+                                    <span  class="glyphicon glyphicon-list" tooltips tooltip-template="Ir a la pantalla de edición de temas para esta unidad"></span>
                                 </a>
 
                             </div>
@@ -68,7 +68,7 @@
                     </div>
 
                     <div ng-if="creating" class="box-icon-3 .bg-red" style="background-color: #884466">
-                        <span class="number-font"><span style="left: 53%" class="glyphicon glyphicon-edit"></span></span>
+                        <span class="number-font"><span style="left: 53%" class="glyphicon glyphicon-edit" tooltips tooltip-template="Cancelar edición"></span></span>
                     </div>
 
 
@@ -80,23 +80,23 @@
 
                     <div ng-if="!editable && !creating" class="top-corner">
                       <a  ng-click="switchEditMode($index)" class=" btn btn-default btn-xs">
-                          <span class="glyphicon glyphicon-edit"></span>
+                          <span class="glyphicon glyphicon-edit" tooltips tooltip-template="Editar unidad"></span>
                       </a>
                       <a class="btn btn-default btn-xs" data-nodrag="" href="#/teacher/contents/unitdetail/{{currentUnit.id}}/0/{{blockId}}">
-                           <span  class="glyphicon glyphicon-list"></span>
+                           <span  class="glyphicon glyphicon-list" tooltips tooltip-template="Ir a la pantalla de edición de temas para esta unidad"></span>
                       </a>
                       <a data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-default btn-xs">
-                          <span class="glyphicon glyphicon-trash"></span>
+                          <span class="glyphicon glyphicon-trash" tooltips tooltip-template="Eliminar unidad"></span>
                       </a>
                     </div>
                     <div data-toggle="modal" data-target="#cancelModal" ng-if="editable" class="top-corner">
                       <a class=" btn btn-default btn-xs">
-                          <span class="glyphicon glyphicon-remove"></span>
+                          <span class="glyphicon glyphicon-remove" tooltips tooltip-template="Cancelar edición"></span>
                       </a>
                     </div>
                     <div ng-if="creating" class="top-corner">
                       <a data-toggle="modal" data-target="#cancelModal" class=" btn btn-default btn-xs">
-                          <span class="glyphicon glyphicon-remove"></span>
+                          <span class="glyphicon glyphicon-remove" tooltips tooltip-template="Cancelar creación"></span>
                       </a>
                     </div>
 

@@ -8,7 +8,7 @@
  * Controller for the singup of the users
  */
 angular.module('tfaApp')
-        .controller('SignupCtrl', function ($scope, $location, authsrv, coursesrv) {
+        .controller('SignupCtrl', function ($scope, toastr, $location, authsrv, coursesrv) {
 
             // form initialization
             $scope.form = {};
@@ -37,7 +37,7 @@ angular.module('tfaApp')
                     $scope.$apply();
                 },
                 error: function (me, error) {
-                    console.log(error);
+                    toastr.error(error);
                 }
             });
 
@@ -61,38 +61,38 @@ angular.module('tfaApp')
                 $scope.form.courses = $scope.addedCourses;
                 $scope.form.myCourse;
                 if (!$scope.form.username || $scope.form.username.length < 4 || $scope.form.username.length > 16) {
-                    $scope.error = 'El nombre de usuario debe tener entre 4 y 16 caracteres';
+                    toastr.warning('El nombre de usuario debe tener entre 4 y 16 caracteres');
                 } else if (!$scope.form.username || !username.test($scope.form.username)) {
-                    $scope.error = 'El nombre de usuario no debe contener caracteres especiales ni espacios en blanco';
+                    toastr.warning('El nombre de usuario no debe contener caracteres especiales ni espacios en blanco');
                 } else if (!$scope.form.email || !email.test($scope.form.email)) {
-                    $scope.error = 'Formato de email incorrecto';
+                    toastr.warning('Formato de email incorrecto');
                 } else if (!$scope.form.password || $scope.form.password.length < 4) {
-                    $scope.error = 'Debe especificar una contraseña de al menos 4 caracteres';
+                    toastr.warning('Debe especificar una contraseña de al menos 4 caracteres');
                 } else if (!$scope.form.name || $scope.form.name.length < 2 || $scope.form.name.length > 32) {
-                    $scope.error = 'Debe especificar un nombre';
+                    toastr.warning('Debe especificar un nombre');
                 }
                 else if (!$scope.form.lastName || $scope.form.lastName.length < 2 || $scope.form.lastName.length > 32) {
-                    $scope.error = 'Debe especificar un apellido';
+                    toastr.warning('Debe especificar un apellido');
                 }
                 else if (!$scope.form.phoneNumber || !phone.test($scope.form.phoneNumber)) {
-                    $scope.error = 'Formato de número de teléfono incorrecto, debe tener al menos 10 dígitos';
+                    toastr.warning('Formato de número de teléfono incorrecto, debe tener al menos 10 dígitos');
                 }
                 //CHECK THE USER STORIES
                 else if (($scope.form.companyName || $scope.form.address) && (!$scope.form.specialty || !$scope.form.specialty.length)) {
-                    $scope.error = 'Como profesor, debe especificar una dirección';
+                    toastr.warning('Como profesor, debe especificar una dirección');
                 }
                 else if (($scope.form.companyName || $scope.form.address) && (!$scope.form.address || !$scope.form.address.length)) {
-                    $scope.error = 'Como profesor, debe especificar una dirección';
+                    toastr.warning('Como profesor, debe especificar una dirección');
                 }
                 else {
                     authsrv.signUp($scope.form, {
                         success: function signUpSuccess() {
+                            toastr.success("¡Bienvenido!", "¡Te registraste correctamente!")
                             $location.path('/');
-                            $scope.$apply();
+
                         },
                         error: function signUpError(us, err) {
-                            $scope.error = getErrorDesc(err);
-                            $scope.$apply();
+                            toastr.error(getErrorDesc(err));
                         }
                     });
                 }

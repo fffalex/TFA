@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tfaApp')
-  .controller('StudentDoExamCtrl', function ($scope,$route, unitsrv, coursesrv, examsrv,$location, $routeParams ) {
+  .controller('StudentDoExamCtrl', function ($scope,$route, unitsrv, toastr, coursesrv, examsrv,$location, $routeParams ) {
 
     //initial data set
     $scope.unit = {};
@@ -43,19 +43,19 @@ angular.module('tfaApp')
               });
             } else {
               $scope.canDoExam = false;
-              $scope.error = "Ya has rendido este examen";
-              $scope.$apply();
+              toastr.error("Ya has rendido este examen");
+
             }
           },
           error: function(error){
-              $scope.error = error;
+              toastr.error(getErrorDesc(error));
           }
         })
 
 
       },
       error: function(error){
-          $scope.error = error;
+          toastr.error(getErrorDesc(error));
       }
     });
 
@@ -82,13 +82,13 @@ angular.module('tfaApp')
       $scope.results.incorrects = incorrectCount;
       $scope.finished = true;
       examsrv.create($scope.unit, $scope.allQuestion,grade,correctCount,incorrectCount,{
-        success: function(ok){
-          console.log("tranco todo");
+          success: function (ok) {
+              toastr.success("Se guardó tu examen correctamente");
           $scope.finished = true;
           $scope.$apply();
         },
         error: function(error){
-          console.log(error);
+            toastr.error(getErrorDesc(error));
         }
       });
     }
@@ -101,7 +101,8 @@ angular.module('tfaApp')
 
     }
 
-    $scope.redirectToUnit = function(){
+    $scope.redirectToUnit = function () {
+      toastr.success("Completaste el examen de esta unidad");
       $('.modal-backdrop').remove();
       $('body').removeClass('modal-open');
       $('body').removeAttr('style');
