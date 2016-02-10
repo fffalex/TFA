@@ -16,8 +16,10 @@ angular.module('tfaApp')
           $scope.creating = false;
 
           //For create new Topic
+          
           $scope.newTitle = '';
-          $scope.newNumber = '';
+          $scope.context = {};
+          $scope.context.newNumber = '';
           $scope.newContent = 'Escriba su contenido aquí';
 
           //Take objectID to query from the routeParams
@@ -54,7 +56,7 @@ angular.module('tfaApp')
                   if (unit.get('topics')[i].id == topicId) {
                     $scope.currentTopic = unit.get('topics')[i];
                     $scope.currentTitle  = $scope.currentTopic.get('title');
-                    $scope.currentNumber  = $scope.currentTopic.get('number');
+                    $scope.context.currentNumber  = $scope.currentTopic.get('number');
                     $scope.currentContent = $scope.currentTopic.get('content');
                     $scope.currentTopicCopy = angular.copy($scope.currentUnit);
                     flagUnitId = true;
@@ -64,7 +66,7 @@ angular.module('tfaApp')
                 if (!flagUnitId) {
                   $scope.currentTopic = $scope.topics[0];
                   $scope.currentTitle  = $scope.currentTopic.get('title');
-                  $scope.currentNumber  = $scope.currentTopic.get('number');
+                  $scope.context.currentNumber  = $scope.currentTopic.get('number');
                   $scope.currentContent = $scope.currentTopic.get('content');
                   $scope.currentTopicCopy = angular.copy($scope.currentTopic);
                 }
@@ -93,15 +95,15 @@ angular.module('tfaApp')
             }
           });
           
-              $scope.$watch('newNumber', function (newValue, oldValue) {
+              $scope.$watch('context.newNumber', function (newValue, oldValue) {
         if (newValue && newValue !== '' && newValue <= 0) {
-            $scope.newNumber = oldValue;
+            $scope.context.newNumber = oldValue;
         }
       });
       
-            $scope.$watch('currentNumber', function (newValue, oldValue) {
+            $scope.$watch('context.currentNumber', function (newValue, oldValue) {
         if (newValue && newValue !== '' && newValue <= 0) {
-            $scope.currentNumber = oldValue;
+            $scope.context.currentNumber = oldValue;
         }
       });
 
@@ -113,7 +115,7 @@ angular.module('tfaApp')
             $scope.creating = false;
             $scope.currentTopic = $scope.topics[index];
             $scope.currentTitle  = $scope.currentTopic.get('title');
-            $scope.currentNumber  = $scope.currentTopic.get('number');
+            $scope.context.currentNumber  = $scope.currentTopic.get('number');
             $scope.currentContent = $scope.currentTopic.get('content');
             $scope.currentTopicCopy = angular.copy($scope.currentTopic);
             $scope.apply;

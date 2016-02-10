@@ -103,8 +103,8 @@
 
                     <div ng-if="editable && !creating">
                       <div class="form-group signup-input">
-                          <p class="order-label"><strong>Numero de Tema</strong></p>
-                          <input type="number" class="form-control" ng-model="currentNumber" required>
+                          <p class="order-label"><strong>Número de Tema</strong></p>
+                          <input type="number" class="form-control" id="currentNumber" ng-model="context.currentNumber" required>
                       </div>
                       <div class="form-group signup-input">
                           <p class="order-label"><strong>Título</strong></p>
@@ -116,7 +116,7 @@
 
                       <div class="row">
                         <div class="col-md-6">
-                          <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="saveEditedTopic(currentNumber, currentTitle, currentContent)">Guardar cambios</button>
+                          <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="saveEditedTopic(context.currentNumber, currentTitle, currentContent)">Guardar cambios</button>
                         </div>
                         <div class="col-md-6">
                           <button class="btn btn-default btn3 btn2 btn-red btn-block" data-toggle="modal" data-target="#cancelModal">Cancelar</button>
@@ -127,12 +127,11 @@
                     <div ng-if="creating">
                         <div class="form-group signup-input">
                             <p class="order-label"><strong>Número de tema</strong></p>
-                            <input type="number" class="form-control" ng-model="newNumber" required>
+                            <input type="number" class="form-control" ng-model="context.newNumber" required>
                         </div>
                         <div class="form-group signup-input">
                             <p class="order-label"><strong>Título</strong></p>
                             <input type="text" class="form-control" ng-model="newTitle" required>
-                            <p>{{newNumber}}</p>
                         </div>
                         <p class="order-label"><strong>Editor de contenido</strong></p>
                         <div>
@@ -142,7 +141,7 @@
 
                         <div class="row">
                           <div class="col-md-6">
-                            <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="createNewTopic(newNumber, newTitle, newContent)">Crear tema</button>
+                            <button class="btn btn-default btn3 btn2 btn-red btn-block" ng-click="createNewTopic(context.newNumber, newTitle, newContent)">Crear tema</button>
                           </div>
                           <div class="col-md-6">
                             <button class="btn btn-default btn3 btn2 btn-red btn-block" data-toggle="modal" data-target="#cancelModal">Cancelar</button>

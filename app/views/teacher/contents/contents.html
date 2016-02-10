@@ -6,8 +6,8 @@
                     <span class="number-font">Cursos</span>
                 </div>
                 <ul class="dropdown">
-                    <button class="btn btn-default btn3 btn2 dropdown-toggle" data-toggle="dropdown">  {{selectedCourse.get('schoolYear')}} - {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}, {{selectedCourse.get('turn')}}    <b class="caret"></b></button>
-                    <ul ng-repeat="course in fullCourses" class="dropdown-menu" style="background-color: #f8faff">
+                    <button class="btn btn-default btn3 btn2 dropdown-toggle" data-toggle="dropdown" style="width: 260px">  {{selectedCourse.get('schoolYear')}} - {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}, {{selectedCourse.get('turn')}}    <b class="caret"></b></button>
+                    <ul ng-repeat="course in fullCourses" class="dropdown-menu" style="background-color: #eee;width: 260px; border-color: #aaa">
                         <div ng-repeat="course in fullCourses">
                             <li ng-click="selectCourse($index)"><a href="">     {{course.get('schoolYear')}} - {{course.get('year')}} {{course.get('division')}}, {{course.get('turn')}}     </a></li>
                         </div>
@@ -17,7 +17,7 @@
                 <h4><b>Grado: </b> {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}</h4>
                 <h4>Turno: {{selectedCourse.get('turn')}}   </h4>
                 <h4>
-                    Bloque asignado: {{selectedCourse.teacherContent.get('name')}}
+                    Bloque asignado: <span style="color: #005580">{{selectedCourse.teacherContent.get('name')}}<span>
                     <a data-toggle="modal" data-target="#setModalBlock" class="pull-right btn btn-default btn-xs" data-nodrag="">
                         <span class="glyphicon glyphicon-edit" tooltips tooltip-template="Cambiar el bloque de contenido asociado a este curso"></span>
                     </a>
@@ -208,11 +208,11 @@
                         <h4><b>Año: </b> {{selectedCourse.get('schoolYear')}} </h4>
                         <h4><b>Grado: </b> {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}</h4>
                         <h4>Turno: {{selectedCourse.get('turn')}}   </h4>
-                        <h4>Bloque asignado: {{selectedCourse.teacherContent.get('name')}}   </h4>
-                        <h4>Nuevo Bloque a asignar: {{blockSetCourse.get('name')}}   </h4>
+                        <h4>Bloque actual: <span style="color: #772244">{{selectedCourse.teacherContent.get('name')}}</span>   </h4>
+                        <h4>Nuevo Bloque a asignar:</h4>
                         <ul class="dropdown">
-                            <button class="btn btn-default btn3 btn2 dropdown-toggle" data-toggle="dropdown">  {{blockSetCourse.get('name')}}     <b class="caret"></b></button>
-                            <ul ng-repeat="content in allContents" class="dropdown-menu" style="background-color: #f8faff">
+                            <button class="btn btn-default btn3 btn2 dropdown-toggle" data-toggle="dropdown" style="width: 200px">  {{blockSetCourse.get('name')}}     <b class="caret"></b></button>
+                            <ul ng-repeat="content in allContents" class="dropdown-menu" style="background-color: #eee;width: 200px; border-color: #aaa">
                                 <div ng-repeat="content in allContents">
                                     <li ng-click="selectBlockToSet($index)"><a href="">     {{content.get('name')}}    </a></li>
                                 </div>

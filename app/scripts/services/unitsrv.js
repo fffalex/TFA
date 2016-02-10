@@ -104,6 +104,7 @@ angular.module('tfaApp')
           var topic = new (Parse.Object.extend('Topic'))();
           topic.set('id', topicData.id);
           topic.set('title', topicData.title);
+          topic.set('number', topicData.number);
           topic.set('content', topicData.content);
           topic.save(null, {
               success: function (or) {
