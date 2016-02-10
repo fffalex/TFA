@@ -151,7 +151,7 @@ angular
           controller: 'StudentMyContentCtrl',
           access: 'student'
       })
-      .when('/student/doexam/:objectId', {
+      .when('/student/doexam/:objectId/:blockId', {
           templateUrl: 'views/student/doexam.html',
           controller: 'StudentDoExamCtrl',
           access: 'student'

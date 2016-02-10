@@ -29,7 +29,11 @@
                         <div class="form-group signup-input">
                             <h4>Total de preguntas: {{allQuestion.length}}</h4>
                             <p class="order-label inline-block"><strong>Cantidad de preguntas incluídas: </strong></p>
-                            <input type="number" class="form-control text-center" style="padding-left:10px;" ng-model="unit.quantity" required>
+                            <input type="number" id="quantity" class="form-control text-center" style="padding-left:10px;" ng-model="unit.quantity" required>
+                        </div>
+                        <div class="form-group signup-input">
+                            <p class="order-label inline-block"><strong>Tiempo límite del examen en minutos: </strong></p>
+                            <input type="number" class="form-control text-center" style="padding-left:10px;" ng-model="unit.examMinutes" required>
                         </div>
 
 
@@ -82,7 +86,7 @@
 
 
                     <div class="top-corner">
-                        <a href="#/teacher/contents/blockdetail/{{unitId}}/0/{{blockId}}" class=" btn btn-default btn-xs">
+                        <a href="#/teacher/contents/blockdetail/{{blockId}}/{{unitId}}" class=" btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-arrow-left" tooltips tooltip-template="Volver a la pantalla de edición de la unidad"></span>
                         </a>
                     </div>

@@ -21,7 +21,13 @@ angular.module('tfaApp')
     $scope.newQuestion.trueAnswer ="";
     $scope.newQuestion.falseAnswer1 ="";
     $scope.newQuestion.falseAnswer2 ="";
-    $scope.newQuestion.falseAnswer3 ="";
+    $scope.newQuestion.falseAnswer3 = "";
+
+    $scope.$watch('quantity', function (newValue, oldValue) {
+        if (newValue && newValue != '' && !number.test(newValue)) {
+            $scope.quantity = oldValue;
+        }
+    });
 
 
     var query = new Parse.Query('Unit');

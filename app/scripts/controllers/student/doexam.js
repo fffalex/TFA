@@ -12,8 +12,11 @@ angular.module('tfaApp')
 
     //Take objectID to query from the routeParams
     var unitId = 0;
+    var blockId = 0;
     if ($routeParams) {
-      unitId = $routeParams.objectId;
+        unitId = $routeParams.objectId;
+        blockId = $routeParams.blockId;
+
     }
     $scope.allQuestion = [];
 
@@ -106,7 +109,7 @@ angular.module('tfaApp')
       $('.modal-backdrop').remove();
       $('body').removeClass('modal-open');
       $('body').removeAttr('style');
-      $location.path( "/student/contents/classes/"+unitId+"/0/0" );
+      $location.path("/student/contents/classes/" + blockId + "/" + unitId + "/0");
     }
 
   });

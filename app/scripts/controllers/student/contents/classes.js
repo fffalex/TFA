@@ -13,9 +13,9 @@ angular.module('tfaApp')
     $scope.success = "";
 
     //Take objectID to query from the routeParams
-    var unitId = 0;
-    var blockId = 0;
-    var topicId = 0;
+    $scope.unitId = 0;
+    $scope.blockId = 0;
+    $scope.topicId = 0;
     if ($routeParams) {
       $scope.unitId = $routeParams.unitId;
       $scope.topicId = $routeParams.topicId;
@@ -24,8 +24,9 @@ angular.module('tfaApp')
 
     var flagUnitId = false;
     //Initial query to set te Unit and Topic array
-    unitsrv.getContentBlock({id:'WSrnTu2Luw'},{
-      success: function(block){
+    unitsrv.getContentBlock({ id: $scope.blockId }, {
+        success: function (block) {
+        debugger
         $scope.block = block;
         $scope.block.unitsX = [];
         if($scope.block.get('units') != undefined){
@@ -160,7 +161,7 @@ angular.module('tfaApp')
       $('.modal-backdrop').remove();
       $('body').removeClass('modal-open');
       $('body').removeAttr('style');
-      $location.path( "/student/doexam/"+$scope.unitToExam.id);
+      $location.path("/student/doexam/" + $scope.unitToExam.id + "/" + $scope.blockId);
     }
 
     $scope.markAsRead = function(){
