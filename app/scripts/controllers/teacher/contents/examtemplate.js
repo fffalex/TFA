@@ -23,9 +23,15 @@ angular.module('tfaApp')
     $scope.newQuestion.falseAnswer2 ="";
     $scope.newQuestion.falseAnswer3 = "";
 
-    $scope.$watch('quantity', function (newValue, oldValue) {
-        if (newValue && newValue != '' && !number.test(newValue)) {
-            $scope.quantity = oldValue;
+    $scope.$watch('unit.quantity', function (newValue, oldValue) {
+        if (newValue && newValue != '' && (newValue < 0 || newValue > $scope.allQuestion.length)) {
+            $scope.unit.quantity = oldValue;
+        }
+    });
+    
+    $scope.$watch('unit.minutes', function (newValue, oldValue) {
+        if (newValue && newValue !== '' && newValue <= 0) {
+            $scope.unit.minutes = oldValue;
         }
     });
 
@@ -42,6 +48,7 @@ angular.module('tfaApp')
 
             $scope.unit.takeExam = $scope.unit.get('takeExam');
             $scope.unit.quantity = $scope.unit.get('questionExamQuantity');
+            $scope.unit.minutes = $scope.unit.get('examMinutes');
             $scope.$apply();
           },
           error: function(error){
@@ -76,17 +83,18 @@ angular.module('tfaApp')
 
     };
 
-    $scope.saveSettings = function (quantity,takeExam) {
+    $scope.saveSettings = function (quantity,takeExam,minutes) {
         var unit = new (Parse.Object.extend('Unit'))();
         unit.set('objectId', $scope.unit.id);
         unit.set('takeExam', takeExam);
         unit.set('questionExamQuantity', quantity);
+        unit.set('examMinutes',minutes);
         unit.save(null, {
             success: function (unit) {
                 toastr.success("Se han guardado los cambios correctamente");
             },
             error: function () {
-                toastr.error("Error al intentar guardar los cambios. Intentá más tarde");
+                toastr.error("Error al intentar guardar los cambios. Intentï¿½ mï¿½s tarde");
             }
         });
         

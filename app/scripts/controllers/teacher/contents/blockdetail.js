@@ -19,6 +19,18 @@ angular.module('tfaApp')
       $scope.newTitle = '';
       $scope.newNumber = '';
       $scope.newDescription = '';
+      
+      $scope.$watch('newNumber', function (newValue, oldValue) {
+        if (newValue && newValue !== '' && newValue <= 0) {
+            $scope.newNumber = oldValue;
+        }
+      });
+      
+            $scope.$watch('currentNumber', function (newValue, oldValue) {
+        if (newValue && newValue !== '' && newValue <= 0) {
+            $scope.currentNumber = oldValue;
+        }
+      });
 
 
       //Take objectID to query from the routeParams

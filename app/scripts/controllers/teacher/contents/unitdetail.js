@@ -92,6 +92,18 @@ angular.module('tfaApp')
                 
             }
           });
+          
+              $scope.$watch('newNumber', function (newValue, oldValue) {
+        if (newValue && newValue !== '' && newValue <= 0) {
+            $scope.newNumber = oldValue;
+        }
+      });
+      
+            $scope.$watch('currentNumber', function (newValue, oldValue) {
+        if (newValue && newValue !== '' && newValue <= 0) {
+            $scope.currentNumber = oldValue;
+        }
+      });
 
 
 

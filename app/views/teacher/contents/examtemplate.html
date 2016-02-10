@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group signup-input">
                             <p class="order-label inline-block"><strong>Tiempo límite del examen en minutos: </strong></p>
-                            <input type="number" class="form-control text-center" style="padding-left:10px;" ng-model="unit.examMinutes" required>
+                            <input type="number" class="form-control text-center" id="minutes" style="padding-left:10px;" ng-model="unit.minutes" required>
                         </div>
 
 
@@ -63,7 +63,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button ng-click="saveSettings(unit.quantity,unit.takeExam)" type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Guardar</button>
+                        <button ng-click="saveSettings(unit.quantity,unit.takeExam, unit.minutes)" type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Guardar</button>
                         
                     </div>
                     <br />
