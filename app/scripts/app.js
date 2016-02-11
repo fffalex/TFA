@@ -135,7 +135,11 @@ angular
           controller: 'TeacherExamTemplateCtrl',
           access: 'teacher'
           })
-
+      .when('/teacher/studentprogress/:objectId/:blockId', {
+          templateUrl: 'views/teacher/studentprogress.html',
+          controller: 'TeacherStudentProgressCtrl',
+          access: 'teacher'
+          })
       .when('/teacher/mystudents/', {
           templateUrl: 'views/teacher/mystudents.html',
           controller: 'MyStudentsCtrl',

@@ -48,7 +48,8 @@
                                     <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
                                     <span class="hand" ng-click="toggle(this)">{{unit.get('number')}}- {{unit.get('title')}}</span>
                                     <span ng-if="unit.seen" class="pull-right glyphicon glyphicon-ok"></span>
-                                    
+                                    <span ng-if="unit.exam" class="pull-right glyphicon glyphicon-education"></span>
+
                                     <!--<a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </a>-->
@@ -60,7 +61,7 @@
                                             <span ng-if="topic.seen" class="pull-right glyphicon glyphicon-ok"></span>
                                         </div>
                                     </li>
-                                    <li ng-if="unit.seen && unit.get('takeExam')" class="angular-ui-tree-node">           
+                                    <li ng-if="unit.seen && unit.exam" class="angular-ui-tree-node">
                                         <button ng-click="setUnitExam(unit)" class="btn btn-default btn3 btn2 btn-red btn-block"  data-toggle="modal" data-target="#toExamModal"><span class="pull-left glyphicon glyphicon-education" style="margin-top:8px"></span> Examen</button>
                                     </li>
                                 </ol>

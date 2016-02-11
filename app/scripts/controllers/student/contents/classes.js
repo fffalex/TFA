@@ -60,29 +60,51 @@ angular.module('tfaApp')
             }
           }
         }
+
+
+        //Query to add the exam to the unit!
+        var query = new Parse.Query('Exam');
+        query.equalTo('student', Parse.User.current());
+        query.include('unit');
+        query.find({
+            success: function (exams) {
+              for (var i = 0; i < exams.length; i++) {
+                for (var j = 0; j < $scope.block.unitsX.length; j++) {
+                  if(exams[i].get('unit').id == $scope.block.unitsX[j].id){
+                    $scope.block.unitsX[j].exam = exams[i]
+                  }
+                }
+              }
+            },
+            error: function(error){
+              toastr.error(error);
+            }
+        });
+
         $scope.currentUnit = $scope.block.unitsX[0];
         $scope.currentTopic = $scope.currentUnit.topicsX[0];
 
-        var query = new Parse.Query('Exam');
-        query.equalTo('unit', $scope.currentUnit);
-        query.equalTo('student', Parse.User.current());
-        query.find({
-            success: function (exam) {
-                //there are not exam for this unit and student
-                if (exam.length == 0) {
-                    $scope.headExamDone = false;
-                    $scope.$apply();
-
-                } else {
-                    $scope.headExamDone = true;
-                    $scope.headExamGrade = exam[0].get('grade');
-                    $scope.$apply();
-                }
-            },
-            error: function (error) {
-                toastr.error(getErrorDesc(error));
-            }
-        });
+        //TO PUT IN THE HEADO OF THE UNIT
+        // var query = new Parse.Query('Exam');
+        // query.equalTo('unit', $scope.currentUnit);
+        // query.equalTo('student', Parse.User.current());
+        // query.find({
+        //     success: function (exam) {
+        //         //there are not exam for this unit and student
+        //         if (exam.length == 0) {
+        //             $scope.headExamDone = false;
+        //             $scope.$apply();
+        //
+        //         } else {
+        //             $scope.headExamDone = true;
+        //             $scope.headExamGrade = exam[0].get('grade');
+        //             $scope.$apply();
+        //         }
+        //     },
+        //     error: function (error) {
+        //         toastr.error(getErrorDesc(error));
+        //     }
+        // });
 
         $scope.$apply();
       },
@@ -133,7 +155,7 @@ angular.module('tfaApp')
         $scope.unitToExam = unit;
         //Get the exam if already exist
 
-        
+
         var query = new Parse.Query('Exam');
         query.equalTo('unit', $scope.unitToExam);
         query.equalTo('student', Parse.User.current());
@@ -143,7 +165,7 @@ angular.module('tfaApp')
                 if (exam.length == 0) {
                     $scope.examDone = false;
                     $scope.$apply();
-                    
+
                 } else {
                     $scope.examDone = true;
                     $scope.currentExam = exam[0];
@@ -167,7 +189,7 @@ angular.module('tfaApp')
     $scope.markAsRead = function(){
       unitsrv.markTopicSeenBy($scope.currentTopic, Parse.User.current()  ,{
           success: function (ok) {
-          toastr.success("Marcaste esta unidad como leída");
+          toastr.success("Marcaste esta unidad como leï¿½da");
           $('.modal-backdrop').remove();
           $('body').removeClass('modal-open');
           $('body').removeAttr('style');
