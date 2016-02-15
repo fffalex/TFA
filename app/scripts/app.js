@@ -30,7 +30,8 @@ angular
     'toastr',
     //'pickadate',
     //'xeditable',
-    'timer'
+    'timer',
+    'angular-svg-round-progress'
 
   ]).config(function ($routeProvider) {
     //create a custom provider to set a default resolve attribute

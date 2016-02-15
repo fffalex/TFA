@@ -26,9 +26,12 @@ angular.module('tfaApp')
     $scope.$watch('unit.quantity', function (newValue, oldValue) {
         if (newValue && newValue != '' && (newValue < 0 || newValue > $scope.allQuestion.length)) {
             $scope.unit.quantity = oldValue;
+            if($scope.allQuestion.length == 0){
+              toastr.warning("No tenés preguntas asociadas a esta unidad", "Debés crear por lo menos una pregunta");
+            }
         }
     });
-    
+
     $scope.$watch('unit.minutes', function (newValue, oldValue) {
         if (newValue && newValue !== '' && newValue <= 0) {
             $scope.unit.minutes = oldValue;
@@ -46,7 +49,7 @@ angular.module('tfaApp')
           success:function(questions){
             $scope.allQuestion = questions;
 
-            $scope.unit.takeExam = $scope.unit.get('takeExam');
+            $scope.unit.allowExam = $scope.unit.get('allowExam');
             $scope.unit.quantity = $scope.unit.get('questionExamQuantity');
             $scope.unit.minutes = $scope.unit.get('examMinutes');
             $scope.$apply();
@@ -83,10 +86,10 @@ angular.module('tfaApp')
 
     };
 
-    $scope.saveSettings = function (quantity,takeExam,minutes) {
+    $scope.saveSettings = function (quantity,allowExam,minutes) {
         var unit = new (Parse.Object.extend('Unit'))();
         unit.set('objectId', $scope.unit.id);
-        unit.set('takeExam', takeExam);
+        unit.set('allowExam', allowExam);
         unit.set('questionExamQuantity', quantity);
         unit.set('examMinutes',minutes);
         unit.save(null, {
@@ -97,7 +100,7 @@ angular.module('tfaApp')
                 toastr.error("Error al intentar guardar los cambios. Intent� m�s tarde");
             }
         });
-        
+
     }
 
     $scope.deleteQuestion = function(question){

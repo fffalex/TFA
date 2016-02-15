@@ -26,7 +26,7 @@ angular.module('tfaApp')
     //Initial query to set te Unit and Topic array
     unitsrv.getContentBlock({ id: $scope.blockId }, {
         success: function (block) {
-        debugger
+
         $scope.block = block;
         $scope.block.unitsX = [];
         if($scope.block.get('units') != undefined){
@@ -152,30 +152,41 @@ angular.module('tfaApp')
     $scope.examDone = false;
     $scope.currentExam = {};
     $scope.setUnitExam = function(unit){
-        $scope.unitToExam = unit;
-        //Get the exam if already exist
+      debugger;
+        if(unit.exam){
+          $scope.currentExam = unit.exam;
+          $scope.examDone = true;
+        } else {
+          $scope.unitToExam = unit;
+          $scope.examDone = false;
+          $scope.currentExam = {};
+        }
+        $scope.$apply();
 
+        // $scope.unitToExam = unit;
+        // //Get the exam if already exist
+        //
+        //
+        // var query = new Parse.Query('Exam');
+        // query.equalTo('unit', $scope.unitToExam);
+        // query.equalTo('student', Parse.User.current());
+        // query.find({
+        //     success: function (exam) {
+        //         //there are not exam for this unit and student
+        //         if (exam.length == 0) {
+        //             $scope.examDone = false;
+        //             $scope.$apply();
+        //
+        //         } else {
+        //             $scope.examDone = true;
+        //             $scope.currentExam = exam[0];
+        //             $scope.$apply();
+        //         }
+        //     },
+        //     error: function () {
+        //     }
+        // });
 
-        var query = new Parse.Query('Exam');
-        query.equalTo('unit', $scope.unitToExam);
-        query.equalTo('student', Parse.User.current());
-        query.find({
-            success: function (exam) {
-                //there are not exam for this unit and student
-                if (exam.length == 0) {
-                    $scope.examDone = false;
-                    $scope.$apply();
-
-                } else {
-                    $scope.examDone = true;
-                    $scope.currentExam = exam[0];
-                    $scope.$apply();
-                }
-            },
-            error: function () {
-            }
-        });
-      $scope.$apply();
     }
 
     $scope.toExam = function () {
@@ -183,6 +194,7 @@ angular.module('tfaApp')
       $('.modal-backdrop').remove();
       $('body').removeClass('modal-open');
       $('body').removeAttr('style');
+      debugger;
       $location.path("/student/doexam/" + $scope.unitToExam.id + "/" + $scope.blockId);
     }
 

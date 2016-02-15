@@ -11,7 +11,9 @@ angular.module('tfaApp')
         blockId = $routeParams.blockId;
     }
     $scope.student = {}
+    $scope.currentExam = {};
     var query = new Parse.Query('User');
+    query.include('assignedTo');
     query.equalTo('objectId', objectId);
     query.first({
       success: function (student) {
@@ -21,6 +23,8 @@ angular.module('tfaApp')
             success: function(block){
               $scope.block = block;
               $scope.block.unitsX = [];
+              $scope.topicRead = 0;
+              $scope.totalTopic = 0
               //For each unit in Content
               if($scope.block.get('units') != undefined){
                 for (var j = 0; j < $scope.block.get('units').length; j++) {
@@ -33,10 +37,12 @@ angular.module('tfaApp')
                         if(unit.get('topics')[k].get('status') != 0){
                           unit.topicsX.push(unit.get('topics')[k]);
                         }
+                        $scope.totalTopic = $scope.totalTopic + 1;
                         if (unit.get('topics')[k].get('seenBy') != undefined){
                           for (var i = 0; i < unit.get('topics')[k].get('seenBy').length; i++) {
-                            if ( unit.get('topics')[k].get('seenBy')[i].id == Parse.User.current().id){
+                            if ( unit.get('topics')[k].get('seenBy')[i].id == $scope.student.id){
                               unit.get('topics')[k].seen = true;
+                              $scope.topicRead = $scope.topicRead + 1 ;
                             }
                           }
                         }
@@ -69,6 +75,7 @@ angular.module('tfaApp')
                         }
                       }
                     }
+                    $scope.$apply();
                   },
                   error: function(error){
                     toastr.error(error);
@@ -90,4 +97,21 @@ angular.module('tfaApp')
         toastr.error(error);
       }
     });
+
+    $scope.showExam = function(exam){
+      $scope.currentExam = exam;
+      var query = new Parse.Query('Answer');
+      query.include('question');
+      query.equalTo('exam',exam);
+      query.find({
+        success: function(answers){
+          $scope.currentExam.answers = answers;
+          $scope.$apply();
+        },
+        error: function(){
+          toastr.error(getErrorDesc(error));
+        }
+      });
+    }
+
 });

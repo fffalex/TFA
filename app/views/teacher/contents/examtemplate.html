@@ -23,7 +23,7 @@
                     <h4 class="text-center">{{unit.get('title')}}</h4>
                     <p>{{unit.get('description')}}</p>
                 </div>
-   
+
                 <div class="col-md-12">
                     <div class="col-md-6">
                         <div class="form-group signup-input">
@@ -54,17 +54,17 @@
                         <div class="form-group signup-input">
                             <div class="checkbox">
                                 <label style="padding-left:0px">
-                                    <input type="checkbox" ng-model="unit.takeExam" style="display:none">
+                                    <input type="checkbox" ng-model="unit.allowExam" style="display:none">
 
-                                    <span class="cr">
+                                    <span class="cr" style="width:30px;height:30px;margin-top:10px">
                                         <i class="cr-icon fa fa-check"></i>
                                     </span>
                                     <span class="checkbox-label-text">Permitir a los alumnos rendir el examen de esta unidad</span>
                                 </label>
                             </div>
                         </div>
-                        <button ng-click="saveSettings(unit.quantity,unit.takeExam, unit.minutes)" type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Guardar</button>
-                        
+                        <button ng-click="saveSettings(unit.quantity,unit.allowExam, unit.minutes)" type="button" class="btn btn-default btn3 btn2 btn-block" data-dismiss="modal">Guardar</button>
+
                     </div>
                     <br />
 
@@ -102,7 +102,7 @@
                   <span class="number-font">Preguntas</span>
               </div>
               <br />
-        
+
               <button type="button" data-toggle="modal" data-target="#addModalQuestion" style="margin-bottom:10px" class="btn btn-default btn3 btn2 btn-block">Nueva pregunta</button>
               <br />
               <div ng-repeat="question in allQuestion">
@@ -113,7 +113,7 @@
                   <a class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#editModalQuestion" ng-click="setQuestionEdit(question)">
                       <span  class="glyphicon glyphicon-edit" style="cursor: pointer" tooltips tooltip-template="Editar esta pregunta"></span>
                   </a>
-        
+
                 <div class="info">
 
                     <h5 class="text-center flat-p">{{question.get('question')}}</h5>

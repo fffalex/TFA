@@ -17,21 +17,43 @@
         <div class="col-md-12">
           <div class="col-md-6">
             <div class="box" style="background-color: #F6F2F4">
-                <div class="box-icon-2" style="width:50%; background-color: #772244">
+                <div class="box-icon-2" style="width:55%; background-color: #772244">
                     <span class="number-font">Bloque de Contenido</span>
                 </div>
-                <div class="info">
                     <h4 class="text-center">{{block.get('name')}}</h4>
-                </div>
             </div>
-
-          </div>
-
-          <div class="col-md-6">
+            <!-- tree with units -->
             <div class="box">
               <div class="box-icon-2">
                   <span class="number-font">Temas</span>
               </div>
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <h5>Temas leídos: {{topicRead}}</h5>
+                  <h5>Total: {{totalTopic}}</h5>
+                </div>
+                <div class="col-md-6">
+                  <div
+                    round-progress
+                    max="totalTopic"
+                    current="topicRead"
+                    color="#45ccce"
+                    bgcolor="#eaeaea"
+                    radius="50"
+                    stroke="15"
+                    semi="true"
+                    rounded="true"
+                    clockwise="true"
+                    responsive="false"
+                    duration="800"
+                    animation="easeInOutQuart"
+                    animation-delay="0">
+                  </div>
+                  <span class="pull-right" style="position:absolute;top: 27px;left: 48px;"><b>{{topicRead/totalTopic*100}}%</b></span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
               <div ui-tree class="ng-scope angular-ui-tree">
                   <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="block" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
                       <li ng-repeat="unit in block.unitsX" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
@@ -39,7 +61,7 @@
                               <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
                               <span class="hand" ng-click="toggle(this)">{{unit.get('number')}}- {{unit.get('title')}}</span>
                               <span ng-if="unit.seen" class="pull-right glyphicon glyphicon-ok"></span>
-                              <span ng-if="unit.exam" class="pull-right glyphicon glyphicon-education">{{unit.exam.get('grade')}}</span>
+                              <span ng-if="unit.exam" style="margin-right:3px" class="pull-right glyphicon glyphicon-education">{{unit.exam.get('grade')}}</span>
 
                           </div>
                           <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.topicsX" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
@@ -51,14 +73,120 @@
                                   </div>
                               </li>
                               <li ng-if="unit.seen && unit.exam" class="angular-ui-tree-node">
-                                  <button ng-click="setUnitExam(unit)" class="btn btn-default btn3 btn2 btn-red btn-block"  data-toggle="modal" data-target="#toExamModal"><span class="pull-left glyphicon glyphicon-education" style="margin-top:8px"></span>Ver examen</button>
+                                  <button ng-click="showExam(unit.exam)" class="btn btn-default btn3 btn2 btn-red btn-block"  data-toggle="modal" data-target="#toExamModal"><span class="pull-left glyphicon glyphicon-education" style="margin-top:8px"></span>Ver examen</button>
                               </li>
                           </ol>
                       </li>
                   </ol>
               </div>
             </div>
+            <div class="row"></div>
+          </div>
+
+          </div>
+
+          <div class="col-md-6">
+            <div class="box" style="background-color: #F2F6F4">
+                <div class="box-icon-2" style="width:35%; background-color: #227755">
+                    <span class="number-font">Alumno</span>
+                </div>
+                <h4>{{student.get('lastName')}}, {{student.get('name')}}</h4>
+                <h5>{{student.get('assignedTo').get('name')}}</h5>
+                <h5>{{student.get('email')}}</h5>
+            </div>
+            <div class="box" style="background-color: #F2F6F4">
+                <div class="box-icon-2" style="width:35%; background-color: #227755">
+                    <span class="number-font">Promedio</span>
+                </div>
+                <h4>Examenes rendidos: </h4>
+            </div>
+            <!-- <h3 class="text-center">{{currentExam.get('grade')}}</h3>
+            <p>Correctas: {{currentExam.get('correctsAnswers')}}</p>
+            <p>Incorrectas: {{currentExam.get('incorrectsAnswers')}}</p>
+
+            <div ng-repeat="answer in currentExam.answers">
+              <div class="card flat-d">
+              <div class="info">
+
+                  <h5 class="text-center flat-p">{{answer.get('question').get('question')}}</h5>
+                  <div class="card" ng-if="answer.get('question').get('trueAnswer') && answer.get('question').get('trueAnswer') == answer.get('answer')" style="background-color:#CEE1BA; margin:0">
+                    <p class="flat-p" ><span  class="glyphicon glyphicon-check"></span> {{answer.get('question').get('trueAnswer')}}</p>
+                  </div>
+                  <p class="flat-p" ng-if="answer.get('question').get('trueAnswer') && answer.get('question').get('trueAnswer') != answer.get('answer')"><span  class="glyphicon glyphicon-check"></span> {{answer.get('question').get('trueAnswer')}}</p>
+
+                  <div class="card" ng-if="answer.get('question').get('falseAnswer1') &&  answer.get('question').get('falseAnswer1') == answer.get('answer')" style="background-color:#E7D0D0; margin:0;">
+                    <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer1')}}</p>
+                  </div>
+                  <p class="flat-p" ng-if="answer.get('question').get('falseAnswer1') &&  answer.get('question').get('falseAnswer1') != answer.get('answer')"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer1')}}</p>
+
+                  <div class="card" ng-if="answer.get('question').get('falseAnswer2') &&  answer.get('question').get('falseAnswer2') == answer.get('answer')" style="background-color:#E7D0D0; margin:0;">
+                    <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer2')}}</p>
+                  </div>
+                  <p class="flat-p" ng-if="answer.get('question').get('falseAnswer2') &&  answer.get('question').get('falseAnswer2') != answer.get('answer')"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer2')}}</p>
+
+                  <div class="card" ng-if="answer.get('question').get('falseAnswer3') &&  answer.get('question').get('falseAnswer3') == answer.get('answer')" style="background-color:#E7D0D0; margin:0;">
+                    <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer3')}}</p>
+                  </div>
+                  <p class="flat-p" ng-if="answer.get('question').get('falseAnswer3') &&  answer.get('question').get('falseAnswer3') != answer.get('answer')"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer3')}}</p>
+              </div>
+            </div>
+          </div> -->
+
           </div>
         </div>
       </div>
+
+      <!-- Modal -->
+      <div id="toExamModal" class="modal fade" role="dialog">
+          <div class="modal-dialog  modal-bg order-modal">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Resultados del Examen</h4>
+                  </div>
+
+                  <div class="modal-body">
+                      <h3 class="text-center">{{currentExam.get('grade')}}</h3>
+                      <p>Correctas: {{currentExam.get('correctsAnswers')}}</p>
+                      <p>Incorrectas: {{currentExam.get('incorrectsAnswers')}}</p>
+
+                      <div ng-repeat="answer in currentExam.answers">
+                        <div class="card flat-d">
+                        <div class="info">
+
+                            <h5 class="text-center flat-p">{{answer.get('question').get('question')}}</h5>
+                            <div class="card" ng-if="answer.get('question').get('trueAnswer') && answer.get('question').get('trueAnswer') == answer.get('answer')" style="background-color:#CEE1BA; margin:0">
+                              <p class="flat-p" ><span  class="glyphicon glyphicon-check"></span> {{answer.get('question').get('trueAnswer')}}</p>
+                            </div>
+                            <p class="flat-p" ng-if="answer.get('question').get('trueAnswer') && answer.get('question').get('trueAnswer') != answer.get('answer')"><span  class="glyphicon glyphicon-check"></span> {{answer.get('question').get('trueAnswer')}}</p>
+
+                            <div class="card" ng-if="answer.get('question').get('falseAnswer1') &&  answer.get('question').get('falseAnswer1') == answer.get('answer')" style="background-color:#E7D0D0; margin:0;">
+                              <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer1')}}</p>
+                            </div>
+                            <p class="flat-p" ng-if="answer.get('question').get('falseAnswer1') &&  answer.get('question').get('falseAnswer1') != answer.get('answer')"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer1')}}</p>
+
+                            <div class="card" ng-if="answer.get('question').get('falseAnswer2') &&  answer.get('question').get('falseAnswer2') == answer.get('answer')" style="background-color:#E7D0D0; margin:0;">
+                              <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer2')}}</p>
+                            </div>
+                            <p class="flat-p" ng-if="answer.get('question').get('falseAnswer2') &&  answer.get('question').get('falseAnswer2') != answer.get('answer')"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer2')}}</p>
+
+                            <div class="card" ng-if="answer.get('question').get('falseAnswer3') &&  answer.get('question').get('falseAnswer3') == answer.get('answer')" style="background-color:#E7D0D0; margin:0;">
+                              <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer3')}}</p>
+                            </div>
+                            <p class="flat-p" ng-if="answer.get('question').get('falseAnswer3') &&  answer.get('question').get('falseAnswer3') != answer.get('answer')"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer3')}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div  class="modal-footer">
+
+                  </div>
+              </div>
+
+          </div>
+      </div>
+
 </div>

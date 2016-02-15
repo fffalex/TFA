@@ -16,7 +16,7 @@ angular.module('tfaApp')
           $scope.creating = false;
 
           //For create new Topic
-          
+
           $scope.newTitle = '';
           $scope.context = {};
           $scope.context.newNumber = '';
@@ -46,6 +46,7 @@ angular.module('tfaApp')
           query.first({
             success: function (unit) {
               $scope.unit = unit;
+              $scope.unit.allowRead = unit.get('allowRead');
               $scope.topics = [];
               if (unit.get('topics') !== undefined) {
                 for (var i = 0; i < unit.get('topics').length; i++) {
@@ -71,11 +72,10 @@ angular.module('tfaApp')
                   $scope.currentTopicCopy = angular.copy($scope.currentTopic);
                 }
                 $scope.creating = false;
-                $scope.$apply();
               } else {
                 $scope.currentTopic = defaultTopic;
-                $scope.$apply();
               }
+              $scope.$apply();
             },
             //success: function (unit) {
             //    $scope.unit = unit.toFullJSON();
@@ -91,21 +91,27 @@ angular.module('tfaApp')
             //},
             error: function (error) {
                 toastr.error(getErrorDesc(error));
-                
+
             }
           });
-          
-              $scope.$watch('context.newNumber', function (newValue, oldValue) {
-        if (newValue && newValue !== '' && newValue <= 0) {
-            $scope.context.newNumber = oldValue;
-        }
-      });
-      
-            $scope.$watch('context.currentNumber', function (newValue, oldValue) {
-        if (newValue && newValue !== '' && newValue <= 0) {
-            $scope.context.currentNumber = oldValue;
-        }
-      });
+
+          $scope.$watch('context.newNumber', function (newValue, oldValue) {
+            if (newValue && newValue !== '' && newValue <= 0) {
+                $scope.context.newNumber = oldValue;
+            }
+          });
+
+          $scope.$watch('context.currentNumber', function (newValue, oldValue) {
+            if (newValue && newValue !== '' && newValue <= 0) {
+                $scope.context.currentNumber = oldValue;
+            }
+          });
+
+          $scope.$watch('unit.allowRead', function (newValue, oldValue) {
+            if((newValue != undefined && oldValue != undefined) || oldValue != undefined){
+              $scope.switchAllowRead(newValue);
+            }
+          });
 
 
 
@@ -192,6 +198,24 @@ angular.module('tfaApp')
             }
 
           };
+
+          $scope.switchAllowRead = function(allowRead){
+            var unit = new (Parse.Object.extend('Unit'))();
+            unit.set('id', $scope.unit.id);
+            unit.set('allowRead', allowRead);
+            unit.save(null, {
+                success: function (or) {
+                  if(allowRead){
+                      toastr.success("Los alumnos pueden acceder a ella", "Activaste la unidad");
+                  } else {
+                      toastr.success("Los alumnos no puedan acceder a ella", "Desactivaste la unidad");
+                  }
+                },
+                error: function (or, error) {
+                  toastr.error(getDescError(error));
+                }
+            });
+          }
 
 
           //Save new topic to parse

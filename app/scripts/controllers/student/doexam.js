@@ -22,6 +22,7 @@ angular.module('tfaApp')
 
     //Get the unit
     var query = new Parse.Query('Unit');
+    debugger
     query.equalTo('objectId', unitId);
     query.first({
       success: function (unit) {
@@ -75,6 +76,8 @@ angular.module('tfaApp')
         if($scope.allQuestion[i].get('trueAnswer') == $scope.allQuestion[i].choose ){
           var correctCount = correctCount+1;
           $scope.allQuestion[i].isCorrect = true;
+
+
         }
       }
       var incorrectCount = $scope.allQuestion.length - correctCount;
@@ -86,7 +89,7 @@ angular.module('tfaApp')
       $scope.finished = true;
       examsrv.create($scope.unit, $scope.allQuestion,grade,correctCount,incorrectCount,{
           success: function (ok) {
-              toastr.success("Se guardó tu examen correctamente");
+              toastr.success("Se guardï¿½ tu examen correctamente");
           $scope.finished = true;
           $scope.$apply();
         },

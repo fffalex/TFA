@@ -25,11 +25,11 @@
                     <p>{{currentUnit.get('description')}}</p>
                 </div>
 
-                <div ng-if="currentUnit.seen && !headExamDone" class="top-corner">
+                <div ng-if="currentUnit.seen && !currentUnit.exam" class="top-corner">
                     <span  style="color: #529C52; font-size: 30px; margin-right: 5px;" class="glyphicon glyphicon-ok-sign"></span>
                 </div>
-                <div ng-if="currentUnit.seen && headExamDone" class="top-corner">
-                    <span style="color: #000000; font-size: 30px !important; margin-right: 5px;" class="glyphicon glyphicon-education">{{headExamGrade}}</span>
+                <div ng-if="currentUnit.seen && currentUnit.exam" class="top-corner">
+                    <span style="color: #000000; font-size: 30px !important; margin-right: 5px;" class="glyphicon glyphicon-education">{{currentUnit.exam.get('grade')}}</span>
                 </div>
             </div>
         </div>
@@ -44,7 +44,15 @@
                     <div ui-tree class="ng-scope angular-ui-tree">
                         <ol ui-tree-nodes="" data-nodrop-enabled="true" ng-model="block" data-drag-enabled="false" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes">
                             <li ng-repeat="unit in block.unitsX" data-nodrag="" ui-tree-node class="ng-scope angular-ui-tree-node" collapsed="true">
-                                <div ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
+                              <div ng-if="!unit.get('allowRead')" style="background-color: #f9eceb" ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
+                                    <a style="text-size-adjust: auto;" class="btn btn-success btn-xs" data-nodrag=""><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
+                                    <span tooltips tooltip-template="Debés esperar que el profesor habilite esta unidad" class="hand" style="color: #b96743">{{unit.get('number')}}- {{unit.get('title')}}</span>
+                                    <span style="color: #b96743;" class="pull-right glyphicon glyphicon-ban-circle"></span>
+                                  <!--<a class="pull-right btn btn-success btn-xs" data-nodrag="" ng-click="show(unit.objectId)">
+                                  <span class="glyphicon glyphicon-plus"></span>
+                              </a>-->
+                              </div>
+                                <div ng-if="unit.get('allowRead')" ui-tree-handle data-drag-enabled="false" class="ng-scope ng-binding angular-ui-tree-handle">
                                     <a class="btn btn-success btn-xs" data-nodrag="" ng-click="toggle(this)"><span class="glyphicon glyphicon-chevron-right" ng-class="{&#39;glyphicon-chevron-right&#39;: collapsed, &#39;glyphicon-chevron-down&#39;: !collapsed}"></span></a>
                                     <span class="hand" ng-click="toggle(this)">{{unit.get('number')}}- {{unit.get('title')}}</span>
                                     <span ng-if="unit.seen" class="pull-right glyphicon glyphicon-ok"></span>
@@ -54,7 +62,7 @@
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </a>-->
                                 </div>
-                                <ol ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.get('topics')" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
+                                <ol ng-if="unit.get('allowRead')" ui-tree-nodes="options" data-nodrop-enabled="true" ng-model="unit.get('topics')" ng-class="{hidden: collapsed}" class="ng-scope ng-pristine ng-valid angular-ui-tree-nodes hidden">
                                     <li ng-repeat="topic in unit.topicsX" data-nodrag ui-tree-node="" class="ng-scope angular-ui-tree-node" collapsed="false">
                                         <div ui-tree-handle="" data-drag-enabled="tree.enabled" class="ng-scope ng-binding angular-ui-tree-handle">
                                             <span ng-click="showTopic(unit.id,$index)" class="hand">{{unit.get('number')}}.{{topic.get('number')}}- {{topic.get('title')}}</span>
@@ -62,7 +70,10 @@
                                         </div>
                                     </li>
                                     <li ng-if="unit.seen && unit.exam" class="angular-ui-tree-node">
-                                        <button ng-click="setUnitExam(unit)" class="btn btn-default btn3 btn2 btn-red btn-block"  data-toggle="modal" data-target="#toExamModal"><span class="pull-left glyphicon glyphicon-education" style="margin-top:8px"></span> Examen</button>
+                                        <button ng-click="setUnitExam(unit)" class="btn btn-default btn3 btn2 btn-red btn-block"  data-toggle="modal" data-target="#toExamModal"><span class="pull-left glyphicon glyphicon-education" style="margin-top:8px"></span>{{unit.exam.get('grade')}}</button>
+                                    </li>
+                                    <li ng-if="unit.seen && !unit.exam && unit.get('allowExam')" class="angular-ui-tree-node">
+                                        <button ng-click="setUnitExam(unit)" class="btn btn-default btn3 btn2 btn-red btn-block"  data-toggle="modal" data-target="#toExamModal"><span class="pull-left glyphicon glyphicon-education" style="margin-top:8px"></span>Rendir</button>
                                     </li>
                                 </ol>
 
