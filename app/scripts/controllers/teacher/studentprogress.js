@@ -10,8 +10,12 @@ angular.module('tfaApp')
         objectId = $routeParams.objectId;
         blockId = $routeParams.blockId;
     }
-    $scope.student = {}
+    $scope.student = {};
     $scope.currentExam = {};
+    $scope.allExams = [];
+    $scope.passed = [];
+    $scope.disaproved = [];
+    var gradeToPassExam = Parse.User.current().get('minToPassExam');
     var query = new Parse.Query('User');
     query.include('assignedTo');
     query.equalTo('objectId', objectId);
@@ -24,7 +28,7 @@ angular.module('tfaApp')
               $scope.block = block;
               $scope.block.unitsX = [];
               $scope.topicRead = 0;
-              $scope.totalTopic = 0
+              $scope.totalTopic = 0;
               //For each unit in Content
               if($scope.block.get('units') != undefined){
                 for (var j = 0; j < $scope.block.get('units').length; j++) {
@@ -36,15 +40,16 @@ angular.module('tfaApp')
                       for (var k = 0; k < unit.get('topics').length; k++) {
                         if(unit.get('topics')[k].get('status') != 0){
                           unit.topicsX.push(unit.get('topics')[k]);
-                        }
-                        $scope.totalTopic = $scope.totalTopic + 1;
-                        if (unit.get('topics')[k].get('seenBy') != undefined){
-                          for (var i = 0; i < unit.get('topics')[k].get('seenBy').length; i++) {
-                            if ( unit.get('topics')[k].get('seenBy')[i].id == $scope.student.id){
-                              unit.get('topics')[k].seen = true;
-                              $scope.topicRead = $scope.topicRead + 1 ;
+                          $scope.totalTopic = $scope.totalTopic + 1;
+
+                            if (unit.get('topics')[k].get('seenBy') != undefined){
+                              for (var i = 0; i < unit.get('topics')[k].get('seenBy').length; i++) {
+                                if ( unit.get('topics')[k].get('seenBy')[i].id == $scope.student.id){
+                                  unit.get('topics')[k].seen = true;
+                                  $scope.topicRead = $scope.topicRead + 1 ;
+                                }
+                              }
                             }
-                          }
                         }
                       }
                       //To check if all topic was seen by the student (Check the unit too)
@@ -72,8 +77,17 @@ angular.module('tfaApp')
                       for (var j = 0; j < $scope.block.unitsX.length; j++) {
                         if(exams[i].get('unit').id == $scope.block.unitsX[j].id){
                           $scope.block.unitsX[j].exam = exams[i]
+
+                          $scope.allExams.push(exams[i]);
+                          //to calculate grade
+                          if(exams[i].get('grade') < gradeToPassExam){
+                              $scope.disaproved.push(exams[i]);
+                            } else {
+                              $scope.passed.push(exams[i]);
+                          }
                         }
                       }
+
                     }
                     $scope.$apply();
                   },

@@ -199,25 +199,27 @@ angular.module('tfaApp')
     }
 
     $scope.markAsRead = function(){
-      unitsrv.markTopicSeenBy($scope.currentTopic, Parse.User.current()  ,{
-          success: function (ok) {
-          toastr.success("Marcaste esta unidad como le�da");
-          $('.modal-backdrop').remove();
-          $('body').removeClass('modal-open');
-          $('body').removeAttr('style');
-          $scope.currentTopic.seen = true;
-          $scope.currentUnit.seen = true;
-          for (var i = 0; i < $scope.currentUnit.topicsX.length; i++) {
-            if ($scope.currentUnit.topicsX[i].seen != true){
-              $scope.currentUnit.seen = false;
+      if(!$scope.currentTopic.seen){
+        unitsrv.markTopicSeenBy($scope.currentTopic, Parse.User.current()  ,{
+            success: function (ok) {
+            toastr.success("Marcaste esta unidad como le�da");
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
+            $('body').removeAttr('style');
+            $scope.currentTopic.seen = true;
+            $scope.currentUnit.seen = true;
+            for (var i = 0; i < $scope.currentUnit.topicsX.length; i++) {
+              if ($scope.currentUnit.topicsX[i].seen != true){
+                $scope.currentUnit.seen = false;
+              }
             }
+            $scope.$apply();
+          },
+          error: function(error){
+              toastr.error(error);
           }
-          $scope.$apply();
-        },
-        error: function(error){
-            toastr.error(error);
-        }
-      } );
+        } );
+     }
     };
 
     function setExamHead(unit) {

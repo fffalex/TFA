@@ -24,7 +24,7 @@
             </div>
             <!-- tree with units -->
             <div class="box">
-              <div class="box-icon-2">
+              <div style="width:125px" class="box-icon-2">
                   <span class="number-font">Temas</span>
               </div>
               <div class="col-md-12">
@@ -87,18 +87,28 @@
 
           <div class="col-md-6">
             <div class="box" style="background-color: #F2F6F4">
-                <div class="box-icon-2" style="width:35%; background-color: #227755">
+                <div class="box-icon-2" style="width:125px; background-color: #227755">
                     <span class="number-font">Alumno</span>
                 </div>
                 <h4>{{student.get('lastName')}}, {{student.get('name')}}</h4>
                 <h5>{{student.get('assignedTo').get('name')}}</h5>
                 <h5>{{student.get('email')}}</h5>
             </div>
-            <div class="box" style="background-color: #F2F6F4">
-                <div class="box-icon-2" style="width:35%; background-color: #227755">
+            <div class="box" style="background-color: #f6f6f2">
+                <div class="box-icon-2" style="width:125px; background-color: #776722">
                     <span class="number-font">Promedio</span>
                 </div>
-                <h4>Examenes rendidos: </h4>
+                <h4>Examenes rendidos: {{allExams.length}} </h4>
+                <h4 ng-if="passed.length > 0" >Aprobados: </h4>
+                <h4 ng-if="passed.length == 0" >No hay exámenes aprobados</h4>
+                <div ng-repeat="exam in passed">
+                    <a ng-click="showExam(exam)"  data-toggle="modal" data-target="#toExamModal" style="cursor: pointer; margin-left: 5px">Unidad {{exam.get('unit').get('number')}}: {{exam.get('unit').get('title')}}   <span style="margin-left: 10px" class="glyphicon glyphicon-education">{{exam.get('grade')}}</span></a>
+                </div>
+                <h4 ng-if="disaproved.length > 0" >Desaprobados: </h4>
+                <h4 ng-if="disaproved.length == 0" >No hay exámenes desaprobados</h4>
+                <div ng-repeat="exam in disaproved">
+                  <a ng-click="showExam(exam)"  data-toggle="modal" data-target="#toExamModal"style="cursor: pointer; margin-left: 5px">Unidad {{exam.get('unit').get('number')}}: {{exam.get('unit').get('title')}} <span style="margin-left: 10px" class="glyphicon glyphicon-education">{{exam.get('grade')}}</span></a>
+                </div>
             </div>
             <!-- <h3 class="text-center">{{currentExam.get('grade')}}</h3>
             <p>Correctas: {{currentExam.get('correctsAnswers')}}</p>
@@ -147,7 +157,7 @@
                       <h4 class="modal-title">Resultados del Examen</h4>
                   </div>
 
-                  <div class="modal-body">
+                  <div class="modal-body" style="background-color: #F6F2F4">
                       <h3 class="text-center">{{currentExam.get('grade')}}</h3>
                       <p>Correctas: {{currentExam.get('correctsAnswers')}}</p>
                       <p>Incorrectas: {{currentExam.get('incorrectsAnswers')}}</p>
@@ -157,32 +167,28 @@
                         <div class="info">
 
                             <h5 class="text-center flat-p">{{answer.get('question').get('question')}}</h5>
-                            <div class="card" ng-if="answer.get('question').get('trueAnswer') && answer.get('question').get('trueAnswer') == answer.get('answer')" style="background-color:#CEE1BA; margin:0">
-                              <p class="flat-p" ><span  class="glyphicon glyphicon-check"></span> {{answer.get('question').get('trueAnswer')}}</p>
+                            <div class="card" ng-if="answer.get('question').get('trueAnswer') && answer.get('question').get('trueAnswer') == answer.get('answer')" style="background-color:#CEE1BA; padding:4px;margin:0">
+                              <p class="flat-p" ><span  class="glyphicon glyphicon-check"></span> <b>{{answer.get('question').get('trueAnswer')}}</b></p>
                             </div>
                             <p class="flat-p" ng-if="answer.get('question').get('trueAnswer') && answer.get('question').get('trueAnswer') != answer.get('answer')"><span  class="glyphicon glyphicon-check"></span> {{answer.get('question').get('trueAnswer')}}</p>
 
-                            <div class="card" ng-if="answer.get('question').get('falseAnswer1') &&  answer.get('question').get('falseAnswer1') == answer.get('answer')" style="background-color:#E7D0D0; margin:0;">
-                              <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer1')}}</p>
+                            <div class="card" ng-if="answer.get('question').get('falseAnswer1') &&  answer.get('question').get('falseAnswer1') == answer.get('answer')" style="background-color:#E7D0D0; padding:4px;margin:0">
+                              <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> <b>{{answer.get('question').get('falseAnswer1')}}</b></p>
                             </div>
                             <p class="flat-p" ng-if="answer.get('question').get('falseAnswer1') &&  answer.get('question').get('falseAnswer1') != answer.get('answer')"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer1')}}</p>
 
-                            <div class="card" ng-if="answer.get('question').get('falseAnswer2') &&  answer.get('question').get('falseAnswer2') == answer.get('answer')" style="background-color:#E7D0D0; margin:0;">
-                              <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer2')}}</p>
+                            <div class="card" ng-if="answer.get('question').get('falseAnswer2') &&  answer.get('question').get('falseAnswer2') == answer.get('answer')" style="background-color:#E7D0D0; padding:4px; margin:0">
+                              <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> <b>{{answer.get('question').get('falseAnswer2')}}</b></p>
                             </div>
                             <p class="flat-p" ng-if="answer.get('question').get('falseAnswer2') &&  answer.get('question').get('falseAnswer2') != answer.get('answer')"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer2')}}</p>
 
-                            <div class="card" ng-if="answer.get('question').get('falseAnswer3') &&  answer.get('question').get('falseAnswer3') == answer.get('answer')" style="background-color:#E7D0D0; margin:0;">
-                              <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer3')}}</p>
+                            <div class="card" ng-if="answer.get('question').get('falseAnswer3') &&  answer.get('question').get('falseAnswer3') == answer.get('answer')" style="background-color:#E7D0D0; padding:4px;margin:0">
+                              <p class="flat-p"><span  class="glyphicon glyphicon-remove"></span> <b>{{answer.get('question').get('falseAnswer3')}}</b></p>
                             </div>
                             <p class="flat-p" ng-if="answer.get('question').get('falseAnswer3') &&  answer.get('question').get('falseAnswer3') != answer.get('answer')"><span  class="glyphicon glyphicon-remove"></span> {{answer.get('question').get('falseAnswer3')}}</p>
                         </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div  class="modal-footer">
-
                   </div>
               </div>
 
