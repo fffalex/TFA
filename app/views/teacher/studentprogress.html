@@ -20,7 +20,8 @@
                 <div class="box-icon-2" style="width:55%; background-color: #772244">
                     <span class="number-font">Bloque de Contenido</span>
                 </div>
-                    <h4 class="text-center">{{block.get('name')}}</h4>
+                    <h6 ng-if="!block.get('name')" class="text-center">No hay ningún bloque asignado a este curso</h6>
+                    <h4 ng-if="block.get('name')" class="text-center">{{block.get('name')}}</h4>
             </div>
             <!-- tree with units -->
             <div class="box">
@@ -49,7 +50,7 @@
                     animation="easeInOutQuart"
                     animation-delay="0">
                   </div>
-                  <span class="pull-right" style="position:absolute;top: 27px;left: 48px;"><b>{{topicRead/totalTopic*100}}%</b></span>
+                  <span class="pull-right" style="position:absolute;top: 27px;left: 48px;"><b ng-if="totalTopic!=0">{{topicRead/totalTopic*100}}%</b><b ng-if="totalTopic==0">{{0}}%</b></span>
                 </div>
 
             </div>

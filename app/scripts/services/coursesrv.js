@@ -114,12 +114,11 @@ angular.module('tfaApp')
                       if (contentArray[j].get('teacher').id === teacher.id && contentArray[j].get('status') != 0) {
                           courses[i].teacherContent = contentArray[j];
                           teacherCourses.push(courses[i]);
-
                       }
                     }
                 }
                 if (cb && cb.success) {
-                cb.success(teacherCourses);
+                  cb.success(teacherCourses);
               }
             },
             error: function (error) {
@@ -145,6 +144,11 @@ angular.module('tfaApp')
                 success: function(students){
                   res = res.toFullJSON();
                   res.students = students;
+                  for (var i = 0; i < courses.length; i++) {
+                    if(res.objectId == courses[i].id){
+                      res.teacherContent = courses[i].teacherContent;
+                    }
+                  }
                   newCourses.push(res);
                 },
                 error: function(sres,error){

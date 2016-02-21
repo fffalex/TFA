@@ -1,79 +1,80 @@
 <div class="column container-main">
-    <div class="row">
-        <div class="alert alert-danger alert-dismissable" role="alert" ng-show="error">
-            <button class="close" ng-click="error = ''"><span aria-hidden="true">&times;</span></button>
-            <strong>Error!</strong> {{ error}}
-        </div>
-        <div class="alert alert-success alert-dismissable" role="alert" ng-show="success">
-            <button class="close" ng-click="success = ''"><span aria-hidden="true">&times;</span></button>
-            <strong>Éxito!</strong> {{ success}}
-        </div>
 
+  <div class="row">
+            <h3>LISTA DE EXÁMENES</h3>
+  </div>
+
+  <div class="row">
         <div class="col-md-12">
-            <h2>Exámenes del alumno</h2>
-        </div>
-
-        <div class="col-md-12">
-            <div class="box" style="background-color: #F5F8F9">
-
-                <div class="box-icon bg-darkblue">
-                    <span class="number-font">{{unit.get('number')}}</span>
-                </div>
-                <div class="info">
-                    <h4 class="text-center">{{unit.get('title')}}</h4>
-                    <p>{{unit.get('description')}}</p>
-                </div>
-
-                <div class="col-md-12">
-
-                </div>
-
-                    <div class="top-corner">
-                        <a href="#/teacher/contents/blockdetail/{{blockId}}/{{unitId}}" class=" btn btn-default btn-xs">
-                            <span class="glyphicon glyphicon-arrow-left" tooltips tooltip-template="Volver a la pantalla de edición de la unidad"></span>
-                        </a>
-                    </div>
-                <div class="row"></div>
-                </div>
-
-        </div>
-
-        <div class="col-md-12">
-            <div class="box" style="background-color: #DCE7EA">
-
-              <div class="box-icon-2 bg-darkblue">
-                  <span class="number-font">Preguntas</span>
-              </div>
-              <br />
-
-              <button type="button" data-toggle="modal" data-target="#addModalQuestion" style="margin-bottom:10px" class="btn btn-default btn3 btn2 btn-block">Nueva pregunta</button>
-              <br />
-              <div ng-repeat="question in allQuestion">
-                <div class="card flat-d">
-                    <a class="pull-right btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal" ng-click="setQuestionEdit(question)">
-                        <span class="glyphicon glyphicon-remove" tooltips tooltip-template="Eliminar esta pregunta" style="cursor: pointer"></span>
-                    </a>
-                  <a class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#editModalQuestion" ng-click="setQuestionEdit(question)">
-                      <span  class="glyphicon glyphicon-edit" style="cursor: pointer" tooltips tooltip-template="Editar esta pregunta"></span>
-                  </a>
-
-                <div class="info">
-
-                    <h5 class="text-center flat-p">{{question.get('question')}}</h5>
-                    <p class="flat-p"><span  class="glyphicon glyphicon-check"></span> {{question.get('trueAnswer')}}</p>
-                    <p class="flat-p" ng-if="question.get('falseAnswer1')"><span  class="glyphicon glyphicon-remove"></span> {{question.get('falseAnswer1')}}</p>
-                    <p class="flat-p" ng-if="question.get('falseAnswer2')"><span  class="glyphicon glyphicon-remove"></span> {{question.get('falseAnswer2')}}</p>
-                    <p class="flat-p" ng-if="question.get('falseAnswer3')"><span  class="glyphicon glyphicon-remove"></span> {{question.get('falseAnswer3')}}</p>
-                </div>
-                <div class="top-corner">
-
-                </div>
-              </div>
+            <div class="alert alert-danger alert-dismissable" role="alert" ng-show="error">
+                <button class="close" ng-click="error = ''"><span aria-hidden="true">&times;</span></button>
+                <strong>Error!</strong> {{ error }}
             </div>
+            <div class="alert alert-success alert-dismissable" role="alert" ng-show="success">
+                <button class="close" ng-click="success = ''"><span aria-hidden="true">&times;</span></button>
+                <strong>Éxito!</strong> {{ success }}
+            </div>
+            <!-- <div ng-if="noOrders" class="col-md-12">
+                <div class="alert alert-info" role="alert">No tiene pedidos</div>
+            </div> -->
+        </div>
+  </div>
 
+  <div class="row">
+      <ul class="dropdown">
+          <button class="btn btn-default btn3 btn2 dropdown-toggle" data-toggle="dropdown">  {{selectedCourse.schoolYear}} - {{selectedCourse.year}} {{selectedCourse.division}}, {{selectedCourse.turn}}<b class="caret" style="pull-right"></b></button>
+          <ul ng-repeat="course in courses" class="dropdown-menu" style="background-color: #f8faff; width: 255px;">
+              <div ng-repeat="course in courses">
+                  <li ng-click="selectCourse($index)" ><a href="">{{course.schoolYear}} - {{course.year}} {{course.division}}, {{course.turn}}</a></li>
+              </div>
+          </ul>
+      </ul>
+  </div>
+
+
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table">
+                    <tr class="table-header text-center">
+                        <th>
+                            <input type="checkbox" ng-change="selectAllRows()" ng-model="allRowsSelected" ng-true-value="true" ng-false-value="false" />
+                        </th>
+                        <th>
+                            <a href="" style="color: #FFF" ng-click="orderField('exam.get('student').get('lastName')')">Alumno</a>
+                            <span class="sortorder" ng-show="predicate === 'selectedCourse.exams.get('student').get('lastName')'" ng-class="{reverse:reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="" style="color: #FFF" ng-click="orderField('exam.get('unit').get('number')')">Numero Unidad</a>
+                            <span class="sortorder" ng-show="predicate === 'selectedCourse.exams.get('unit').get('number')" ng-class="{reverse:reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="" style="color: #FFF" ng-click="orderField('exam.get('unit').get('title')')">Nombre Unidad</a>
+                            <span class="sortorder" ng-show="predicate === 'selectedCourse.exams.get('unit').get('title')'" ng-class="{reverse:reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="" style="color: #FFF" ng-click="orderField('exam.get('grade')')">Calificación</a>
+                            <span class="sortorder" ng-show="predicate === 'selectedCourse.exams.get('grade')'" ng-class="{reverse:reverse}"></span>
+                        </th>
+                        <th>
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="exam in selectedCourse.exams | orderBy:predicate:reverse">
+                        <td><input type="checkbox" ng-model="exam.selected" ng-true-value="true" ng-false-value="false"></td>
+                        <td><a href="#/teacher/studentprogress/{{student.id}}/{{selectedCourse.teacherContent.id}}">{{exam.get('student').get('lastName')}}, {{exam.get('student').get('name')}} </a></td>
+                        <td>{{exam.get('unit').get('title')}} </td>
+                        <td>{{exam.get('grade')}} </td>
+                        <td> <span style="cursor:pointer" tooltip-side="left" tooltips tooltip-template="Enviar mensaje" class="glyphicon glyphicon-envelope"></span> </td>
+                    </tr>
+                </table>
             </div>
         </div>
-      </div>
-
-
-    </div>
+        <!-- <div class="row">
+            <nav ng-show="maxpage > 0">
+                <ul class="pager">
+                    <li class="ordermeal-input"><button class="btn btn-default btn3 btn-pagination" ng-click="prevPage()" ng-disabled="page <= 0">&lt; Anterior</button></li>
+                    <li class="ordermeal-input"><button class="btn btn-default btn3 btn-pagination" ng-click="nextPage()" ng-disabled="page >= maxpage">Siguiente &gt;</button></li>
+                </ul>
+            </nav>
+        </div> -->
+</div>

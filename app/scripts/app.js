@@ -143,7 +143,12 @@ angular
           })
       .when('/teacher/mystudents/', {
           templateUrl: 'views/teacher/mystudents.html',
-          controller: 'MyStudentsCtrl',
+          controller: 'TeacherMyStudentsCtrl',
+                access: 'teacher'
+          })
+      .when('/teacher/exams/', {
+          templateUrl: 'views/teacher/exams.html',
+          controller: 'TeacherExamsCtrl',
                 access: 'teacher'
           })
       .when('/student/contents/classes/:blockId/:unitId/:topicId', {

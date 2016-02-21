@@ -71,6 +71,28 @@ angular.module('tfaApp')
       });
     },
 
+    //Get all Exams BIGGER query
+    getAllExams: function examGetAllExams(cb){
+      var query = new Parse.Query('Exam');
+      query.include('unit');
+      query.include('student');
+      query.include('incorrects');
+      query.include('corrects');
+      query.find({
+          success: function (exams) {
+              if (cb && cb.success) {
+                  cb.success(exams);
+              }
+          },
+          error: function (error) {
+              //Get all student Exams
+              if (cb && cb.error) {
+                  cb.error(error);
+              }
+          }
+      });
+    },
+
 
 
 
