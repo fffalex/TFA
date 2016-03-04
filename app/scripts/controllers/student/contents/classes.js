@@ -145,7 +145,7 @@ angular.module('tfaApp')
             }
         });
 
-        $scope.$apply();
+        //$scope.$apply();
     };
 
     $scope.unitToExam = {};

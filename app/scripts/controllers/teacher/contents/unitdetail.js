@@ -50,17 +50,19 @@ angular.module('tfaApp')
               $scope.topics = [];
               if (unit.get('topics') !== undefined) {
                 for (var i = 0; i < unit.get('topics').length; i++) {
-                  if (unit.get('topics')[i].get('status') == 1) {
-                    $scope.topics.push(unit.get('topics')[i]);
-                  }
+                  if(unit.get('topics')[i] !== undefined){
+                    if (unit.get('topics')[i].get('status') == 1) {
+                      $scope.topics.push(unit.get('topics')[i]);
+                    }
 
-                  if (unit.get('topics')[i].id == topicId) {
-                    $scope.currentTopic = unit.get('topics')[i];
-                    $scope.currentTitle  = $scope.currentTopic.get('title');
-                    $scope.context.currentNumber  = $scope.currentTopic.get('number');
-                    $scope.currentContent = $scope.currentTopic.get('content');
-                    $scope.currentTopicCopy = angular.copy($scope.currentUnit);
-                    flagUnitId = true;
+                    if (unit.get('topics')[i].id == topicId) {
+                      $scope.currentTopic = unit.get('topics')[i];
+                      $scope.currentTitle  = $scope.currentTopic.get('title');
+                      $scope.context.currentNumber  = $scope.currentTopic.get('number');
+                      $scope.currentContent = $scope.currentTopic.get('content');
+                      $scope.currentTopicCopy = angular.copy($scope.currentUnit);
+                      flagUnitId = true;
+                    }
                   }
                 }
                 $scope.topics = sortByKey($scope.topics, "number");

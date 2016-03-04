@@ -11,8 +11,7 @@
 
 
         <div class="col-md-12">
-
-
+                  <h3>Progreso del alumno</h3>
         </div>
         <div class="col-md-12">
           <div class="col-md-6">
@@ -50,7 +49,7 @@
                     animation="easeInOutQuart"
                     animation-delay="0">
                   </div>
-                  <span class="pull-right" style="position:absolute;top: 27px;left: 48px;"><b ng-if="totalTopic!=0">{{topicRead/totalTopic*100}}%</b><b ng-if="totalTopic==0">{{0}}%</b></span>
+                  <span class="pull-right" style="position:absolute;top: 27px;left: 48px;"><b ng-if="totalTopic!=0">{{topicRead/totalTopic*100 | number:1}}%</b><b ng-if="totalTopic==0">{{0}}%</b></span>
                 </div>
 
             </div>
@@ -160,8 +159,8 @@
 
                   <div class="modal-body" style="background-color: #F6F2F4">
                       <h3 class="text-center">{{currentExam.get('grade')}}</h3>
-                      <p>Correctas: {{currentExam.get('correctsAnswers')}}</p>
-                      <p>Incorrectas: {{currentExam.get('incorrectsAnswers')}}</p>
+                      <h6>Correctas: {{currentExam.get('correctsAnswers')}}</h6>
+                      <h5>Incorrectas: {{currentExam.get('incorrectsAnswers')}}</h5>
 
                       <div ng-repeat="answer in currentExam.answers">
                         <div class="card flat-d">

@@ -60,22 +60,22 @@
                         <p class="order-label"><strong>Apellido</strong></p>
                         <input type="text" class="form-control" id="signup-lastname" ng-model="form.lastName" required>
                     </div>
-                    <div class="form-group signup-input">
+                    <!-- <div class="form-group signup-input">
                         <p class="order-label"><strong>Número de teléfono</strong></p>
                         <input type="text" class="form-control" id="signup-phone" ng-model="form.phoneNumber" required>
-                    </div>
+                    </div> -->
 
                     <div ng-if="!form.isTeacher" class="form-group signup-input">
                             <p class="order-label"><strong>Curso</strong></p>
-                            <select ng-model="myCourse" ng-options="course.year for course in courses"></select>
-                            <ul class="dropdown">
+                            <select style="width:100%" ng-model="form.myCourse" ng-options="course.get('name') for course in courses"></select>
+                            <!-- <ul class="dropdown">
                                 <button class="btn btn-theme dropdown-toggle" data-toggle="dropdown">  {{selectedCourse.get('schoolYear')}} - {{selectedCourse.get('year')}} {{selectedCourse.get('division')}}, {{selectedCourse.get('turn')}}    <b class="caret"></b></button>
                                 <ul ng-repeat="course in fullCourses" class="dropdown-menu" style="background-color: #f8faff">
                                     <div ng-repeat="course in fullCourses">
                                         <li ng-click="selectCourse($index)" ><a href="">     {{course.get('schoolYear')}} - {{course.get('year')}} {{course.get('division')}}, {{course.get('turn')}}     </a></li>
                                     </div>
                                 </ul>
-                            </ul>
+                            </ul> -->
                     </div>
 
                     <div ng-if="form.isTeacher" class="form-group signup-input">
@@ -102,10 +102,10 @@
                              <p class="order-label"><strong>Especialidad</strong></p>
                             <input type="text" class="form-control" id="signup-companyname" ng-model="form.specialty" required>
                         </div>
-                        <div class="form-group signup-input">
+                        <!-- <div class="form-group signup-input">
                              <p class="order-label"><strong>Domicilio</strong></p>
                             <input type="text" class="form-control" id="signup-address" ng-model="form.address" required>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-default btn3 btn-block">¡Registrarme!</button>

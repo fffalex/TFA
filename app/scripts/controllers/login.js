@@ -47,7 +47,14 @@ angular.module('tfaApp')
             //CHANGE THIS FOR THE HOME ROUTE FOR MY APP
             var redirectUrl = function () {
                 if (authsrv.getPreviousUrl() !== '/login') {
-                    $location.path('/HOMEHERE!');
+                  if(authsrv.hasAccess('teacher'))
+                  {
+                      $location.path('/teacher/content');
+                  }
+                  if(authsrv.hasAccess('student'))
+                  {
+                      $location.path('/teacher/student');
+                  }
                     authsrv.clearPreviousUrl();
                 } else {
                     $location.path('/');

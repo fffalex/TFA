@@ -19,13 +19,13 @@ angular.module('tfaApp')
       $scope.newTitle = '';
       $scope.newNumber = '';
       $scope.newDescription = '';
-      
+
       $scope.$watch('newNumber', function (newValue, oldValue) {
         if (newValue && newValue !== '' && newValue <= 0) {
             $scope.newNumber = oldValue;
         }
       });
-      
+
             $scope.$watch('currentNumber', function (newValue, oldValue) {
         if (newValue && newValue !== '' && newValue <= 0) {
             $scope.currentNumber = oldValue;
@@ -195,8 +195,8 @@ angular.module('tfaApp')
       //Save new topic to parse
       $scope.saveEditedUnit = function (number,title, desc) {
           var existFlag = false
-          for (var i = 0; i < $scope.topics.length; i++) {
-              if ($scope.topics[i].get("number") == number && $scope.currentTopic.get('number') != number) {
+          for (var i = 0; i < $scope.units.length; i++) {
+              if ($scope.units[i].get("number") == number && $scope.currentUnit.get('number') != number) {
                   existFlag = true;
               }
           }
@@ -205,7 +205,7 @@ angular.module('tfaApp')
               toastr.warning("El número de tema ya existe. Debés usar otro");
               //$scope.error = "El numero de topico ya existe";
           } else
-              if (number == "" || title == "" || content == "") {
+              if (number == "" || title == "" || desc == "") {
                   toastr.warning("Debés completar todos los campos solicitados");
                   //$scope.error = "Debe completar todos los campos solicitados";
               } else {
@@ -228,7 +228,7 @@ angular.module('tfaApp')
                       },
                       error: function (of, error) {
                           toastr.error(getErrorDesc(error));
-                         
+
                       }
                   });
               }

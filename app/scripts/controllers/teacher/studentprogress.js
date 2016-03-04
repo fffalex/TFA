@@ -80,7 +80,8 @@ angular.module('tfaApp')
 
                           $scope.allExams.push(exams[i]);
                           //to calculate grade
-                          if(exams[i].get('grade') < gradeToPassExam){
+                          debugger;
+                          if(exams[i].get('grade') < 60){
                               $scope.disaproved.push(exams[i]);
                             } else {
                               $scope.passed.push(exams[i]);

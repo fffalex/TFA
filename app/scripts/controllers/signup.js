@@ -74,22 +74,19 @@ angular.module('tfaApp')
                 else if (!$scope.form.lastName || $scope.form.lastName.length < 2 || $scope.form.lastName.length > 32) {
                     toastr.warning('Debe especificar un apellido');
                 }
-                else if (!$scope.form.phoneNumber || !phone.test($scope.form.phoneNumber)) {
-                    toastr.warning('Formato de número de teléfono incorrecto, debe tener al menos 10 dígitos');
-                }
                 //CHECK THE USER STORIES
-                else if (($scope.form.companyName || $scope.form.address) && (!$scope.form.specialty || !$scope.form.specialty.length)) {
-                    toastr.warning('Como profesor, debe especificar una dirección');
-                }
-                else if (($scope.form.companyName || $scope.form.address) && (!$scope.form.address || !$scope.form.address.length)) {
-                    toastr.warning('Como profesor, debe especificar una dirección');
-                }
                 else {
                     authsrv.signUp($scope.form, {
                         success: function signUpSuccess() {
                             toastr.success("¡Bienvenido!", "¡Te registraste correctamente!")
-                            $location.path('/');
-
+                            if(authsrv.hasAccess('teacher'))
+                            {
+                                $location.path('/teacher/content');
+                            }
+                            if(authsrv.hasAccess('student'))
+                            {
+                                $location.path('/student/clases');
+                            }
                         },
                         error: function signUpError(us, err) {
                             toastr.error(getErrorDesc(err));

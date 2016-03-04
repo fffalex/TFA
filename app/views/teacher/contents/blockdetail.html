@@ -45,7 +45,7 @@
                     <ul class="">
                         <li ng-repeat="unit in units" class="angular-ui-tree-node">
                             <div class="angular-ui-tree-handle" style="text-align: left">
-                                <span style="font-size: 13px" class="hand" ng-click="showUnit($index)"> {{unit.get('number')}} - {{unit.get('title')}} </span>
+                                <span style="font-size: 11px; white-space: normal" class="hand" ng-click="showUnit($index)"> {{unit.get('number')}} - {{unit.get('title')}} </span>
                                 <a data-toggle="modal" data-target="#deleteModal" class="pull-right btn btn-danger btn-xs" data-nodrag="" ng-click="setUnitToDelete($index)">
                                     <span class="glyphicon glyphicon-trash" tooltips tooltip-template="Eliminar esta unidad"></span>
                                 </a>
@@ -68,7 +68,7 @@
                     </div>
 
                     <div ng-if="creating" class="box-icon-3 .bg-red" style="background-color: #884466">
-                        <span class="number-font"><span style="left: 53%" class="glyphicon glyphicon-edit" tooltips tooltip-template="Cancelar edición"></span></span>
+                        <span class="number-font"><span style="left: 50%" class="glyphicon glyphicon-book"></span></span>
                     </div>
 
 
