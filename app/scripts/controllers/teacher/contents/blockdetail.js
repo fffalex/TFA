@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('tfaApp')
-  .controller('TeacherBlockdetailCtrl', function ($scope, $routeParams, $location, unitsrv, coursesrv, ModalService,toastr, $route) {
+  .controller('TeacherBlockdetailCtrl', function ($scope, $routeParams, $location, unitsrv, coursesrv, toastr, $route) {
       //initial data set
       $scope.block = {};
       $scope.units = [];

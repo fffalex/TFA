@@ -2,32 +2,29 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Coda - Un lenguaje donde se aprende en cada momento</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.css" />
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
     <link rel="stylesheet" href="bower_components/angular-tooltips/dist/angular-tooltips.min.css" />
-    <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css" />
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    <link href="http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Titillium+Web:200,600" rel="stylesheet" type="text/css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
-    <link href="../bower_components/textAngular/src/textAngular.css" rel="stylesheet" />
-    <link href="../bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet" />
-    <link href="../bower_components/angular-toastr/dist/angular-toastr.css" rel="stylesheet" />
+
 
 
 
 
 
     <!-- build:css(.tmp) styles/main.css -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
@@ -63,7 +60,8 @@
     </script>
 
     <!-- build:js(.) scripts/vendor.js -->
-    <script src="scripts/parse-1.4.2.js"></script>
+
+
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -84,33 +82,34 @@
     <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
     <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
     <script src="bower_components/angular-tooltips/dist/angular-tooltips.min.js"></script>
-    <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="bower_components/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/momentjs/moment.js"></script>
+    <script src="bower_components/humanize-duration/humanize-duration.js"></script>
+    <script src="bower_components/angular-timer/dist/angular-timer.js"></script>
     <!-- endbower -->
+    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
 
     <!-- endbuild -->
-    <!-- manual bowers components -->
-    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js" type="text/javascript"></script>
-    <script src="bower_components\angular-timer\dist\angular-timer.js"></script>
-    <script src="bower_components\moment\moment.js"></script>
-    <script src="bower_components\humanize-duration\humanize-duration.js"></script>
-    <script src="bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>
-    <script src="bower_components/angular-toastr/dist/angular-toastr.js"></script>
-    <script src="../bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
-    <script src="bower_components\angular-svg-round-progressbar\build\roundProgress.js"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/parse.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/helpers.js"></script>
+
         <!-- Controllers scripts/controllers.js -->
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/signup.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/logout.js"></script>
         <script src="scripts/controllers/navbar.js"></script>
+        <script src="scripts/main.js" type="text/javascript"></script>
+
          <!-- Teacher scripts/controllers/teacher.js -->
         <script src="scripts/controllers/teacher/contents/contents.js"></script>
         <script src="scripts/controllers/teacher/contents/unitdetail.js"></script>
-        <script src="scripts/controllers/teacher/mystudents.js" type="text/javascript"></script>
+        <script src="scripts/controllers/teacher/mystudents.js" ></script>
         <script src="scripts/controllers/teacher/contents/blockdetail.js"></script>
         <script src="scripts/controllers/teacher/contents/examtemplate.js"></script>
         <script src="scripts/controllers/teacher/studentprogress.js"></script>
@@ -122,7 +121,7 @@
 
 
          <!-- Services scripts/services.js -->
-        <script src="scripts/services/unitsrv.js" type="text/javascript"></script>
+        <script src="scripts/services/unitsrv.js"></script>
         <script src="scripts/services/authsrv.js"></script>
         <script src="scripts/services/coursesrv.js"></script>
         <script src="scripts/services/examsrv.js"></script>

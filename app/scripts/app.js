@@ -24,7 +24,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.tree',
-    'angularModalService',
+    //'angularModalService',
     'textAngular',
     '720kb.tooltips',
     'toastr',
@@ -80,11 +80,11 @@ angular
     });
 
     customRouteProvider//$routeProvider
-//      .when('/', {
-//        templateUrl: 'views/main.html',
-//        controller: 'MainCtrl',
-//        access: 'user'
-//      })
+     .when('/', {
+       templateUrl: 'views/main.html',
+       controller: 'MainCtrl',
+       access: 'user'
+     })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'

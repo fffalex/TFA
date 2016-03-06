@@ -20,7 +20,7 @@
                 <div class="info">
                     <h4 class="text-center">{{content.get('name')}}</h4>
                     <h5>{{content.get('description')}}</h5>
-                    <p><strong>Docente: </strong><a href="">{{content.get('teacher').get('lastName')+", "+content.get('teacher').get('lastName')}}</a></p>
+                    <p><strong>Docente: </strong><a href="">{{content.get('teacher').get('lastName')+", "+content.get('teacher').get('name')}}</a></p>
                     <p><strong>Especialidad: </strong>{{content.get('teacher').get('specialty')}}</p>
                     <a style="margin-top:3%;" href="#/student/contents/classes/{{content.id}}/0/0" class="btn btn-default btn3 btn2 btn-block">Ir a clases</a>
                 </div>
